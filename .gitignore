@@ -1,0 +1,5 @@
+vendor/
+bin/
+composer.lock
+*.swp
+.idea/*
