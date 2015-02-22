@@ -170,7 +170,7 @@ class FakeDataFactory
      */
     public function __toString()
     {
-        array_walk_recursive($this->out, array($this,'arrayToString'));
+        array_walk_recursive($this->out, array($this, 'arrayToString'));
 
         return $this->outString;
     }

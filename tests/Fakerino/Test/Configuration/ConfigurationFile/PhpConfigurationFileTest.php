@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of the Fakerino package.
+ *
+ * (c) Nicola Pietroluongo <nik.longstone@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Fakerino\Test\Configuration\ConfigurationFile;
 
@@ -14,8 +22,7 @@ class PhpConfigurationFileTest extends \PHPUnit_Framework_TestCase
         $phpFile = new File($phpFilePath);
         $phpConf = new PhpConfigurationFile();
         $phpConf->loadConfiguration($phpFile);
-        include ($phpFilePath);
 
-        $this->assertEquals($conf, $phpConf->toArray());
+        $this->assertInternalType('array', $phpConf->toArray());
     }
 }

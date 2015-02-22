@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of the Fakerino package.
+ *
+ * (c) Nicola Pietroluongo <nik.longstone@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Fakerino\Test\Core;
 
@@ -74,7 +82,7 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFakeToString()
     {
-        $fakeString = (string)$this->fakeGenerator->fake('fake1');
+        $fakeString = (string) $this->fakeGenerator->fake('fake1');
 
         $this->assertInternalType('string', $fakeString);
     }
@@ -82,8 +90,8 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
     public function testMultipleFakesToString()
     {
         $num = 3;
-        $fakeString = (string)$this->fakeGenerator->fake('fake1')->num($num);
-        $lineExpected = count ($this->conf['fake']['fake1']) * $num;
+        $fakeString = (string) $this->fakeGenerator->fake('fake1')->num($num);
+        $lineExpected = count($this->conf['fake']['fake1']) * $num;
 
         $this->assertEquals($lineExpected, substr_count($fakeString, "\n"));
     }

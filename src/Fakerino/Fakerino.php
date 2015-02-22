@@ -23,23 +23,38 @@ use Fakerino\Core\FakeDataFactory;
 final class Fakerino
 {
     /**
+     * @var array
+     */
+    private static $fakerinoConf = null;
+
+    /**
      * @param null|string $configFilePath
      *
      * @return FakeDataFactory
      */
     static public function create($configFilePath = null)
     {
-        $fakerinoConf = new FakerinoConf();
+        self::$fakerinoConf = new FakerinoConf();
         if (!is_null($configFilePath)) {
             $confTypeFactory = new FileConfigurationLoaderFactory(
                 $configFilePath,
-                $fakerinoConf->get('supportedConfExts')
+                self::$fakerinoConf->get('supportedConfExts')
             );
             $confParser = $confTypeFactory->load();
             $conf = $confParser->toArray();
-            $fakerinoConf->loadConfiguration($conf);
+            self::$fakerinoConf->loadConfiguration($conf);
         }
 
-        return new FakeDataFactory($fakerinoConf);
+        return new FakeDataFactory(self::$fakerinoConf);
+    }
+
+    /**
+     * Get the global configuration.
+     * 
+     * @return array
+     */
+    static public function getConfig()
+    {
+        return self::$fakerinoConf->toArray();
     }
 }

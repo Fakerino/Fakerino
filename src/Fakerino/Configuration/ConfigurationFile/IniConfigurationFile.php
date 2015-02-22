@@ -24,6 +24,6 @@ class IniConfigurationFile extends AbstractConfigurationFile
      */
     public function toArray()
     {
-        return parse_ini_file($this->getConfFilePath());
+        return  parse_ini_file($this->getConfFilePath(), true);
     }
 }
