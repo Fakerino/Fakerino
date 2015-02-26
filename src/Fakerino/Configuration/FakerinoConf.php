@@ -82,4 +82,3 @@ class FakerinoConf implements FakerinoConfigurationInterface
         $this->conf[$key] = $val;
     }
 }
-

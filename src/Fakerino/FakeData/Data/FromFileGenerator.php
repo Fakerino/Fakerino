@@ -27,7 +27,7 @@ class FromFileGenerator extends AbstractFakeDataGenerator
     public function generate()
     {
         $callerClass = new \ReflectionClass($this->caller);
-        $callerName = $callerClass->getShortName();
+        $callerName = strtolower($callerClass->getShortName());
         $path = $this->conf->get('fakeFilePath')
             . DIRECTORY_SEPARATOR
             . $this->conf->get('locale')

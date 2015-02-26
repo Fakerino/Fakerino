@@ -13,6 +13,7 @@ namespace Fakerino\Test\Core;
 use Fakerino\Core\FakeDataFactory;
 use Fakerino\FakeData\Data\StringGenerator;
 use Fakerino\Configuration\FakerinoConf;
+use Fakerino\Test\Fixtures\TestEntity;
 
 class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -96,4 +97,12 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($lineExpected, substr_count($fakeString, "\n"));
     }
 
+    public function testEntityFiller()
+    {
+        $testEntity = new TestEntity();
+        $this->fakeGenerator->fillEntity($testEntity);
+
+        $this->assertNotNull($testEntity->getOne());
+        $this->assertNotNull($testEntity->getFour());
+    }
 }

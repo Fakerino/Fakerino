@@ -43,4 +43,3 @@ class FkrConfTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array_keys($this->default), array_keys($defaultConfiguration->toArray()));
     }
 }
-

@@ -9,7 +9,7 @@ php:
 
 before_script:
   - composer selfupdate
-  - composer install --prefer-source
+  - composer install --prefer-source -o
 
 script:
   - bin/phpunit
