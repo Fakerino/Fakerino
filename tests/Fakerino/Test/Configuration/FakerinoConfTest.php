@@ -28,6 +28,7 @@ class FkrConfTest extends \PHPUnit_Framework_TestCase
     {
         $defaultConfiguration = new FakerinoConf();
         $defaultConfiguration->loadConfiguration();
+
         $this->assertEquals(array_keys($this->default), array_keys($defaultConfiguration->toArray()));
 
     }

@@ -16,7 +16,7 @@ namespace Fakerino\Configuration;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class FakerinoConf implements ConfigurationInterface
+class FakerinoConf implements FakerinoConfigurationInterface
 {
     /**
      * @var array
@@ -51,7 +51,7 @@ class FakerinoConf implements ConfigurationInterface
      */
     public function loadConfiguration($conf = null)
     {
-        if (is_null($conf)) {
+        if ($conf === null) {
             $this->conf = $this->default;
         } else {
             $this->conf = array_merge($conf, $this->default);
@@ -67,11 +67,7 @@ class FakerinoConf implements ConfigurationInterface
     }
 
     /**
-     * Gets a specific configuration value.
-     *
-     * @param string $value
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function get($value)
     {
@@ -79,10 +75,7 @@ class FakerinoConf implements ConfigurationInterface
     }
 
     /**
-     * Sets a configuration value.
-     *
-     * @param string $key
-     * @param string $val
+     * {@inheritdoc}
      */
     public function set($key, $val)
     {

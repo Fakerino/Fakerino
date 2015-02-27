@@ -23,7 +23,7 @@ use Fakerino\Core\FakeDataFactory;
 final class Fakerino
 {
     /**
-     * @var array
+     * @var FakerinoConf
      */
     private static $fakerinoConf = null;
 
@@ -32,10 +32,10 @@ final class Fakerino
      *
      * @return FakeDataFactory
      */
-    static public function create($configFilePath = null)
+    public static function create($configFilePath = null)
     {
         self::$fakerinoConf = new FakerinoConf();
-        if (!is_null($configFilePath)) {
+        if ($configFilePath !== null) {
             $confTypeFactory = new FileConfigurationLoaderFactory(
                 $configFilePath,
                 self::$fakerinoConf->get('supportedConfExts')
@@ -53,7 +53,7 @@ final class Fakerino
      * 
      * @return array
      */
-    static public function getConfig()
+    public static function getConfig()
     {
         return self::$fakerinoConf->toArray();
     }

@@ -11,7 +11,8 @@
 namespace Fakerino\Test\FakeData\Data;
 
 use Fakerino\FakeData\Data\GenericString;
-use Fakerino\FakeData\Data\Name;
+use Fakerino\FakeData\Data\MaleName;
+use Fakerino\FakeData\Data\FemaleName;
 use Fakerino\FakeData\Data\Surname;
 
 class DefaultDataTest extends \PHPUnit_Framework_TestCase
@@ -21,9 +22,14 @@ class DefaultDataTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Fakerino\FakeData\FakeDataInterface', new GenericString());
     }
 
-    public function testName()
+    public function testMaleName()
     {
-        $this->assertInstanceOf('Fakerino\FakeData\FakeDataInterface', new Name());
+        $this->assertInstanceOf('Fakerino\FakeData\FakeDataInterface', new MaleName());
+    }
+
+    public function testFemaleName()
+    {
+        $this->assertInstanceOf('Fakerino\FakeData\FakeDataInterface', new FemaleName());
     }
 
     public function testSurname()

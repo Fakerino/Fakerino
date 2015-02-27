@@ -26,6 +26,13 @@ abstract class AbstractFakeData implements FakeDataInterface
     private $options;
 
     /**
+     * The default additional generators called if the main one is not available.
+     *
+     * @var array
+     */
+    protected $defaultExtraGenerators = array('FromFileGenerator', 'RandomStringGenerator');
+
+    /**
      * Constructor
      *
      * @param null|array $options
@@ -34,12 +41,13 @@ abstract class AbstractFakeData implements FakeDataInterface
      * @throws MissingRequiredOptionException
      * @throws InvalidOptionException
      */
-    public function __construct($options = null)
+    final public function __construct($options = null)
     {
 
         $defaultOptions = $templateOptions = array_merge(array('generatedBy' => null), $this->getDefaultOptions());
-        if (!is_null($requiredOptions = $this->getRequiredOptions())) {
-            if (is_null($options)) {
+        $requiredOptions = $this->getRequiredOptions();
+        if ($requiredOptions !== null) {
+            if ($options === null) {
                 throw new MissingRequiredOptionException($requiredOptions[0]);
             }
             $missingRequiredOpt = array_diff($requiredOptions, array_keys($options));
@@ -67,11 +75,19 @@ abstract class AbstractFakeData implements FakeDataInterface
     /**
      * Gets options.
      *
-     * @return array
+     * @param string $key
+     *
+     * @return string|null
      */
-    public function getOptions()
+    final public function getOption($key)
     {
-        return $this->options;
+        if (array_key_exists($key, $this->options)) {
+            return $this->options[$key];
+
+        } else {
+
+            return null;
+        }
     }
 
     /**
@@ -89,11 +105,12 @@ abstract class AbstractFakeData implements FakeDataInterface
     {
         $generatorNameSpace = __NAMESPACE__ . '\\Data\\';
         $defaultGenerators = array(
-            $generatorNameSpace . 'RandomStringGenerator',
-            $generatorNameSpace . 'FromFileGenerator',
             get_class($this) . 'Generator'
         );
-        if (!is_null($this->options['generatedBy'])) {
+        foreach ($this->defaultExtraGenerators as $extraGenerator) {
+            array_push($defaultGenerators, $generatorNameSpace . $extraGenerator);
+        }
+        if ($this->options['generatedBy'] !== null) {
             $defaultGenerators[] = $generatorNameSpace . $this->options['generatedBy'];
         }
 

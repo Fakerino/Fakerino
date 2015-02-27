@@ -10,8 +10,6 @@
 
 namespace Fakerino\FakeData;
 
-use Fakerino\Configuration\ConfigurationInterface;
-
 /**
  * Class AbstractFakeDataGenerator
  *
@@ -19,11 +17,6 @@ use Fakerino\Configuration\ConfigurationInterface;
  */
 abstract class AbstractFakeDataGenerator implements FakeDataGeneratorInterface
 {
-    /**
-     * @var array
-     */
-    protected $options;
-
     /**
      * @var FakeDataInterface
      */
@@ -38,11 +31,24 @@ abstract class AbstractFakeDataGenerator implements FakeDataGeneratorInterface
      * Constructor
      *
      * @param FakeDataInterface $fakeData
+     * @param null              $conf
      */
-    public function __construct(FakeDataInterface $fakeData)
+    final public function __construct(FakeDataInterface $fakeData, $conf = null)
     {
         $this->caller = $fakeData;
-        $this->options = $fakeData->getOptions();
+        $this->conf = $conf;
+    }
+
+    /**
+     * Gets the options useful for the generate process.
+     *
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function getOption($key)
+    {
+        return $this->caller->getOption($key);
     }
 
     /**
@@ -50,13 +56,4 @@ abstract class AbstractFakeDataGenerator implements FakeDataGeneratorInterface
      */
     abstract public function generate();
 
-    /**
-     * Sets additional paramenters like global configurations.
-     *
-     * @param ConfigurationInterface $conf
-     */
-    public function setConf(ConfigurationInterface $conf)
-    {
-        $this->conf = $conf;
-    }
 }

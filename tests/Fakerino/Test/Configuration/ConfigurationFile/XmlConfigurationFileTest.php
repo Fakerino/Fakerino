@@ -15,7 +15,7 @@ use Fakerino\DataSource\File\File;
 
 class XmlConfigurationFileTest extends \PHPUnit_Framework_TestCase
 {
-    public function testIniToArray()
+    public function testXmlConffile()
     {
         $fileDir = __DIR__ . '/../../Fixtures/';
         $xmlFilePath = $fileDir . 'file.xml';

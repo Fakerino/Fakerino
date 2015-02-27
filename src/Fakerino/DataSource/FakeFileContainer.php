@@ -44,7 +44,7 @@ class FakeFileContainer
      * @param string $name
      * @param string $path
      *
-     * @return Fakerino\DataSource\File\File;
+     * @return File
      */
     public static function get($name, $path)
     {

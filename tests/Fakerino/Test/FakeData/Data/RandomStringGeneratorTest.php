@@ -10,6 +10,7 @@
 
 namespace Fakerino\Test\FakeData\Data;
 
+use Fakerino\FakeData\Data\Name;
 use Fakerino\FakeData\Data\RandomStringGenerator;
 use Fakerino\FakeData\Data\GenericString;
 
@@ -25,12 +26,22 @@ class RandomStringGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('Fakerino\FakeData\FakeDataGeneratorInterface', $this->randomStringGenerator);
     }
+
     public function testGenerate()
     {
         $randomString = $this->randomStringGenerator->generate();
 
         $this->assertNotNull($randomString);
         $this->assertInternalType('string', $randomString);
+    }
+
+    public function testGenerateWithOption()
+    {
+        $length = 10;
+        $randomStringGenerator = new RandomStringGenerator(new GenericString(array('length' => $length)));
+        $randomString = $randomStringGenerator->generate();
+
+        $this->assertEquals($length, strlen($randomString));
     }
 }
 

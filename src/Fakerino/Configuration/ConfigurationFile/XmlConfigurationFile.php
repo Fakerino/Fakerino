@@ -34,12 +34,12 @@ class XmlConfigurationFile extends AbstractConfigurationFile
     /**
      * Convert an XML string in an array
      *
-     * @param SimpleXMLElement  $xmlObject
-     * @param array             $out
+     * @param \SimpleXMLElement  $xmlObject
+     * @param array              $out
      *
      * @return array
      */
-    private function xml2array($xmlObject, $out = [])
+    private function xml2array($xmlObject, $out = array())
     {
         foreach ($xmlObject->attributes() as $attr => $val) {
             $out['@attributes'][$attr] = (string) $val;

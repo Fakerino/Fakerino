@@ -10,8 +10,7 @@
 
 namespace Fakerino\Core;
 
-
-use Fakerino\Configuration\ConfigurationInterface;
+use Fakerino\Configuration\FakerinoConfigurationInterface;
 
 /**
  * Class FakeDataFactory,
@@ -22,7 +21,7 @@ use Fakerino\Configuration\ConfigurationInterface;
 class FakeDataFactory
 {
     /**
-     * @var array
+     * @var FakerinoConfigurationInterface
      */
     private $conf;
 
@@ -44,9 +43,9 @@ class FakeDataFactory
     /**
      * Constructor
      *
-     * @param ConfigurationInterface $conf
+     * @param FakerinoConfigurationInterface $conf
      */
-    public function __construct(ConfigurationInterface $conf)
+    public function __construct(FakerinoConfigurationInterface $conf)
     {
         $this->conf = $conf;
     }
@@ -77,8 +76,9 @@ class FakeDataFactory
      */
     public function num($num)
     {
+        $out = array();
         $out[] = $this->out;
-        if (!is_null($this->startElement)) {
+        if ($this->startElement !== null) {
             for ($i = 1; $i < $num; $i++) {
                 $this->fake($this->startElement);
                 $out[] = $this->out;
@@ -90,6 +90,32 @@ class FakeDataFactory
 
             throw new \Exception('Please call first the fake method');
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->out;
+    }
+
+    /**
+     * @return string json
+     */
+    public function toJson()
+    {
+        return json_encode($this->out);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        array_walk_recursive($this->out, array($this, 'arrayToString'));
+
+        return $this->outString;
     }
 
     private function startFake($elementName)
@@ -149,32 +175,6 @@ class FakeDataFactory
         return false;
     }
 
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return $this->out;
-    }
-
-    /**
-     * @return string json
-     */
-    public function toJson()
-    {
-        return json_encode($this->out);
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        array_walk_recursive($this->out, array($this, 'arrayToString'));
-
-        return $this->outString;
-    }
-
     private function arrayToString($arr)
     {
         $this->outString .= $arr . PHP_EOL;
@@ -194,19 +194,29 @@ class FakeDataFactory
         return 'Fakerino\\FakeData\\Data\\' . $className;
     }
 
+    /**
+     * Generates the fake output.
+     * Iterates, through the generators defined in the FakeData class,
+     * until one generator will produce an output.
+     *
+     * @param string $fakeDataClass
+     * @param array  $options
+     *
+     * @return bool
+     */
     private function generateOutput($fakeDataClass, $options = null)
     {
         $fakeData = new $fakeDataClass($options);
-        $generators = array_reverse($fakeData->generatedBy());
+        $generators = $fakeData->generatedBy();
         foreach ($generators as $generatorClass) {
             if (class_exists($generatorClass)) {
-                $generator = new $generatorClass($fakeData);
-                $generator->setConf($this->conf);
-                if (is_null($generatedOut = $generator->generate())) {
+                $generator = new $generatorClass($fakeData, $this->conf);
+                $generatedOutput = $generator->generate();
+                if ($generatedOutput === null) {
 
                     continue;
                 } else {
-                    $this->out[] = $generatedOut;
+                    $this->out[] = $generatedOutput;
 
                 return true;
                 }

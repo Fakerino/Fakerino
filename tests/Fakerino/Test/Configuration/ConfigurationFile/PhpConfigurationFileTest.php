@@ -15,10 +15,23 @@ use Fakerino\DataSource\File\File;
 
 class PhpConfigurationFileTest extends \PHPUnit_Framework_TestCase
 {
-    public function testIniToArray()
+    public function testPhpConfFile()
     {
         $fileDir = __DIR__ . '/../../Fixtures/';
         $phpFilePath = $fileDir . 'file.php';
+        $phpFile = new File($phpFilePath);
+        $phpConf = new PhpConfigurationFile();
+        $phpConf->loadConfiguration($phpFile);
+
+        $this->assertInternalType('array', $phpConf->toArray());
+    }
+
+    public function testPhpWrongConfFile()
+    {
+        $this->setExpectedException('Fakerino\Configuration\Exception\ConfNotSupportedException');
+
+        $fileDir = __DIR__ . '/../../Fixtures/';
+        $phpFilePath = $fileDir . 'fileWrongConf.php';
         $phpFile = new File($phpFilePath);
         $phpConf = new PhpConfigurationFile();
         $phpConf->loadConfiguration($phpFile);

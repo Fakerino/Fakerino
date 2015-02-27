@@ -12,17 +12,16 @@ namespace Fakerino\Test\FakeData\Data;
 
 use Fakerino\FakeData\Data\FromFileGenerator;
 use Fakerino\FakeData\Data\GenericString;
-use Fakerino\FakeData\Data\Name;
+use Fakerino\FakeData\Data\Surname;
 use Fakerino\Configuration\FakerinoConf;
 
 class FromFileGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->fromFileGenerator = new FromFileGenerator(new GenericString());
         $this->defaultConf = new FakerinoConf();
         $this->defaultConf->loadConfiguration();
-        $this->fromFileGenerator->setConf($this->defaultConf);
+        $this->fromFileGenerator = new FromFileGenerator(new GenericString(), $this->defaultConf);
     }
 
     public function testConstructor()
@@ -37,8 +36,7 @@ class FromFileGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testReturnRandomLine()
     {
-        $fromFileGenerator = new FromFileGenerator(new Name());
-        $fromFileGenerator->setConf($this->defaultConf);
+        $fromFileGenerator = new FromFileGenerator(new Surname(), $this->defaultConf);
         $generatedString = $fromFileGenerator->generate();
 
         $this->assertNotNull($generatedString);

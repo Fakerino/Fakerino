@@ -38,9 +38,18 @@ interface FakeDataInterface
     public function getRequiredOptions();
 
     /**
-     * Returns the generator for the fake data.
+     * Returns generators for processing the fake data.
      *
-     * @return Fakerino\FakeData\FakeDataGeneratorInterface
+     * @return array
      */
     public function generatedBy();
+
+    /**
+     * Gets an option from its name.
+     *
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function getOption($key);
 }

@@ -13,12 +13,11 @@ namespace Fakerino\FakeData\Data;
 use Fakerino\FakeData\AbstractFakeData;
 
 /**
- * Class GenericString,
- * is a generic fake string.
+ * Class Name
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class GenericString extends AbstractFakeData
+class MaleName extends AbstractFakeData
 {
     /**
      * {@inheritdoc}
@@ -37,4 +36,3 @@ class GenericString extends AbstractFakeData
     {
     }
 }
-
