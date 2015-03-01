@@ -10,31 +10,72 @@
 
 namespace Fakerino\Configuration;
 
+use Fakerino\Configuration\Exception\ConfValueNotFoundException;
+
 /**
  * Class FakerinoConf,
  * handles the global Fakerino configuration.
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class FakerinoConf implements FakerinoConfigurationInterface
+class FakerinoConf
 {
     /**
      * @var array
      */
-    private $conf;
+    private static $conf;
+
 
     /**
-     * @var array default values
+     * Loads the default configuration if it's not present a custom one.
+     *
+     * @param array $conf
      */
-    private $default;
-
-    /**
-     * Constructor,
-     * Initializes the default values.
-     */
-    public function __construct()
+    public static function loadConfiguration(array $conf = array())
     {
-        $this->default = array(
+        if (empty($conf)) {
+            self::$conf = self::loadDefault();
+        } else {
+            self::$conf = array_merge($conf, self::loadDefault());
+        }
+    }
+
+    /**
+     * Returns a configuration value.
+     *
+     * @param string $value
+     *
+     * @return mixed
+     * @throws ConfValueNotFoundException
+     */
+    public static function get($value)
+    {
+        if (!array_key_exists($value, self::$conf)) {
+            throw new ConfValueNotFoundException($value);
+        }
+
+        return self::$conf[$value];
+    }
+
+    /**
+     * Sets a configuration value.
+     *
+     * @param string        $key
+     * @param string|array  $val
+     */
+    public static function set($key, $val)
+    {
+        self::$conf[$key] = $val;
+    }
+
+    /**
+     * Initializes the default values.
+     *
+     * @return array
+     */
+    private static function loadDefault()
+    {
+        return array(
             'supportedConfExts' => array('xml', 'php', 'ini'),
             'locale' => 'en_GB',
             'fakerinoTag' => 'fake',
@@ -47,38 +88,12 @@ class FakerinoConf implements FakerinoConfigurationInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Returns the configuration in an array.
+     *
+     * @return array
      */
-    public function loadConfiguration($conf = null)
+    public static function toArray()
     {
-        if ($conf === null) {
-            $this->conf = $this->default;
-        } else {
-            $this->conf = array_merge($conf, $this->default);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray()
-    {
-        return $this->conf;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function get($value)
-    {
-        return $this->conf[$value];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function set($key, $val)
-    {
-        $this->conf[$key] = $val;
+        return self::$conf;
     }
 }

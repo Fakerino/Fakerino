@@ -29,10 +29,8 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
                 'Surname' => null
             )
         );
-        $configuration = new FakerinoConf();
-        $configuration->loadConfiguration($this->conf);
-
-        $this->fakeGenerator = new FakeDataFactory($configuration);
+        FakerinoConf::loadConfiguration($this->conf);
+        $this->fakeGenerator = new FakeDataFactory();
     }
 
     public function testFakeMethod()
@@ -42,7 +40,7 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFakeCallWithUnknowElement()
     {
-       $this->assertInstanceOf('Fakerino\\Core\\FakeDataFactory', $this->fakeGenerator->fake('Test'));
+        $this->assertInstanceOf('Fakerino\\Core\\FakeDataFactory', $this->fakeGenerator->fake('Test'));
     }
 
     public function testFakeCallWithConfElement()
@@ -105,4 +103,5 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($testEntity->getOne());
         $this->assertNotNull($testEntity->getFour());
     }
+
 }

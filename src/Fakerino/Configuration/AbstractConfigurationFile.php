@@ -10,7 +10,7 @@
 
 namespace Fakerino\Configuration;
 
-use Exception\SourceNotValidException;
+use Fakerino\Configuration\Exception\SourceNotValidException;
 use Fakerino\DataSource\File\File;
 
 /**

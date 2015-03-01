@@ -12,7 +12,7 @@ namespace Fakerino\Test\DataSource;
 
 use Fakerino\DataSource\FakeFileContainer;
 
-class FakeFileContainerTest extends \PHPUnit_Framework_TestCase
+class FakeTxtFileTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetNotExistedFile()
     {

@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Fakerino\FakeData\Data;
+namespace Fakerino\FakeData\Generator;
 
 use Fakerino\FakeData\AbstractFakeDataGenerator;
 

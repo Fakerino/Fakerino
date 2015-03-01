@@ -28,6 +28,8 @@ class EntityInfo
      * Constructor
      *
      * @param object $entity
+     *
+     * @throws \RuntimeException
      */
     public function __construct($entity)
     {
