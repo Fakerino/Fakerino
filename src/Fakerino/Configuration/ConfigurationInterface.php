@@ -10,8 +10,6 @@
 
 namespace Fakerino\Configuration;
 
-use Fakerino\DataSource\DataSourceInterface;
-
 /**
  * Interface ConfigurationInterface
  *
@@ -20,7 +18,7 @@ use Fakerino\DataSource\DataSourceInterface;
 interface ConfigurationInterface
 {
     /**
-     * @param DataSourceInterface $source
+     * @param array $source
      */
     public function loadConfiguration($source);
 

@@ -43,8 +43,11 @@ abstract class AbstractFakeData implements FakeDataInterface
      */
     final public function __construct($options = null)
     {
-
-        $defaultOptions = $templateOptions = array_merge(array('generatedBy' => null), $this->getDefaultOptions());
+        if (is_array($this->getDefaultOptions())) {
+            $defaultOptions = $templateOptions = array_merge(array('generatedBy' => null), $this->getDefaultOptions());
+        } else {
+            $defaultOptions = $templateOptions = array('generatedBy' => null);
+        }
         $requiredOptions = $this->getRequiredOptions();
         if ($requiredOptions !== null) {
             if ($options === null) {
@@ -103,18 +106,13 @@ abstract class AbstractFakeData implements FakeDataInterface
      */
     public function generatedBy()
     {
-        $generatorNameSpace = __NAMESPACE__ . '\\Data\\';
-        $defaultGenerators = array(
-            get_class($this) . 'Generator'
-        );
-        foreach ($this->defaultExtraGenerators as $extraGenerator) {
-            array_push($defaultGenerators, $generatorNameSpace . $extraGenerator);
-        }
+        $thisClass = new \ReflectionClass(get_class($this));
+        $generatorNameSpace = 'Fakerino\\FakeData\\Generator\\';
+        $defaultGenerators = $generatorNameSpace . $thisClass->getShortName()  . 'Generator';
         if ($this->options['generatedBy'] !== null) {
-            $defaultGenerators[] = $generatorNameSpace . $this->options['generatedBy'];
+            $defaultGenerators = $generatorNameSpace . $this->options['generatedBy'];
         }
 
         return $defaultGenerators;
     }
 }
-

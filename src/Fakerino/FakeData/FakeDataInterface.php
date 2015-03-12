@@ -40,7 +40,7 @@ interface FakeDataInterface
     /**
      * Returns generators for processing the fake data.
      *
-     * @return array
+     * @return string
      */
     public function generatedBy();
 

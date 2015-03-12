@@ -8,31 +8,22 @@
  * file that was distributed with this source code.
  */
 
-namespace Fakerino\FakeData\Data;
-
-use Fakerino\FakeData\AbstractFakeData;
+namespace Fakerino\Core\FakeHandler;
 
 /**
- * Class Name
+ * Class DefaultFakerClass,
+ * returns the default basic GenericString class,
+ * to provide in any case a fake value.
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class MaleName extends AbstractFakeData
+class DefaultFakerClass extends Handler
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefaultOptions()
+    protected function process($data)
     {
-        return array(
-            'length' => rand(3, 20)
-        );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getRequiredOptions()
-    {
+        return $this->getOuput('Fakerino\\FakeData\\Core\\GenericString');
     }
 }

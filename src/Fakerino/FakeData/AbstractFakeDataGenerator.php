@@ -23,20 +23,13 @@ abstract class AbstractFakeDataGenerator implements FakeDataGeneratorInterface
     protected $caller;
 
     /**
-     * @var mixed
-     */
-    protected $conf;
-
-    /**
-     * Constructor
+     * Sets the class that calls this generator.
      *
      * @param FakeDataInterface $fakeData
-     * @param null              $conf
      */
-    final public function __construct(FakeDataInterface $fakeData, $conf = null)
+    public function setCaller(FakeDataInterface $fakeData)
     {
         $this->caller = $fakeData;
-        $this->conf = $conf;
     }
 
     /**
@@ -55,5 +48,4 @@ abstract class AbstractFakeDataGenerator implements FakeDataGeneratorInterface
      * {@inheritdoc}
      */
     abstract public function generate();
-
 }

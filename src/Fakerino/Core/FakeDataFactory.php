@@ -10,8 +10,12 @@
 
 namespace Fakerino\Core;
 
-use Fakerino\Configuration\FakerinoConfigurationInterface;
 use Fakerino\Core\Entity\EntityInfo;
+use Fakerino\Core\FakeHandler\ConfFakerClass;
+use Fakerino\Core\FakeHandler\CustomFakerClass;
+use Fakerino\Core\FakeHandler\DefaultFakerClass;
+use Fakerino\Core\FakeHandler\FakeHandler;
+use Fakerino\Core\FakeHandler\FileFakerClass;
 
 /**
  * Class FakeDataFactory,
@@ -21,11 +25,6 @@ use Fakerino\Core\Entity\EntityInfo;
  */
 class FakeDataFactory
 {
-    /**
-     * @var FakerinoConfigurationInterface
-     */
-    private $conf;
-
     /**
      * @var array
      */
@@ -37,25 +36,33 @@ class FakeDataFactory
     private $outString;
 
     /**
-     * @var string
+     * @var FakeHandler
+     */
+    private $fakeHandler;
+
+    /**
+     * @var string|array
      */
     private $startElement;
 
     /**
-     * Constructor
-     *
-     * @param FakerinoConfigurationInterface $conf
+     * Constructor,
+     * assigns a priority for handling a fake request.
      */
-    public function __construct(FakerinoConfigurationInterface $conf)
+    public function __construct()
     {
-        $this->conf = $conf;
+        $this->fakeHandler = new FakeHandler();
+        $this->fakeHandler->setSuccessor(new FileFakerClass());
+        $this->fakeHandler->setSuccessor(new CustomFakerClass());
+        $this->fakeHandler->setSuccessor(new ConfFakerClass());
+        $this->fakeHandler->setSuccessor(new DefaultFakerClass());
     }
 
     /**
      * Setups the first element and initializes the output,
      * then starts to fake.
      *
-     * @param mixed $elementName
+     * @param string|array $elementName
      *
      * @return $this
      */
@@ -63,6 +70,7 @@ class FakeDataFactory
     {
         $this->startElement = $elementName;
         $this->out = array();
+        $this->outString = null;
 
         return $this->startFake($elementName);
     }
@@ -163,23 +171,27 @@ class FakeDataFactory
 
     private function startFake($elementName)
     {
+        $out = array();
         $elementToFake = $this->setElementToFake($elementName);
         foreach ($elementToFake as $key => $val) {
             $element = $this->findElementFrom($key, $val);
-            if ($this->isAFakeClass($element)) {
-                $this->fakeThis($element, $val);
-            } else {
-                $fakeTag = $this->conf->get('fakerinoTag');
-                $elementInConf = $this->conf->get($fakeTag);
-                if (array_key_exists($element, $elementInConf)) {
-                    $this->fake($elementInConf[$element]);
-                } else {
-                    $this->fakeThis($element);
-                }
-            }
+            $out[] = $this->fakeHandler->handle($element);
         }
+        $this->out = $this->flat($out);
 
         return $this;
+    }
+
+    private function flat($array)
+    {
+        $flatArr = array();
+        $recursiveArrayIterator = new \RecursiveArrayIterator($array);
+        $iterator = new \RecursiveIteratorIterator($recursiveArrayIterator);
+        foreach ($iterator as $value) {
+            $flatArr[] = $value;
+        }
+
+        return $flatArr;
     }
 
     private function setElementToFake($elementsName)
@@ -202,68 +214,9 @@ class FakeDataFactory
         return $key;
     }
 
-    private function fakeThis($element, $options = null)
-    {
-        $this->generateFakeData($element, $options);
-    }
-
-    private function isAfakeClass($element)
-    {
-        $className = $this->getDataClass($element);
-        if (class_exists($className)) {
-
-            return true;
-        }
-
-        return false;
-    }
-
     private function arrayToString($arr)
     {
         $this->outString .= $arr . PHP_EOL;
     }
 
-    private function generateFakeData($element, $options = null)
-    {
-        $fakeDataClass = $this->getDataClass($element);
-        if (!class_exists($fakeDataClass)) {
-            $fakeDataClass = $this->getDataClass('GenericString');
-        }
-        $this->generateOutput($fakeDataClass, $options);
-    }
-
-    private function getDataClass($className)
-    {
-        return 'Fakerino\\FakeData\\Data\\' . $className;
-    }
-
-    /**
-     * Generates the fake output.
-     * Iterates, through the generators defined in the FakeData class,
-     * until one generator will produce an output.
-     *
-     * @param string $fakeDataClass
-     * @param array  $options
-     *
-     * @return bool
-     */
-    private function generateOutput($fakeDataClass, $options = null)
-    {
-        $fakeData = new $fakeDataClass($options);
-        $generators = $fakeData->generatedBy();
-        foreach ($generators as $generatorClass) {
-            if (class_exists($generatorClass)) {
-                $generator = new $generatorClass($fakeData, $this->conf);
-                $generatedOutput = $generator->generate();
-                if ($generatedOutput === null) {
-
-                    continue;
-                } else {
-                    $this->out[] = $generatedOutput;
-
-                return true;
-                }
-            }
-        }
-    }
 }

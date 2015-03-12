@@ -8,16 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Fakerino\FakeData\Data;
+namespace Fakerino\FakeData\Core;
 
 use Fakerino\FakeData\AbstractFakeData;
 
 /**
- * Class Surname
+ * Class GenericString,
+ * is a generic fake string.
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class Surname extends AbstractFakeData
+class GenericString extends AbstractFakeData
 {
     /**
      * {@inheritdoc}
@@ -25,7 +26,7 @@ class Surname extends AbstractFakeData
     public function getDefaultOptions()
     {
         return array(
-            'length' => rand(5, 30)
+            'length' => rand(3, 20)
         );
     }
 
@@ -35,4 +36,13 @@ class Surname extends AbstractFakeData
     public function getRequiredOptions()
     {
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function generatedBy()
+    {
+        return 'Fakerino\\FakeData\\Generator\\RandomStringGenerator';
+    }
 }
+
