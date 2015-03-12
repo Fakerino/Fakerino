@@ -1,9 +1,9 @@
 # Fakerino
 Fakerino is a fake data generator fully extensible,
-can generate from a simple random Name to a complex data structure pre configured, 
-it supports multiple output format and different configurations.
+can generate from a simple random Name to a complex data structure, 
+it supports multiple output format and configurations.
 
-For more information about installation, functions, support, contribution, or others,
+For more information about installation, functions, support, contribution, or other,
 please read the [Fakerino wiki].
 
 [![Latest Stable Version](https://poser.pugx.org/fakerino/fakerino/v/stable.svg)](https://packagist.org/packages/fakerino/fakerino) [![Latest Unstable Version](https://poser.pugx.org/fakerino/fakerino/v/unstable.svg)](https://packagist.org/packages/fakerino/fakerino)  [![Travis Ci](https://travis-ci.org/niklongstone/Fakerino.svg?branch=master)](https://travis-ci.org/niklongstone/Fakerino)
@@ -14,10 +14,17 @@ please read the [Fakerino wiki].
 [![License](https://poser.pugx.org/fakerino/fakerino/license.svg)](https://packagist.org/packages/fakerino/fakerino)
 ### Quick start
 ```
+<?php
+include ('../Fakerino/vendor/autoload.php');
+use Fakerino\Fakerino;
+
+$fakerino = Fakerino::create();
+echo $fakerino->fake('Surname')->toJson(); //["Donovan"]
+echo $fakerino->fake('FemaleName'); //Alice
+
+//with configuration
 $fakerino = Fakerino::create('./conf.php');
-echo $fakerino->fake('fake1')->toJson(); //["Joe", "Donovan"]
-echo $fakerino->fake('Name'); //Nick
-print_r($fakerino->fake('fake2')->toArray());
+print_r($fakerino->fake('fake1')->toArray());
   /*
   Array(
    [0] => Arthur
@@ -30,10 +37,10 @@ print_r($fakerino->fake('fake2')->toArray());
 //conf.php
 <?php
 $conf['fake'] = array(
-    'fake1' => array('Name' => array('length' => 3), 'Surname' => null),
-    'fake2' => array('Name' => array('length' => 6), 'Surname' => null)
+    'fake1' => array('MaleName', 'Surname' => null),
+    'fake2' => array('FemaleName', 'Surname' => null)
 );
 ```
 
 
-[Fakerino wiki]:https://github.com/niklongstone/Fakerino/wiki
+[Fakerino wiki]:https://github.com/niklongstone/Fakerino/wiki`

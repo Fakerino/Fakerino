@@ -16,36 +16,39 @@ use Fakerino\Core\FakeDataFactory;
 
 /**
  * Class Fakerino,
- * initialize the system.
+ * initializes the system.
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
 final class Fakerino
 {
-    /**
-     * @var array
-     */
-    private static $fakerinoConf = null;
 
     /**
-     * @param null|string $configFilePath
+     * Bootstrap function for Fakerino,
+     * setups the global configuration.
+     *
+     * @param null|array|string $conf
      *
      * @return FakeDataFactory
+     * @throws Configuration\ConfValueNotFoundException
      */
-    static public function create($configFilePath = null)
+    public static function create($conf = null)
     {
-        self::$fakerinoConf = new FakerinoConf();
-        if (!is_null($configFilePath)) {
-            $confTypeFactory = new FileConfigurationLoaderFactory(
-                $configFilePath,
-                self::$fakerinoConf->get('supportedConfExts')
-            );
-            $confParser = $confTypeFactory->load();
-            $conf = $confParser->toArray();
-            self::$fakerinoConf->loadConfiguration($conf);
+        FakerinoConf::loadConfiguration();
+        if ($conf !== null) {
+            $confArray = $conf;
+            if (!is_array($conf)) {
+                $confTypeFactory = new FileConfigurationLoaderFactory(
+                    $conf,
+                    FakerinoConf::get('supportedConfExts')
+                );
+                $confParser = $confTypeFactory->load();
+                $confArray = $confParser->toArray();
+            }
+            FakerinoConf::loadConfiguration($confArray);
         }
 
-        return new FakeDataFactory(self::$fakerinoConf);
+        return new FakeDataFactory();
     }
 
     /**
@@ -53,8 +56,8 @@ final class Fakerino
      * 
      * @return array
      */
-    static public function getConfig()
+    public static function getConfig()
     {
-        return self::$fakerinoConf->toArray();
+        return FakerinoConf::toArray();
     }
 }

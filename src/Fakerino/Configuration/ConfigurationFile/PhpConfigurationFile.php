@@ -11,6 +11,7 @@
 namespace Fakerino\Configuration\ConfigurationFile;
 
 use Fakerino\Configuration\AbstractConfigurationFile;
+use Fakerino\Configuration\Exception\ConfNotSupportedException;
 
 /**
  * Class PhpConfigurationFile
@@ -24,7 +25,12 @@ class PhpConfigurationFile extends AbstractConfigurationFile
      */
     public function toArray()
     {
-        include $this->getConfFilePath();
+        $conf = null;
+        $phpConfFile = $this->getConfFilePath();
+        require_once($phpConfFile);
+        if ($conf === null) {
+            throw new ConfNotSupportedException($phpConfFile);
+        }
 
         return $conf;
     }

@@ -8,31 +8,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Fakerino\FakeData\Data;
-
-use Fakerino\FakeData\AbstractFakeData;
+namespace Fakerino\Core\FakeHandler;
 
 /**
- * Class Name
+ * Class FakeHandler,
+ * it's used like first handlers.
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class Name extends AbstractFakeData
+class FakeHandler extends Handler
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefaultOptions()
+    protected function process($data)
     {
-        return array(
-            'length' => rand(3, 20)
-        );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getRequiredOptions()
-    {
+        return null;
     }
 }

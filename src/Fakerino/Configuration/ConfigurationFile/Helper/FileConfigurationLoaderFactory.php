@@ -23,27 +23,25 @@ use Fakerino\DataSource\File\File;
 final class FileConfigurationLoaderFactory
 {
     private $filePath;
-    private $exts;
+    private $exts = array();
 
     /**
      * Constructor
      *
      * @param string $filePath
-     * @param string $exts
+     * @param array  $exts
      */
     public function __construct($filePath, $exts)
     {
         $this->filePath = $filePath;
         $this->exts = $exts;
-
-        return $this;
     }
 
     /**
      * Locates and returns the file if exists
      *
      * @return ConfigurationInterface
-     * @throws \Fakerino\DataSource\File\Exception\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function load()
     {
@@ -61,7 +59,7 @@ final class FileConfigurationLoaderFactory
      * Returns config file class according to the file's extension
      *
      * @return ConfigurationInterface
-     * @throws \Fakerino\Configuration\Exception\ConfNotSupportedException
+     * @throws ConfNotSupportedException
      */
     private function getConfigFile()
     {

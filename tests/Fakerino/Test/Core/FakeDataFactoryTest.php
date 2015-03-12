@@ -13,6 +13,7 @@ namespace Fakerino\Test\Core;
 use Fakerino\Core\FakeDataFactory;
 use Fakerino\FakeData\Data\StringGenerator;
 use Fakerino\Configuration\FakerinoConf;
+use Fakerino\Test\Fixtures\TestEntity;
 
 class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -28,10 +29,8 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
                 'Surname' => null
             )
         );
-        $configuration = new FakerinoConf();
-        $configuration->loadConfiguration($this->conf);
-
-        $this->fakeGenerator = new FakeDataFactory($configuration);
+        FakerinoConf::loadConfiguration($this->conf);
+        $this->fakeGenerator = new FakeDataFactory();
     }
 
     public function testFakeMethod()
@@ -41,7 +40,7 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFakeCallWithUnknowElement()
     {
-       $this->assertInstanceOf('Fakerino\\Core\\FakeDataFactory', $this->fakeGenerator->fake('Test'));
+        $this->assertInstanceOf('Fakerino\\Core\\FakeDataFactory', $this->fakeGenerator->fake('Test'));
     }
 
     public function testFakeCallWithConfElement()
@@ -94,6 +93,15 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
         $lineExpected = count($this->conf['fake']['fake1']) * $num;
 
         $this->assertEquals($lineExpected, substr_count($fakeString, "\n"));
+    }
+
+    public function testEntityFiller()
+    {
+        $testEntity = new TestEntity();
+        $this->fakeGenerator->fillEntity($testEntity);
+
+        $this->assertNotNull($testEntity->getOne());
+        $this->assertNotNull($testEntity->getFour());
     }
 
 }

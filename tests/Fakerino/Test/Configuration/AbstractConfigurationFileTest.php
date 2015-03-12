@@ -42,6 +42,7 @@ class AbstractConfigurationFileTest extends \PHPUnit_Framework_TestCase
     public function testConfigFilePath()
     {
         $this->concreteConfiguration->loadConfiguration($this->xmlFile);
+
         $this->assertEquals($this->xmlFilePath, $this->concreteConfiguration->getConfFilePath());
     }
 }

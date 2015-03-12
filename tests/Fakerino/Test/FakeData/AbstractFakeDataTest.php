@@ -40,9 +40,9 @@ class AbstractFakeDataTest extends \PHPUnit_Framework_TestCase
         $overrideValue = 2;
         $overrideKey = 'defaultOption1';
         $fakeDataA = new FakeDataA(array('required1' => 1, 'required2' => 2, $overrideKey => $overrideValue));
-        $fakeDataAOptions = $fakeDataA->getOptions();
+        $fakeDataAOption = $fakeDataA->getOption($overrideKey);
 
-        $this->assertEquals($overrideValue, $fakeDataAOptions[$overrideKey]);
+        $this->assertEquals($overrideValue, $fakeDataAOption);
     }
 
     public function testMissingRequiredOptionException()
@@ -62,6 +62,6 @@ class AbstractFakeDataTest extends \PHPUnit_Framework_TestCase
         $fakeDataA = new FakeDataA(array('required1' => 1, 'required2' => 2, 'generatedBy' => 'StringGenerator'));
         $generators = $fakeDataA->generatedBy();
 
-        $this->assertEquals('Fakerino\FakeData\Data\StringGenerator', array_pop($generators));
+        $this->assertEquals('Fakerino\FakeData\Generator\StringGenerator', $generators);
     }
 }

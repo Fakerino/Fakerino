@@ -26,6 +26,13 @@ abstract class AbstractFakeData implements FakeDataInterface
     private $options;
 
     /**
+     * The default additional generators called if the main one is not available.
+     *
+     * @var array
+     */
+    protected $defaultExtraGenerators = array('FromFileGenerator', 'RandomStringGenerator');
+
+    /**
      * Constructor
      *
      * @param null|array $options
@@ -34,12 +41,16 @@ abstract class AbstractFakeData implements FakeDataInterface
      * @throws MissingRequiredOptionException
      * @throws InvalidOptionException
      */
-    public function __construct($options = null)
+    final public function __construct($options = null)
     {
-
-        $defaultOptions = $templateOptions = array_merge(array('generatedBy' => null), $this->getDefaultOptions());
-        if (!is_null($requiredOptions = $this->getRequiredOptions())) {
-            if (is_null($options)) {
+        if (is_array($this->getDefaultOptions())) {
+            $defaultOptions = $templateOptions = array_merge(array('generatedBy' => null), $this->getDefaultOptions());
+        } else {
+            $defaultOptions = $templateOptions = array('generatedBy' => null);
+        }
+        $requiredOptions = $this->getRequiredOptions();
+        if ($requiredOptions !== null) {
+            if ($options === null) {
                 throw new MissingRequiredOptionException($requiredOptions[0]);
             }
             $missingRequiredOpt = array_diff($requiredOptions, array_keys($options));
@@ -67,11 +78,19 @@ abstract class AbstractFakeData implements FakeDataInterface
     /**
      * Gets options.
      *
-     * @return array
+     * @param string $key
+     *
+     * @return string|null
      */
-    public function getOptions()
+    final public function getOption($key)
     {
-        return $this->options;
+        if (array_key_exists($key, $this->options)) {
+            return $this->options[$key];
+
+        } else {
+
+            return null;
+        }
     }
 
     /**
@@ -87,17 +106,13 @@ abstract class AbstractFakeData implements FakeDataInterface
      */
     public function generatedBy()
     {
-        $generatorNameSpace = __NAMESPACE__ . '\\Data\\';
-        $defaultGenerators = array(
-            $generatorNameSpace . 'RandomStringGenerator',
-            $generatorNameSpace . 'FromFileGenerator',
-            get_class($this) . 'Generator'
-        );
-        if (!is_null($this->options['generatedBy'])) {
-            $defaultGenerators[] = $generatorNameSpace . $this->options['generatedBy'];
+        $thisClass = new \ReflectionClass(get_class($this));
+        $generatorNameSpace = 'Fakerino\\FakeData\\Generator\\';
+        $defaultGenerators = $generatorNameSpace . $thisClass->getShortName()  . 'Generator';
+        if ($this->options['generatedBy'] !== null) {
+            $defaultGenerators = $generatorNameSpace . $this->options['generatedBy'];
         }
 
         return $defaultGenerators;
     }
 }
-

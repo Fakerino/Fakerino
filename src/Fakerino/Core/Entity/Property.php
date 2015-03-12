@@ -8,23 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Fakerino\FakeData\Data;
-
-use Fakerino\FakeData\AbstractFakeData;
+namespace Fakerino\Core\Entity;
 
 /**
- * Class GenericString,
- * is a generic fake string.
+ * Class Property,
+ * describes a class property element.
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class GenericString extends AbstractFakeData
+class Property extends ClassElement
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function getRequiredOptions()
-    {
-    }
 }
-

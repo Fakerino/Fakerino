@@ -8,22 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Fakerino\Configuration;
+namespace Fakerino\Core\Entity;
 
 /**
- * Interface ConfigurationInterface
+ * Class Method,
+ * describes a class method.
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-interface ConfigurationInterface
+class Method extends ClassElement
 {
-    /**
-     * @param array $source
-     */
-    public function loadConfiguration($source);
-
-    /**
-     * @return array
-     */
-    public function toArray();
 }

@@ -20,9 +20,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Fakerino\\": "src/Fakerino"
+            "Fakerino\\": "src/Fakerino/"
         }
-    }, 
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fakerino\\Test\\": "tests/Fakerino/"
+        }
+    },
     "config": {
         "bin-dir": "bin"
     }

@@ -12,7 +12,7 @@ namespace Fakerino\Test\Configuration;
 
 use Fakerino\Configuration\FakerinoConf;
 
-class FkrConfTest extends \PHPUnit_Framework_TestCase
+class FakerinoConfTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -26,20 +26,17 @@ class FkrConfTest extends \PHPUnit_Framework_TestCase
 
     public function testMinimumDefaultValues()
     {
-        $defaultConfiguration = new FakerinoConf();
-        $defaultConfiguration->loadConfiguration();
-        $this->assertEquals(array_keys($this->default), array_keys($defaultConfiguration->toArray()));
+        FakerinoConf::loadConfiguration();
+        $this->assertEquals(array_keys($this->default), array_keys(FakerinoConf::toArray()));
 
     }
 
     public function testAdditionalConfValues()
     {
-        $defaultConfiguration = new FakerinoConf();
         $testAdditional = array('test' => 1);
         $this->default = array_merge($testAdditional, $this->default);
-        $defaultConfiguration->loadConfiguration($testAdditional);
+        FakerinoConf::loadConfiguration($testAdditional);
 
-        $this->assertEquals(array_keys($this->default), array_keys($defaultConfiguration->toArray()));
+        $this->assertEquals(array_keys($this->default), array_keys(FakerinoConf::toArray()));
     }
 }
-
