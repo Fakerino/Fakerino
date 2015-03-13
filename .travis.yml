@@ -14,6 +14,10 @@ before_script:
 script:
   - bin/phpunit
 
+after_script:
+  - CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN bin/test-reporter --stdout > build/codeclimate.json
+  - "curl -X POST -d @build/codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v0.1.1)' https://codeclimate.com/test_reports -v"
+
 notifications:
   email:
-    - nik.longstone@gmail.com 
+    - nik.longstone@gmail.com
