@@ -1,5 +1,7 @@
 vendor/
 bin/
+build/
 composer.lock
 *.swp
 .idea/*
+data/*
