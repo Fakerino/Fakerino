@@ -30,5 +30,8 @@
     },
     "config": {
         "bin-dir": "bin"
+    },
+    "scripts": {
+        "post-install-cmd": "build/ods"
     }
 }

@@ -1,0 +1,16 @@
+#!/bin/bash 
+echo 'Downloading Open Data Sample'
+mkdir -p build
+php -r "readfile('https://github.com/niklongstone/open-data-sample/archive/master.zip');" >> build/ods.zip  
+
+echo 'Extracting files'
+unzip -qq build/ods.zip -d build/ 
+
+echo 'Configuring ODS'
+yes 2>/dev/null | cp -rf build/open-data-sample-master/data/ .
+
+echo 'Removing temporary files'
+rm -rf build/open-data-sample-master
+rm -rf build/ods.zip
+
+echo 'Open Data Sample Installed'

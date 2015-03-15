@@ -77,7 +77,7 @@ class FakerinoConf
     {
         return array(
             'supportedConfExts' => array('xml', 'php', 'ini'),
-            'locale' => 'en_GB',
+            'locale' => 'en-GB',
             'fakerinoTag' => 'fake',
             'fakeFilePath' => __DIR__
                 . DIRECTORY_SEPARATOR . '..'
