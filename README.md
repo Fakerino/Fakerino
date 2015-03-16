@@ -46,4 +46,4 @@ $conf['fake'] = array(
 ```
 
 
-[Fakerino wiki]:https://github.com/niklongstone/Fakerino/wiki`
+[Fakerino wiki]:https://github.com/niklongstone/Fakerino/wiki
