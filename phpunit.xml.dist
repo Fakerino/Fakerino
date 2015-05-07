@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<phpunit colors="true" bootstrap="vendor/autoload.php">
-    <testsuites>
-        <testsuite name="Fakerino test suite">
-            <directory>./tests/**</directory>
-        </testsuite>
-    </testsuites>
-    <logging>
-        <log type="coverage-clover" target="build/logs/clover.xml"/>
-    </logging>
-    <filter>
-        <whitelist>
-            <directory>./src/Fakerino/</directory>
-        </whitelist>
-    </filter>
+<phpunit bootstrap="vendor/autoload.php"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         verbose="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false">
+<testsuites>
+    <testsuite name="Fakerino test suite">
+        <directory>./tests/**</directory>
+    </testsuite>
+</testsuites>
+<filter>
+    <whitelist>
+        <directory suffix=".php">src/</directory>
+    </whitelist>
+</filter>
+<logging>
+    <log type="coverage-html" target="build/coverage" charset="UTF-8" yui="true" highlight="true"/>
+    <log type="coverage-text" target="build/coverage.txt"/>
+    <log type="coverage-clover" target="build/logs/clover.xml"/>
+</logging>
 </phpunit>

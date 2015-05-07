@@ -24,11 +24,10 @@ class FakeTxtFile
      * @param string $name
      * @param string $path
      *
-     * @return Fakerino\DataSource\File\File
+     * @return File\File
      */
     public static function getSource($name, $path)
     {
         return FakeFileContainer::get($name . '.txt', $path);
     }
 }
-

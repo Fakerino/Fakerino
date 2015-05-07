@@ -5,19 +5,20 @@ php:
   - 5.4
   - 5.5
   - 5.6
+  - 7.0
   - hhvm
 
+matrix:
+  allow_failures:
+    - php: 7.0
+
 before_script:
-  - composer selfupdate
-  - composer install --prefer-source -o
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - travis_retry composer self-update
+  - travis_retry composer install --no-interaction --prefer-source --dev -o
 
 script:
-  - bin/phpunit
+  - phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_script:
-  - CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN bin/test-reporter --stdout > build/codeclimate.json
-  - "curl -X POST -d @build/codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v0.1.1)' https://codeclimate.com/test_reports -v"
-
-notifications:
-  email:
-    - nik.longstone@gmail.com
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover

@@ -34,7 +34,7 @@ class FakerinoConfTest extends \PHPUnit_Framework_TestCase
     public function testAdditionalConfValues()
     {
         $testAdditional = array('test' => 1);
-        $this->default = array_merge($testAdditional, $this->default);
+        $this->default = array_merge($this->default, $testAdditional);
         FakerinoConf::loadConfiguration($testAdditional);
 
         $this->assertEquals(array_keys($this->default), array_keys(FakerinoConf::toArray()));

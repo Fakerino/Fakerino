@@ -7,7 +7,7 @@ echo 'Extracting files'
 unzip -qq build/ods.zip -d build/ 
 
 echo 'Configuring ODS'
-yes 2>/dev/null | cp -rf build/open-data-sample-master/data/ .
+yes 2>/dev/null | cp -rf build/open-data-sample-master/data/ ./data/
 
 echo 'Removing temporary files'
 rm -rf build/open-data-sample-master

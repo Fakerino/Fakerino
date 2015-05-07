@@ -17,7 +17,7 @@ use Fakerino\Core\OutPutFactory;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-abstract class Handler
+abstract class Handler implements HandlerInterface
 {
     /**
      * @var Handler
@@ -33,9 +33,9 @@ abstract class Handler
      * Sets a successor handler,
      * in case the class is not able to satisfy the request.
      *
-     * @param Handler $handler
+     * @param HandlerInterface $handler
      */
-    final public function setSuccessor(Handler $handler)
+    final public function setSuccessor(HandlerInterface $handler)
     {
         $this->setFirstChain();
         if ($this->successor === null) {
@@ -69,11 +69,11 @@ abstract class Handler
      * Generates the output.
      *
      * @param string        $class
-     * @param string|array  $options
+     * @param string|array|null  $options
      *
-     * @return string
+     * @return string|array
      */
-    protected function getOuput($class, $options = null)
+    public function getOuput($class, $options = null)
     {
         return OutPutFactory::getOuput($class, $options);
     }

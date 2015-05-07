@@ -14,6 +14,7 @@ use Fakerino\Core\FakeDataFactory;
 use Fakerino\FakeData\Data\StringGenerator;
 use Fakerino\Configuration\FakerinoConf;
 use Fakerino\Test\Fixtures\TestEntity;
+use Fakerino\Core\FakeHandler;
 
 class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -30,7 +31,12 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
             )
         );
         FakerinoConf::loadConfiguration($this->conf);
-        $this->fakeGenerator = new FakeDataFactory();
+        $fakeHandler = new FakeHandler\FakeHandler();
+        $fakeHandler->setSuccessor(new FakeHandler\FileFakerClass());
+        $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());
+        $fakeHandler->setSuccessor(new FakeHandler\ConfFakerClass());
+        $fakeHandler->setSuccessor(new FakeHandler\DefaultFakerClass());
+        $this->fakeGenerator = new FakeDataFactory($fakeHandler);
     }
 
     public function testFakeMethod()

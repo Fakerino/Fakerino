@@ -32,5 +32,4 @@ class FakerinoTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('Fakerino\Core\FakeDataFactory', Fakerino::create());
     }
-
 }

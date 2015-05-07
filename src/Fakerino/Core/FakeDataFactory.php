@@ -11,11 +11,7 @@
 namespace Fakerino\Core;
 
 use Fakerino\Core\Entity\EntityInfo;
-use Fakerino\Core\FakeHandler\ConfFakerClass;
-use Fakerino\Core\FakeHandler\CustomFakerClass;
-use Fakerino\Core\FakeHandler\DefaultFakerClass;
-use Fakerino\Core\FakeHandler\FakeHandler;
-use Fakerino\Core\FakeHandler\FileFakerClass;
+use Fakerino\Core\FakeHandler\HandlerInterface;
 
 /**
  * Class FakeDataFactory,
@@ -46,16 +42,13 @@ class FakeDataFactory
     private $startElement;
 
     /**
-     * Constructor,
-     * assigns a priority for handling a fake request.
+     * It receives the handlers priority for the fake request.
+     *
+     * @param HandlerInterface $fakeHandler
      */
-    public function __construct()
+    public function __construct(HandlerInterface $fakeHandler)
     {
-        $this->fakeHandler = new FakeHandler();
-        $this->fakeHandler->setSuccessor(new FileFakerClass());
-        $this->fakeHandler->setSuccessor(new CustomFakerClass());
-        $this->fakeHandler->setSuccessor(new ConfFakerClass());
-        $this->fakeHandler->setSuccessor(new DefaultFakerClass());
+        $this->fakeHandler = $fakeHandler;
     }
 
     /**
@@ -218,5 +211,4 @@ class FakeDataFactory
     {
         $this->outString .= $arr . PHP_EOL;
     }
-
 }

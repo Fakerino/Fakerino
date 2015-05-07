@@ -10,7 +10,6 @@
 
 namespace Fakerino\Test\FakeData\Generator;
 
-use Fakerino\FakeData\Core\GenericString;
 use Fakerino\FakeData\Generator\RandomStringGenerator;
 
 class RandomStringGeneratorTest extends \PHPUnit_Framework_TestCase
@@ -18,30 +17,39 @@ class RandomStringGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->randomStringGenerator = new RandomStringGenerator(new GenericString());
+        $this->randomStringGenerator = new RandomStringGenerator();
+        $this->mockRandomString = $this->getMockBuilder('Fakerino\FakeData\Generator\RandomStringGenerator')
+            ->setMethods(array('getOption'))
+            ->getMock();
     }
 
     public function testRandomStringGeneratorConstructor()
     {
         $this->assertInstanceOf('Fakerino\FakeData\FakeDataGeneratorInterface', $this->randomStringGenerator);
     }
-    /*
-        public function testGenerate()
-        {
-            $randomString = $this->randomStringGenerator->generate();
 
-            $this->assertNotNull($randomString);
-            $this->assertInternalType('string', $randomString);
-        }
+    public function testGenerate()
+    {
+        $this->mockRandomString->method('getOption')
+            ->willReturn(null);
+        $randomString = $this->mockRandomString->generate();
 
-        public function testGenerateWithOption()
-        {
-            $length = 10;
-            $randomStringGenerator = new RandomStringGenerator(new GenericString(array('length' => $length)));
-            $randomString = $randomStringGenerator->generate();
+        $this->assertNotNull($randomString);
+        $this->assertInternalType('string', $randomString);
+    }
 
-            $this->assertEquals($length, strlen($randomString));
-        }
-    */
+    public function testGenerateWithLengthOption()
+    {
+        $length = 10;
+        $map = array(
+            array('length', $length),
+            array('addChars', null)
+        );
+        $this->mockRandomString->expects($this->exactly(2))
+            ->method('getOption')
+            ->will($this->returnValueMap($map));
+        $randomString = $this->mockRandomString->generate();
+
+        $this->assertEquals($length, strlen($randomString));
+    }
 }
-

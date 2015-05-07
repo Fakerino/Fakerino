@@ -45,11 +45,10 @@ final class FileConfigurationLoaderFactory
      */
     public function load()
     {
-        if (is_dir($this->filePath)) {
-            if (!$this->filePath = $this->getFilePath()) {
+        if (is_dir($this->filePath) &&
+            !$this->filePath = $this->getFilePath()) {
 
                 throw new FileNotFoundException($this->filePath);
-            }
         }
 
         return $this->getConfigFile();
@@ -111,4 +110,3 @@ final class FileConfigurationLoaderFactory
         return null;
     }
 }
-

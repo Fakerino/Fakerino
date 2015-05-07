@@ -1,0 +1,8 @@
+#!/usr/bin/env php
+<?php
+require_once __DIR__.'../../vendor/autoload.php';
+
+use Fakerino\Core\Console\FakeConsole;
+
+$fakeConsole = new FakeConsole($argv);
+echo $fakeConsole->run();

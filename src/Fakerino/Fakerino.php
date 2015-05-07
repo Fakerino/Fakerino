@@ -13,6 +13,7 @@ namespace Fakerino;
 use Fakerino\Configuration\ConfigurationFile\Helper\FileConfigurationLoaderFactory;
 use Fakerino\Configuration\FakerinoConf;
 use Fakerino\Core\FakeDataFactory;
+use Fakerino\Core\FakeHandler;
 
 /**
  * Class Fakerino,
@@ -48,7 +49,12 @@ final class Fakerino
             FakerinoConf::loadConfiguration($confArray);
         }
 
-        return new FakeDataFactory();
+        $fakeHandler = new FakeHandler\FakeHandler();
+        $fakeHandler->setSuccessor(new FakeHandler\FileFakerClass());
+        $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());
+        $fakeHandler->setSuccessor(new FakeHandler\ConfFakerClass());
+        $fakeHandler->setSuccessor(new FakeHandler\DefaultFakerClass());
+        return new FakeDataFactory($fakeHandler);
     }
 
     /**

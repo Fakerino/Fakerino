@@ -1,0 +1,56 @@
+<?php
+/**
+ * This file is part of the Fakerino package.
+ *
+ * (c) Nicola Pietroluongo <nik.longstone@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Fakerino\Core\FakeHandler;
+
+/**
+ * Class HandlerInterface,
+ * interface for fake data request handler.
+ *
+ * @author Nicola Pietroluongo <nik.longstone@gmail.com>
+ */
+interface HandlerInterface
+{
+
+    /**
+     * Sets a successor handler,
+     * in case the class is not able to satisfy the request.
+     *
+     * @param HandlerInterface $handler
+     */
+    function setSuccessor(HandlerInterface $handler);
+
+    /**
+     * Handles the request or redirect the request
+     * to the successor.
+     *
+     * @param string|array $data
+     *
+     * @return string
+     */
+    function handle($data);
+
+    /**
+     * Generates the output.
+     *
+     * @param string        $class
+     * @param string|array|null  $options
+     *
+     * @return string|array
+     */
+    function getOuput($class, $options = null);
+
+    /**
+     * Returns the first Handler in the chain.
+     *
+     * @return Handler
+     */
+    static function getFirstChain();
+}
