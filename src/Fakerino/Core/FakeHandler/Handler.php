@@ -69,9 +69,9 @@ abstract class Handler
      * Generates the output.
      *
      * @param string        $class
-     * @param string|array  $options
+     * @param string|array|null  $options
      *
-     * @return string
+     * @return string|array
      */
     protected function getOuput($class, $options = null)
     {

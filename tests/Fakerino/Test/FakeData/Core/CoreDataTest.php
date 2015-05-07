@@ -26,4 +26,3 @@ class CoreDataTest extends \PHPUnit_Framework_TestCase
     }
 
 }
-

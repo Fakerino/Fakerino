@@ -16,9 +16,9 @@ class FileConfigurationLoaderFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $fileDir = __DIR__ . '/../../../Fixtures/';
-        $this->ini = $fileDir . 'file.ini';
-        $this->notSupportedFile = $fileDir . 'file.xyz';
+        $this->fileDir = __DIR__ . '/../../../Fixtures/';
+        $this->ini = $this->fileDir . 'file.ini';
+        $this->notSupportedFile = $this->fileDir . 'file.xyz';
     }
 
     public function testCreateConfFile()
@@ -26,13 +26,12 @@ class FileConfigurationLoaderFactoryTest extends \PHPUnit_Framework_TestCase
         $conf = new FileConfigurationLoaderFactory($this->ini, array('ini'));
 
         $this->assertInstanceOf('Fakerino\Configuration\ConfigurationFile\IniConfigurationFile', $conf->load());
-
     }
 
     public function testFileNotFound()
     {
         $this->setExpectedException('Fakerino\DataSource\File\Exception\FileNotFoundException');
-        $conf = new FileConfigurationLoaderFactory('file', array('ini'));
+        $conf = new FileConfigurationLoaderFactory($this->fileDir, array('ini'));
         $conf->load();
     }
 

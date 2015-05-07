@@ -36,7 +36,7 @@ class FakerinoConf
         if (empty($conf)) {
             self::$conf = self::loadDefault();
         } else {
-            self::$conf = array_merge($conf, self::loadDefault());
+            self::$conf = array_merge(self::loadDefault(), $conf);
         }
     }
 

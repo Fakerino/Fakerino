@@ -20,4 +20,3 @@ class CustomDataTest extends \PHPUnit_Framework_TestCase
     }
 
 }
-

@@ -45,4 +45,3 @@ class GenericString extends AbstractFakeData
         return 'Fakerino\\FakeData\\Generator\\RandomStringGenerator';
     }
 }
-
