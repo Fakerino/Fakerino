@@ -45,7 +45,7 @@ print_r($fakerino->fake('fake1')->toArray());
 `app/fake namemale surname` //Travis Baldwin  
 `app/fake surname -j` //["Brooks"]  
 `app/fake nameMale -n 2` //Nick Andy  
-`app/fake -c path/config.ini`
+`app/fake country -c path/config.ini` //uses a config file  
 `app/fake surname -l de-DE` //Schleßinger 
 
 [Fakerino wiki]:https://github.com/niklongstone/Fakerino/wiki
