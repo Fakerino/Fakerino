@@ -54,6 +54,7 @@ final class Fakerino
         $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\ConfFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\DefaultFakerClass());
+
         return new FakeDataFactory($fakeHandler);
     }
 

@@ -26,6 +26,13 @@ class ConfFakerClass extends Handler
     protected function process($data)
     {
         $fakeTag = FakerinoConf::get('fakerinoTag');
+
+        /**
+         * When an element in the configuration is not present,
+         * FakerinoConf will return an exception,
+         * but the handler needs a null value to continue the chain handling,
+         * so the catch will intercept that exception.
+         */
         try {
             $elementInConf = FakerinoConf::get($fakeTag);
             if (array_key_exists($data, $elementInConf)) {
@@ -41,16 +48,19 @@ class ConfFakerClass extends Handler
                 }
             }
         } catch (ConfValueNotFoundException $e) {
-            /**
-             * if the element in the configuration is not present,
-             * FakerinoConf will return an exception.
-             * The handler needs to return a null value to continue the chain handling.
-             */
         }
 
         return null;
     }
 
+    /**
+     * Finds an element from key or val.
+     *
+     * @param string $key
+     * @param string $val
+     *
+     * @return mixed
+     */
     private function findElementFrom($key, $val)
     {
         if (is_numeric($key)) {

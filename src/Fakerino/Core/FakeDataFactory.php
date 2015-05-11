@@ -10,7 +10,7 @@
 
 namespace Fakerino\Core;
 
-use Fakerino\Core\Entity\EntityInfo;
+use Fakerino\Core\Filler\EntityFiller;
 use Fakerino\Core\FakeHandler\HandlerInterface;
 
 /**
@@ -72,11 +72,14 @@ class FakeDataFactory
      * Fills the given entity with fake data.
      *
      * @param object $entity
+     *
+     * @return bool
      */
     public function fillEntity($entity)
     {
-        $this->fillProperties($entity);
-        $this->fillMethods($entity);
+        $entityFiller = new EntityFiller();
+
+        return $entityFiller->fill($entity, $this);
     }
 
     /**
@@ -129,37 +132,6 @@ class FakeDataFactory
         array_walk_recursive($this->out, array($this, 'arrayToString'));
 
         return $this->outString;
-    }
-
-    private function fillProperties($entity)
-    {
-        $entityInfo = new EntityInfo($entity);
-        $entityProperties = $entityInfo->getProperties();
-        foreach ($entityProperties as $property) {
-            $propertyName = $property->getName();
-            $fakeData = $this->fake($propertyName)->toArray();
-            if ($property->isStatic()) {
-                $entity::$$propertyName = $fakeData[0];
-            } else {
-                $entity->$propertyName = $fakeData[0];
-            }
-        }
-    }
-
-    private function fillMethods($entity)
-    {
-        $entityInfo = new EntityInfo($entity);
-        $entityMethods = $entityInfo->getSetters();
-        foreach ($entityMethods as $methods) {
-            $methodsName = $methods->getName();
-            $nameToFake = substr($methodsName, 3, strlen($methodsName));
-            $fakeData = $this->fake($nameToFake)->toArray();
-            if ($methods->isStatic()) {
-                $entity::$methodsName($fakeData[0]);
-            } else {
-                $entity->$methodsName($fakeData[0]);
-            }
-        }
     }
 
     private function startFake($elementName)
