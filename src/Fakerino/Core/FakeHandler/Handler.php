@@ -20,7 +20,7 @@ use Fakerino\Core\OutPutFactory;
 abstract class Handler implements HandlerInterface
 {
     /**
-     * @var Handler
+     * @var HandlerInterface
      */
     private $successor = null;
 
@@ -68,8 +68,8 @@ abstract class Handler implements HandlerInterface
     /**
      * Generates the output.
      *
-     * @param string        $class
-     * @param string|array|null  $options
+     * @param string            $class
+     * @param string|array|null $options
      *
      * @return string|array
      */

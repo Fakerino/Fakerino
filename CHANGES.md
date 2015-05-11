@@ -1,3 +1,9 @@
+0.4.0 / 2015-05-12
+==================
+  * Add Integer fake data type
+  * Fix ODS data installation
+  * Fix minor issues
+
 0.3.0 / 2015-05-08
 ==================
   * Add console command faker
