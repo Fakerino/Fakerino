@@ -26,13 +26,16 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Fakerino\\Test\\": "tests/Fakerino/"
+            "Fakerino\\Test\\": "tests/Fakerino/",
+            "Fakerino\\Test\\Fixtures\\": "tests/Fakerino/Test/Fixtures"
         }
     },
     "config": {
         "bin-dir": "bin"
     },
     "scripts": {
-        "post-install-cmd": "build/ods"
+        "post-install-cmd": "build/ods",
+        "post-update-cmd": "build/ods",
+        "post-create-project-cmd" : "build/ods"
     }
 }

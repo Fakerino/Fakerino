@@ -26,7 +26,7 @@ class TestEntity
 
     public function setOne($one)
     {
-        $this->one = $one;
+        return null;
     }
 
     public function getTwo()

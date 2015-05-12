@@ -17,10 +17,13 @@ please read the __[Fakerino wiki]__.
 
 [![License](https://poser.pugx.org/fakerino/fakerino/license.svg)](https://packagist.org/packages/fakerino/fakerino)
 
+### Installation
+`composer create-project fakerino/fakerino fakerino`
+
 ### Quick start
 ```
 <?php
-include ('../Fakerino/vendor/autoload.php');
+require ('../Fakerino/vendor/autoload.php');
 use Fakerino\Fakerino;
 
 $fakerino = Fakerino::create();

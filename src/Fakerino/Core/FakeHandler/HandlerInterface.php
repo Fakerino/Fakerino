@@ -40,8 +40,8 @@ interface HandlerInterface
     /**
      * Generates the output.
      *
-     * @param string        $class
-     * @param string|array|null  $options
+     * @param string            $class
+     * @param string|array|null $options
      *
      * @return string|array
      */
