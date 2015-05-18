@@ -12,6 +12,7 @@ namespace Fakerino\Core\FakeHandler;
 
 use Fakerino\Configuration\Exception\ConfValueNotFoundException;
 use Fakerino\Configuration\FakerinoConf;
+use Fakerino\Core\FakeElement;
 
 /**
  * Class ConfFakerClass,
@@ -29,18 +30,18 @@ class ConfFakerClass extends Handler
 
         /**
          * When an element in the configuration is not present,
-         * FakerinoConf will return an exception,
-         * but the handler needs a null value to continue the chain handling,
-         * so the catch will intercept that exception.
+         * FakerinoConf returns an exception.
+         * Because the Handler needs a null value to continue the chain handling,
+         * the catch block will intercept that exception.
          */
         try {
             $elementInConf = FakerinoConf::get($fakeTag);
-            if (array_key_exists($data, $elementInConf)) {
+            if (array_key_exists($data->getName(), $elementInConf)) {
                 $firstChain = self::getFirstChain();
                 if ($firstChain !== null) {
                     $classes = array();
-                    foreach ($elementInConf[$data] as $key => $val) {
-                        $element = $this->findElementFrom($key, $val);
+                    foreach ($elementInConf[$data->getName()] as $key => $val) {
+                        $element = new FakeElement($key, $val);
                         $classes[] = $firstChain->handle($element);
                     }
 
@@ -50,24 +51,6 @@ class ConfFakerClass extends Handler
         } catch (ConfValueNotFoundException $e) {
         }
 
-        return null;
-    }
-
-    /**
-     * Finds an element from key or val.
-     *
-     * @param string $key
-     * @param string $val
-     *
-     * @return mixed
-     */
-    private function findElementFrom($key, $val)
-    {
-        if (is_numeric($key)) {
-
-            return $val;
-        }
-
-        return $key;
+        return;
     }
 }

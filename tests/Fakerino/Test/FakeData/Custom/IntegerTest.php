@@ -11,18 +11,20 @@
 namespace Fakerino\Test\FakeData\Core;
 
 use Fakerino\FakeData\Custom\Integer;
-use Fakerino\FakeData\Custom\RandomString;
 
-class CustomDataTest extends \PHPUnit_Framework_TestCase
+class IntegerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testRandomString()
-    {
-        $this->assertInstanceOf('Fakerino\FakeData\FakeDataInterface', new RandomString());
-    }
-
     public function testInteger()
     {
         $this->assertInstanceOf('Fakerino\FakeData\FakeDataInterface', new Integer());
     }
 
+    public function getDefaultOptionString()
+    {
+        $data = new Text();
+
+        $this->assertArrayHasKey('length', $data->getDefaultOptions());
+        $this->assertArrayHasKey('negative', $data->getDefaultOptions());
+        $this->assertArrayHasKey('type', $data->getDefaultOptions());
+    }
 }

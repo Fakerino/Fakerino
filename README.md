@@ -1,10 +1,5 @@
 # Fakerino
-Fakerino is a fake data generator framework fully extensible,
-can generate from a simple random name to a complex data structure, 
-it supports multiple output format and configurations.
-
-For more information about installation, functions, support, contribution, or other,
-please read the __[Fakerino wiki]__.
+Fakerino is a fake data generator framework fully extensible.
 
 [![Latest Stable Version](https://poser.pugx.org/fakerino/fakerino/v/stable.svg)](https://packagist.org/packages/fakerino/fakerino)
 [![Latest Unstable Version](https://poser.pugx.org/fakerino/fakerino/v/unstable.svg)](https://packagist.org/packages/fakerino/fakerino)
@@ -16,6 +11,20 @@ please read the __[Fakerino wiki]__.
 [![Quality Score](https://img.shields.io/scrutinizer/g/niklongstone/Fakerino.svg?style=flat-square)](https://scrutinizer-ci.com/g/niklongstone/Fakerino)
 
 [![License](https://poser.pugx.org/fakerino/fakerino/license.svg)](https://packagist.org/packages/fakerino/fakerino)
+
+###Main features
+Fakerino can:
+* Fakes simple data (e.g. name, surname, integer, text, ...).
+* Fakes complex data (e.g. person: name, surname, hobby, country, ... ).
+* Fakes data multiple times.
+* Fakes a database table row/s automatically.
+* Fakes a PHP Object.
+* Supports JSON, Array and string output.
+ 
+For more information about installation, functions, support, contribution, or other,
+please read the __[Fakerino wiki](https://github.com/niklongstone/Fakerino/wiki)__.
+
+
 
 ### Installation
 `composer create-project fakerino/fakerino fakerino`
@@ -51,4 +60,4 @@ print_r($fakerino->fake('fake1')->toArray());
 `app/fake country -c path/config.ini` //uses a config file  
 `app/fake surname -l de-DE` //Schleßinger 
 
-[Fakerino wiki]:https://github.com/niklongstone/Fakerino/wiki
+

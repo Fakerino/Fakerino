@@ -10,9 +10,10 @@
 
 namespace Fakerino\Core\Test\Filler;
 
+use Fakerino\Core\Database\DoctrineLayer;
 use Fakerino\Core\FakeDataFactory;
-use Fakerino\Core\Filler\EntityFiller;
 use Fakerino\Core\FakeHandler;
+use Fakerino\Core\Filler\EntityFiller;
 use Fakerino\Test\Fixtures\TestEntity;
 
 class EntityFillerTest extends \PHPUnit_Framework_TestCase
@@ -23,38 +24,43 @@ class EntityFillerTest extends \PHPUnit_Framework_TestCase
         $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\DefaultFakerClass());
 
-        $this->faker = new FakeDataFactory($fakeHandler);
-        $this->entityFiller = new EntityFiller();
+        $this->faker = new FakeDataFactory($fakeHandler, new DoctrineLayer());
     }
 
     public function testFillProperties()
     {
-        $testEntity = new TestEntity();
-        $this->entityFiller->fillProperties($testEntity, $this->faker);
+        $this->setUpFiller();
+        $this->entityFiller->fillProperties();
 
-        $this->assertNotNull($testEntity->getOne());
-        $this->assertNotNull($testEntity->getFour());
-        $this->assertNull($testEntity->getTwo());
+        $this->assertNotNull($this->testEntity->getOne());
+        $this->assertNotNull($this->testEntity->getFour());
+        $this->assertNull($this->testEntity->getTwo());
     }
 
     public function testFillMethods()
     {
-        $testEntity = new TestEntity();
-        $this->entityFiller->fillMethods($testEntity, $this->faker);
+        $this->setUpFiller();
+        $this->entityFiller->fillMethods();
 
-        $this->assertNotNull($testEntity->getTwo());
-        $this->assertNotNull($testEntity->getThree());
-        $this->assertNull($testEntity->getOne());
+        $this->assertNotNull($this->testEntity->getTwo());
+        $this->assertNotNull($this->testEntity->getThree());
+        $this->assertNull($this->testEntity->getOne());
     }
 
     public function testFill()
     {
-        $testEntity = new TestEntity();
-        $this->entityFiller->fill($testEntity, $this->faker);
+        $this->setUpFiller();
+        $this->entityFiller->fill();
 
-        $this->assertNotNull($testEntity->getOne());
-        $this->assertNotNull($testEntity->getFour());
-        $this->assertNotNull($testEntity->getOne());
-        $this->assertNotNull($testEntity->getFour());
+        $this->assertNotNull($this->testEntity->getOne());
+        $this->assertNotNull($this->testEntity->getFour());
+        $this->assertNotNull($this->testEntity->getOne());
+        $this->assertNotNull($this->testEntity->getFour());
+    }
+
+    private function setUpFiller()
+    {
+        $this->testEntity = new TestEntity();
+        $this->entityFiller = new EntityFiller($this->testEntity, $this->faker);
     }
 }

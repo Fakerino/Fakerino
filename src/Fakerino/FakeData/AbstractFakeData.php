@@ -30,7 +30,7 @@ abstract class AbstractFakeData implements FakeDataInterface
      *
      * @var array
      */
-    protected $defaultExtraGenerators = array('FromFileGenerator', 'RandomStringGenerator');
+    protected $defaultExtraGenerators = array('FromFileGenerator', 'StringGenerator');
 
     /**
      * Constructor
@@ -89,7 +89,7 @@ abstract class AbstractFakeData implements FakeDataInterface
 
         } else {
 
-            return null;
+            return;
         }
     }
 

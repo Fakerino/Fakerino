@@ -11,7 +11,6 @@
 namespace Fakerino\Test\Core\Entity;
 
 use Fakerino\Core\Entity\EntityInfo;
-use Fakerino\Test\FakeData\Data;
 use Fakerino\Test\Fixtures\TestEntity;
 
 class EntityFillerTest extends \PHPUnit_Framework_TestCase

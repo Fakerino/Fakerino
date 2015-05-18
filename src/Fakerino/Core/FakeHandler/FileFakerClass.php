@@ -25,17 +25,18 @@ class FileFakerClass extends Handler
      */
     protected function process($data)
     {
+        $elementName = $data->getName();
         $fakeFilePath = FakerinoConf::get('fakeFilePath')
             . DIRECTORY_SEPARATOR
             . FakerinoConf::get('locale')
             . DIRECTORY_SEPARATOR
-            . $this->createFilename($data);
+            . $this->createFilename($elementName);
         if (file_exists($fakeFilePath)) {
 
-            return $this->getOuput('Fakerino\\FakeData\\Core\\FileFake', $data);
+            return $this->getOutput('Fakerino\\FakeData\\Core\\FileFake', $elementName);
         }
 
-        return null;
+        return;
     }
 
     private function createFilename($name)

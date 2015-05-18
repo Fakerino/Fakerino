@@ -78,7 +78,7 @@ class File extends \SplFileInfo
     }
 
     /**
-     * @param integer $lineNumber
+     * @param int $lineNumber
      *
      * @return string
      * @throws Exception\FileLineNotFoundException

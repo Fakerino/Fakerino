@@ -11,7 +11,6 @@
 namespace Fakerino\Test;
 
 use Fakerino\Fakerino;
-use Fakerino\Helper\FileLocator;
 
 class FakerinoTest extends \PHPUnit_Framework_TestCase
 {
@@ -31,5 +30,12 @@ class FakerinoTest extends \PHPUnit_Framework_TestCase
     public function testConfigurationNotProvided()
     {
         $this->assertInstanceOf('Fakerino\Core\FakeDataFactory', Fakerino::create());
+    }
+
+    public function testGetConfiguration()
+    {
+        Fakerino::create();
+
+        $this->assertInternalType('array', Fakerino::getConfig());
     }
 }

@@ -32,7 +32,7 @@ class XmlConfigurationFile extends AbstractConfigurationFile
     }
 
     /**
-     * Convert an XML string in an array
+     * Converts an XML string in an array
      *
      * @param \SimpleXMLElement  $xmlObject
      * @param array              $out

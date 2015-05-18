@@ -19,10 +19,10 @@ class CoreDataTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('Fakerino\FakeData\FakeDataInterface', new FileFake());
     }
-
+/*
     public function testGenericString()
     {
         $this->assertInstanceOf('Fakerino\FakeData\FakeDataInterface', new GenericString());
     }
-
+*/
 }

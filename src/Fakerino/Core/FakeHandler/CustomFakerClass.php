@@ -22,7 +22,7 @@ class CustomFakerClass extends Handler
     /**
      * @var array custom class container
      */
-    private $defaultClasses = array();
+    private static $defaultClasses = array();
 
     /**
      * {@inheritdoc}
@@ -30,12 +30,13 @@ class CustomFakerClass extends Handler
     protected function process($data)
     {
         $this->setUpDefaultClass();
-        if (in_array($data, $this->defaultClasses)) {
+        $elementName = strtolower($data->getName());
+        if (in_array(ucfirst($elementName), self::$defaultClasses)) {
 
-            return $this->getOuput($this->getDataClass($data));
+            return $this->getOutput($this->getDataClass($elementName), $data->getOptions());
         }
 
-        return null;
+        return;
     }
 
     private function setUpDefaultClass()
@@ -53,12 +54,12 @@ class CustomFakerClass extends Handler
                 continue;
             }
             $classFile = $file->getFilename();
-            $this->defaultClasses[] = str_replace('.php', '', $classFile);
+            self::$defaultClasses[] = str_replace('.php', '', $classFile);
         }
     }
 
     private function getDataClass($className)
     {
-        return 'Fakerino\\FakeData\\Custom\\' . $className;
+        return 'Fakerino\\FakeData\\Custom\\' . ucfirst($className);
     }
 }

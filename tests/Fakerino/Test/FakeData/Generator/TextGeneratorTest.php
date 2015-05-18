@@ -10,15 +10,15 @@
 
 namespace Fakerino\Test\FakeData\Generator;
 
-use Fakerino\FakeData\Generator\RandomStringGenerator;
+use Fakerino\FakeData\Generator\TextGenerator;
 
-class RandomStringGeneratorTest extends \PHPUnit_Framework_TestCase
+class TextGeneratorTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
     {
-        $this->randomStringGenerator = new RandomStringGenerator();
-        $this->mockRandomString = $this->getMockBuilder('Fakerino\FakeData\Generator\RandomStringGenerator')
+        $this->randomStringGenerator = new TextGenerator();
+        $this->mockRandomString = $this->getMockBuilder('Fakerino\FakeData\Generator\TextGenerator')
             ->setMethods(array('getOption'))
             ->getMock();
     }
@@ -43,7 +43,7 @@ class RandomStringGeneratorTest extends \PHPUnit_Framework_TestCase
         $length = 10;
         $map = array(
             array('length', $length),
-            array('addChars', null)
+            array('addChars', 'test')
         );
         $this->mockRandomString->expects($this->exactly(2))
             ->method('getOption')

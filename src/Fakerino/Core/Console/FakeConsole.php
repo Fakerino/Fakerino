@@ -20,12 +20,13 @@ use Fakerino\Fakerino;
  */
 class FakeConsole
 {
-    private $input = null;
-    private $help = false;
-    private $confFile = null;
-    private $json = false;
-    private $num = null;
-    private $locale = null;
+    private $input;
+    private $help;
+    private $confFile;
+    private $json;
+    private $num;
+    private $locale;
+    private $table;
 
     /**
      * Constructor.
@@ -42,29 +43,28 @@ class FakeConsole
 
             return;
         }
-        $jsonIndex = array_search('-j', $this->input);
-        if ($jsonIndex !== false) {
-            unset($this->input[$jsonIndex]);
-            $this->json = true;
+        $this->json = $this->getParam('-j');
+        $this->num = $this->getParam('-n', true);
+        $this->confFile = $this->getParam('-c', true);
+        $this->locale = $this->getParam('-l', true);
+        $this->help = $this->getParam('-h');
+        $this->table = $this->getParam('-t', true);
+    }
+
+    private function getParam($flag, $hasValue = false)
+    {
+        $flagValue = false;
+        $flagIndex = array_search($flag, $this->input);
+        if ($flagIndex !== false) {
+            $flagValue = true;
+            unset($this->input[$flagIndex]);
+            if ($hasValue) {
+                $flagValue = $this->input[$flagIndex+1];
+                unset($this->input[$flagIndex+1]);
+            }
         }
-        $numIndex = array_search('-n', $this->input);
-        if ($numIndex !== false) {
-            unset($this->input[$numIndex]);
-            $this->num = $this->input[$numIndex+1];
-            unset($this->input[$numIndex+1]);
-        }
-        $confIndex = array_search('-c', $this->input);
-        if ($confIndex !== false) {
-            unset($this->input[$confIndex]);
-            $this->confFile = $this->input[$confIndex+1];
-            unset($this->input[$confIndex+1]);
-        }
-        $localeIndex = array_search('-l', $this->input);
-        if ($localeIndex !== false) {
-            unset($this->input[$localeIndex]);
-            $this->locale = $this->input[$localeIndex+1];
-            unset($this->input[$localeIndex+1]);
-        }
+
+        return $flagValue;
     }
 
     /**
@@ -75,25 +75,33 @@ class FakeConsole
     public function run()
     {
         if ($this->help) {
+
             return $this->showHelp();
         }
-        if ($this->confFile === null) {
-            if ($this->locale === null) {
-                $fakerino = Fakerino::create();
-            } else {
+        if ($this->confFile) {
+            $fakerino = Fakerino::create($this->confFile);
+        } else {
+            $fakerino = Fakerino::create();
+            if ($this->locale) {
                 $conf = array();
                 $conf['locale'] = $this->locale;
                 $fakerino = Fakerino::create($conf);
             }
-        } else {
-            $fakerino = Fakerino::create($this->confFile);
         }
-        $result = $fakerino->fake($this->input);
-        if ($this->num) {
-            $result = $fakerino->num($this->num);
+        if (!$this->num) {
+            $this->num = 1;
         }
+        if ($this->table) {
+            $fakerino->num($this->num)->fillTable($this->table);
+
+            return;
+        }
+        $fakerino = $fakerino->fake($this->input)->num($this->num);
+
         if ($this->json) {
             $result = $fakerino->toJson() . PHP_EOL;
+        } else {
+            $result = (string) $fakerino;
         }
 
         return $result;

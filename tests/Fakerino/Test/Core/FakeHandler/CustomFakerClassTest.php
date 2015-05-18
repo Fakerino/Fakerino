@@ -10,16 +10,30 @@
 
 namespace Fakerino\Test\Core\FakeHandler;
 
+use Fakerino\Core\FakeElement;
 use Fakerino\Core\FakeHandler\CustomFakerClass;
 
 class CustomFakerClassTest extends \PHPUnit_Framework_TestCase
 {
-    public function testHandler()
+    public function testHandlerCreation()
     {
         $handler = new CustomFakerClass();
-        $customClass = 'RandomString';
+        $data = new FakeElement('text');
 
         $this->assertInstanceOf('Fakerino\Core\FakeHandler\Handler', $handler);
-        $this->assertInternalType('string', $handler->handle($customClass));
+        $this->assertInternalType('string', $handler->handle($data));
+    }
+
+    public function testHandlerWithOptions()
+    {
+        $length = 1;
+        $handler = new CustomFakerClass();
+        $data = new FakeElement('Integer', array('length' => $length));
+        $result =  $handler->handle($data);
+
+        $this->assertInstanceOf('Fakerino\Core\FakeHandler\Handler', $handler);
+        $this->assertInternalType('int', $result);
+        $this->assertEquals($length,  strlen($result));
+
     }
 }

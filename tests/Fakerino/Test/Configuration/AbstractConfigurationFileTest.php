@@ -45,4 +45,12 @@ class AbstractConfigurationFileTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($this->xmlFilePath, $this->concreteConfiguration->getConfFilePath());
     }
+
+    public function testNotValidConfiguration()
+    {
+        $this->setExpectedException('Fakerino\Configuration\Exception\SourceNotValidException');
+        $this->concreteConfiguration->loadConfiguration('test');
+
+        $this->assertEquals($this->xmlFilePath, $this->concreteConfiguration->getConfFilePath());
+    }
 }

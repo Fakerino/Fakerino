@@ -10,11 +10,11 @@
 
 namespace Fakerino\Test\Core;
 
-use Fakerino\Core\FakeDataFactory;
-use Fakerino\FakeData\Data\StringGenerator;
 use Fakerino\Configuration\FakerinoConf;
-use Fakerino\Test\Fixtures\TestEntity;
+use Fakerino\Core\Database\DoctrineLayer;
+use Fakerino\Core\FakeDataFactory;
 use Fakerino\Core\FakeHandler;
+use Fakerino\Test\Fixtures\TestEntity;
 
 class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,7 +36,7 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
         $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\ConfFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\DefaultFakerClass());
-        $this->fakeGenerator = new FakeDataFactory($fakeHandler);
+        $this->fakeGenerator = new FakeDataFactory($fakeHandler, new DoctrineLayer());
     }
 
     public function testFakeMethod()
@@ -49,6 +49,24 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Fakerino\\Core\\FakeDataFactory', $this->fakeGenerator->fake('Test'));
     }
 
+    public function testFakeCallWithEmptyElement()
+    {
+        $this->setExpectedException('Fakerino\FakeData\Exception\MissingRequiredOptionException');
+        $this->fakeGenerator->fake();
+    }
+
+    public function testFillEntiyWithEmptyElement()
+    {
+        $this->setExpectedException('Fakerino\FakeData\Exception\MissingRequiredOptionException');
+        $this->fakeGenerator->fillEntity();
+    }
+
+    public function testFillTableWithEmptyElement()
+    {
+        $this->setExpectedException('Fakerino\FakeData\Exception\MissingRequiredOptionException');
+        $this->fakeGenerator->fillTable();
+    }
+
     public function testFakeCallWithConfElement()
     {
         $this->assertInstanceOf('Fakerino\\Core\\FakeDataFactory', $this->fakeGenerator->fake('fake1'));
@@ -59,7 +77,7 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
         $fakeArray = $this->fakeGenerator->fake('fake1')->toArray();
         $this->assertInternalType('array', $fakeArray);
 
-        $this->assertEquals(count($this->conf['fake']['fake1']), count($fakeArray));
+        $this->assertEquals(1, count($fakeArray));
     }
 
     public function testMultipleFakesToArray()

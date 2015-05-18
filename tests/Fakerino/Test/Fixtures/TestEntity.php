@@ -8,7 +8,6 @@
 
 namespace Fakerino\Test\Fixtures;
 
-
 class TestEntity
 {
     public $one;
@@ -26,7 +25,7 @@ class TestEntity
 
     public function setOne($one)
     {
-        return null;
+        return;
     }
 
     public function getTwo()

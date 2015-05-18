@@ -27,7 +27,7 @@ class ConfValueNotFoundException extends \RuntimeException
     {
         parent::__construct(sprintf('
             The configuration value "%s" is not present,
-            be sure to load the configuration first, or the value is defined
+            be sure the configuration is loaded and the value is defined
             ', $value));
     }
 }

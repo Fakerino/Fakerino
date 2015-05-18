@@ -10,8 +10,6 @@
 
 namespace Fakerino\Core\Filler;
 
-use Fakerino\Core\FakeDataFactory;
-
 /**
  * FillerInterface,
  * describes the interface for the fillers.
@@ -21,10 +19,7 @@ use Fakerino\Core\FakeDataFactory;
 interface FillerInterface
 {
     /**
-     * @param mixed           $item
-     * @param FakeDataFactory $faker
-     *
-     * @return bool
+     * @return array
      */
-    public function fill($item, FakeDataFactory $faker);
+    public function fill();
 }

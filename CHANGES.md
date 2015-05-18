@@ -1,3 +1,9 @@
+0.5.0 / 2015-05-18
+==================
+  * Add fillTable feature
+  * Refactor classes
+  * Fix minor issues
+
 0.4.0 / 2015-05-12
 ==================
   * Add Integer fake data type

@@ -29,8 +29,14 @@ class IntegerGenerator extends AbstractFakeDataGenerator
         $length = $this->getOption('length');
         $negative = $this->getOption('negative');
         $type = $this->getOption('type');
-        $fakeInteger = 0;
+        $fakeInteger = $this->generateIntegerFrom($type, $length, $negative);
 
+        return $fakeInteger;
+    }
+
+    private function generateIntegerFrom($type, $length, $negative)
+    {
+        $fakeInteger = 0;
         switch($type) {
             case Integer::DECIMAL:
                 $fakeInteger = $this->createDecimal($length);

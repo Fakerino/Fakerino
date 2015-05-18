@@ -12,6 +12,7 @@ namespace Fakerino;
 
 use Fakerino\Configuration\ConfigurationFile\Helper\FileConfigurationLoaderFactory;
 use Fakerino\Configuration\FakerinoConf;
+use Fakerino\Core\Database\DoctrineLayer;
 use Fakerino\Core\FakeDataFactory;
 use Fakerino\Core\FakeHandler;
 
@@ -23,7 +24,6 @@ use Fakerino\Core\FakeHandler;
  */
 final class Fakerino
 {
-
     /**
      * Bootstrap function for Fakerino,
      * setups the global configuration.
@@ -31,7 +31,6 @@ final class Fakerino
      * @param null|array|string $conf
      *
      * @return FakeDataFactory
-     * @throws Configuration\ConfValueNotFoundException
      */
     public static function create($conf = null)
     {
@@ -49,22 +48,27 @@ final class Fakerino
             FakerinoConf::loadConfiguration($confArray);
         }
 
+        return new FakeDataFactory(self::getDefaultHandler(), new DoctrineLayer());
+    }
+
+    /**
+     * Get the global configuration.
+     *
+     * @return array
+     */
+    public static function getConfig()
+    {
+        return FakerinoConf::toArray();
+    }
+
+    private static function getDefaultHandler()
+    {
         $fakeHandler = new FakeHandler\FakeHandler();
         $fakeHandler->setSuccessor(new FakeHandler\FileFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\ConfFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\DefaultFakerClass());
 
-        return new FakeDataFactory($fakeHandler);
-    }
-
-    /**
-     * Get the global configuration.
-     * 
-     * @return array
-     */
-    public static function getConfig()
-    {
-        return FakerinoConf::toArray();
+        return $fakeHandler;
     }
 }

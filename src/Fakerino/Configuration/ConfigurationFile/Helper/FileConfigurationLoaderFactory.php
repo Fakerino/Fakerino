@@ -38,9 +38,9 @@ final class FileConfigurationLoaderFactory
     }
 
     /**
-     * Locates and returns the file if exists
+     * Finds and returns the file if exists
      *
-     * @return ConfigurationInterface
+     * @return Fakerino\Configuration\ConfigurationInterface
      * @throws FileNotFoundException
      */
     public function load()
@@ -57,7 +57,7 @@ final class FileConfigurationLoaderFactory
     /**
      * Returns config file class according to the file's extension
      *
-     * @return ConfigurationInterface
+     * @return Fakerino\Configuration\ConfigurationInterface
      * @throws ConfNotSupportedException
      */
     private function getConfigFile()
@@ -107,6 +107,6 @@ final class FileConfigurationLoaderFactory
             }
         }
 
-        return null;
+        return;
     }
 }

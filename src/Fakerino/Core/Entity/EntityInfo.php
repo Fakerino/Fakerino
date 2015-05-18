@@ -11,7 +11,8 @@
 namespace Fakerino\Core\Entity;
 
 /**
- * Class EntityFiller
+ * Class EntityInfo,
+ * returns information about properties and methods of the provided Entity.
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */

@@ -27,7 +27,7 @@ class OutPutFactory
      *
      * @return string|array
      */
-    public static function getOuput($class, $options = null)
+    public static function getOutput($class, $options = null)
     {
         $fakeClass = new $class($options);
         $generatorName = $fakeClass->generatedBy();

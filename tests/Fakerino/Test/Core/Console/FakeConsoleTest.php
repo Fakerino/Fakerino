@@ -11,9 +11,11 @@
 namespace Fakerino\Test\Core\Console;
 
 use Fakerino\Core\Console\FakeConsole;
+use Fakerino\Core\Database\DoctrineLayer;
 
-class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
+class FakeConsoleTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testCallWithNoArgs()
     {
         $args = array(1 => 'surname');
@@ -52,6 +54,38 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(strlen($result) > 0);
     }
 
+    public function testFillTable()
+    {
+        $testTable = 'testTable';
+        $sql = "CREATE TABLE IF NOT EXISTS`" . $testTable . "` (
+                `numberPk`	INTEGER,
+                `number`	INTEGER,
+                `text`	TEXT,
+                `surname`	TEXT,
+                `description`	BLOB,
+                PRIMARY KEY(numberPk)
+                )";
+        $db = __DIR__ . '/../../Fixtures/test.sqlite';
+        $connectionParams = array(
+            'path' => $db,
+            'driver' => 'pdo_sqlite'
+        );
+        $num = 3;
+        $dLayer = new DoctrineLayer();
+        $dLayer->connect($connectionParams);
+        DoctrineLayer::$conn->query($sql);
+        $fileDir = __DIR__ . '/../../Fixtures/';
+        $testFile = $fileDir . 'file.php';
+        $args = array('1' => '-c', '2' => $testFile, '3' => '-t', '4' => $testTable, '5' => '-n', '6' => $num);
+        $fakeConsole = new FakeConsole($args);
+        $result = $fakeConsole->run();
+        $res = DoctrineLayer::$conn->query("SELECT COUNT(*) FROM ".$testTable);
+        $total = $res->fetchColumn(0);
+
+        $this->assertEquals($num, $total);
+        $this->assertNull($result);
+    }
+
     public function testCallHelper()
     {
         $args = array('1' => '-h');
@@ -77,5 +111,12 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
         $result = (string)$fakeConsole->run();
 
         $this->assertEquals($args[3], count(json_decode($result)));
+    }
+
+    public static function tearDownAfterClass()
+    {
+        DoctrineLayer::$conn = null;
+        $dbFile = __DIR__ . '/../../Fixtures/test.sqlite';
+        unlink($dbFile);
     }
 }

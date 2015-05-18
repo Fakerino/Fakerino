@@ -10,6 +10,8 @@
 
 namespace Fakerino\Core\FakeHandler;
 
+use Fakerino\Core\FakeElement;
+
 /**
  * Class HandlerInterface,
  * interface for fake data request handler.
@@ -31,11 +33,11 @@ interface HandlerInterface
      * Handles the request or redirect the request
      * to the successor.
      *
-     * @param string|array $data
+     * @param FakeElement $data
      *
      * @return string
      */
-    function handle($data);
+    function handle(FakeElement $data);
 
     /**
      * Generates the output.
@@ -45,7 +47,7 @@ interface HandlerInterface
      *
      * @return string|array
      */
-    function getOuput($class, $options = null);
+    function getOutput($class, $options = null);
 
     /**
      * Returns the first Handler in the chain.

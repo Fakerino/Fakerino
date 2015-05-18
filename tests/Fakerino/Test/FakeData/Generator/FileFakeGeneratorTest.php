@@ -12,7 +12,7 @@ namespace Fakerino\Test\FakeData\Generator;
 
 use Fakerino\Configuration\FakerinoConf;
 use Fakerino\FakeData\Core\FileFake;
-use Fakerino\FakeData\Core\GenericString;
+use Fakerino\FakeData\Custom\Text;
 use Fakerino\FakeData\Generator\FileFakeGenerator;
 
 class FileFakeGeneratorTest extends \PHPUnit_Framework_TestCase
@@ -22,7 +22,7 @@ class FileFakeGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         FakerinoConf::loadConfiguration();
         $this->FileFakeGenerator = new FileFakeGenerator();
-        $this->FileFakeGenerator->setCaller(new GenericString());
+        $this->FileFakeGenerator->setCaller(new Text());
     }
 
     public function testConstructor()

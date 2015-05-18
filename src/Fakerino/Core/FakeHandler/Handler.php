@@ -9,6 +9,7 @@
  */
 
 namespace Fakerino\Core\FakeHandler;
+use Fakerino\Core\FakeElement;
 use Fakerino\Core\OutPutFactory;
 
 /**
@@ -49,11 +50,11 @@ abstract class Handler implements HandlerInterface
      * Handles the request or redirect the request
      * to the successor.
      *
-     * @param string|array $data
+     * @param FakeElement $data
      *
      * @return string
      */
-    final public function handle($data)
+    final public function handle(FakeElement $data)
     {
         $processed = $this->process($data);
         if ($processed === null) {
@@ -73,9 +74,9 @@ abstract class Handler implements HandlerInterface
      *
      * @return string|array
      */
-    public function getOuput($class, $options = null)
+    public function getOutput($class, $options = null)
     {
-        return OutPutFactory::getOuput($class, $options);
+        return OutPutFactory::getOutput($class, $options);
     }
 
     /**
@@ -98,7 +99,7 @@ abstract class Handler implements HandlerInterface
     /**
      * Processes the request.
      *
-     * @param string|array $data
+     * @param FakeElement $data
      *
      * @return mixed
      */

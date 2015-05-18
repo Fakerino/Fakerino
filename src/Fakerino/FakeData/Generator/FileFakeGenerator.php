@@ -15,7 +15,7 @@ use Fakerino\DataSource\FakeTxtFile;
 use Fakerino\FakeData\AbstractFakeDataGenerator;
 
 /**
- * Class FromFileGenerator,
+ * Class FileFakeGenerator,
  * gets fake data from a file.
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
@@ -39,7 +39,7 @@ class FileFakeGenerator extends AbstractFakeDataGenerator
             return preg_replace("/\r|\n/", "", $element);
         } else {
 
-            return null;
+            return;
         }
     }
 }

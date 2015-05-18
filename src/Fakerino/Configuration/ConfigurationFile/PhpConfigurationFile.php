@@ -27,7 +27,7 @@ class PhpConfigurationFile extends AbstractConfigurationFile
     {
         $conf = null;
         $phpConfFile = $this->getConfFilePath();
-        require_once($phpConfFile);
+        require ($phpConfFile);
         if ($conf === null) {
             throw new ConfNotSupportedException($phpConfFile);
         }

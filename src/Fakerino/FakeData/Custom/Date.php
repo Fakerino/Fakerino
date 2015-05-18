@@ -8,25 +8,32 @@
  * file that was distributed with this source code.
  */
 
-namespace Fakerino\FakeData\Core;
+namespace Fakerino\FakeData\Custom;
 
 use Fakerino\FakeData\AbstractFakeData;
 
 /**
- * Class GenericString,
- * is a generic fake string.
+ * Class Date,
+ * fakes a date.
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class GenericString extends AbstractFakeData
+class Date extends AbstractFakeData
 {
+    const DECIMAL = 'decimal';
+    const HEX = 'hex';
+    const OCTAL = 'octal';
+    const BINARY = 'binary';
+
     /**
      * {@inheritdoc}
      */
     public function getDefaultOptions()
     {
         return array(
-            'length' => rand(3, 20)
+            'format' => 'Y-m-d',
+            'startDate' => '1970-01-01',
+            'endDate' => date('Y-m-d')
         );
     }
 
@@ -42,6 +49,6 @@ class GenericString extends AbstractFakeData
      */
     public function generatedBy()
     {
-        return 'Fakerino\\FakeData\\Generator\\RandomStringGenerator';
+        return 'Fakerino\\FakeData\\Generator\\DateGenerator';
     }
 }

@@ -10,6 +10,7 @@
 
 namespace Fakerino\Test\Core\FakeHandler;
 
+use Fakerino\Core\FakeElement;
 use Fakerino\Core\FakeHandler\DefaultFakerClass;
 
 class DefaultFakerClassTest extends \PHPUnit_Framework_TestCase
@@ -17,7 +18,7 @@ class DefaultFakerClassTest extends \PHPUnit_Framework_TestCase
     public function testHandler()
     {
         $handler = new DefaultFakerClass();
-        $customClass = 'GenericString';
+        $customClass = new FakeElement('GenericString');
 
         $this->assertInstanceOf('Fakerino\Core\FakeHandler\Handler', $handler);
         $this->assertInternalType('string', $handler->handle($customClass));

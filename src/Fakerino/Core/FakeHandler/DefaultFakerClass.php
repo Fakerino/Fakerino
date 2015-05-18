@@ -24,6 +24,6 @@ class DefaultFakerClass extends Handler
      */
     protected function process($data)
     {
-        return $this->getOuput('Fakerino\\FakeData\\Core\\GenericString');
+        return $this->getOutput('Fakerino\\FakeData\\Custom\\Text');
     }
 }

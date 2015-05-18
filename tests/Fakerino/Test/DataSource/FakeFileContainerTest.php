@@ -11,6 +11,7 @@
 namespace Fakerino\Test\DataSource;
 
 use Fakerino\DataSource\FakeFileContainer;
+use Fakerino\DataSource\File\File;
 
 class FakeTxtFileTest extends \PHPUnit_Framework_TestCase
 {
@@ -27,5 +28,15 @@ class FakeTxtFileTest extends \PHPUnit_Framework_TestCase
         $fileDir = __DIR__ . '/../Fixtures/';
 
         $this->assertInstanceOf('\SplFileInfo', $container->get('file.txt', $fileDir));
+    }
+
+    public function testAddMethod()
+    {
+        $container = new FakeFileContainer();
+        $fileDir = __DIR__ . '/../Fixtures/';
+        $file = new File($fileDir.'file.txt');
+        $container->add('file', $file);
+
+        $this->assertInstanceOf('\SplFileInfo', $container->get('file', ''));
     }
 }

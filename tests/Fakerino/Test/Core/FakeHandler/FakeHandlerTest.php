@@ -10,6 +10,7 @@
 
 namespace Fakerino\Test\Core\FakeHandler;
 
+use Fakerino\Core\FakeElement;
 use Fakerino\Core\FakeHandler\FakeHandler;
 
 class FakeHandlerTest extends \PHPUnit_Framework_TestCase
@@ -19,7 +20,7 @@ class FakeHandlerTest extends \PHPUnit_Framework_TestCase
         $handler = new FakeHandler();
 
         $this->assertInstanceOf('Fakerino\Core\FakeHandler\Handler', $handler);
-        $this->assertNull($handler->handle(null));
+        $this->assertNull($handler->handle(new FakeElement('null')));
     }
 
 }

@@ -14,7 +14,7 @@ use Fakerino\FakeData\AbstractFakeData;
 
 /**
  * Class Integer,
- * is a fake integer.
+ * fakes an integer.
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */

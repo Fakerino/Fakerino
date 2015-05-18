@@ -21,33 +21,41 @@ use Fakerino\Core\FakeDataFactory;
  */
 class EntityFiller implements FillerInterface
 {
+    private $entity;
+    private $faker;
+
     /**
      * @param mixed           $entity
      * @param FakeDataFactory $faker
-     *
+     */
+    public function __construct($entity, FakeDataFactory $faker)
+    {
+        $this->entity = $entity;
+        $this->faker = $faker;
+    }
+
+    /**
      * @return bool
      */
-    public function fill($entity, FakeDataFactory $faker)
+    public function fill()
     {
-        $this->fillProperties($entity, $faker);
-        $this->fillMethods($entity, $faker);
+        $this->fillProperties();
+        $this->fillMethods();
 
         return true;
     }
 
     /**
      * Fills properties.
-     *
-     * @param mixed           $entity
-     * @param FakeDataFactory $faker
      */
-    public function fillProperties($entity, FakeDataFactory $faker)
+    public function fillProperties()
     {
+        $entity = $this->entity;
         $entityInfo = new EntityInfo($entity);
         $entityProperties = $entityInfo->getProperties();
         foreach ($entityProperties as $property) {
             $propertyName = $property->getName();
-            $fakeData = $faker->fake($propertyName)->toArray();
+            $fakeData = $this->faker->fake($propertyName)->toArray();
             if ($property->isStatic()) {
                 $entity::$$propertyName = $fakeData[0];
             } else {
@@ -58,18 +66,16 @@ class EntityFiller implements FillerInterface
 
     /**
      * Fills mehtods.
-     *
-     * @param mixed           $entity
-     * @param FakeDataFactory $faker
      */
-    public function fillMethods($entity, FakeDataFactory $faker)
+    public function fillMethods()
     {
+        $entity = $this->entity;
         $entityInfo = new EntityInfo($entity);
         $entityMethods = $entityInfo->getSetters();
         foreach ($entityMethods as $methods) {
             $methodsName = $methods->getName();
             $nameToFake = substr($methodsName, 3, strlen($methodsName));
-            $fakeData = $faker->fake($nameToFake)->toArray();
+            $fakeData = $this->faker->fake($nameToFake)->toArray();
             if ($methods->isStatic()) {
                 $entity::$methodsName($fakeData[0]);
             } else {

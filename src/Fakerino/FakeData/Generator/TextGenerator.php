@@ -13,7 +13,7 @@ namespace Fakerino\FakeData\Generator;
 use Fakerino\FakeData\AbstractFakeDataGenerator;
 
 /**
- * Class RandomStringGenerator,
+ * Class TextGenerator,
  * generates a random string shuffling the const CHARS.
  * Could receive extra options:
  * length, for setting the string length;
@@ -21,7 +21,7 @@ use Fakerino\FakeData\AbstractFakeDataGenerator;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class RandomStringGenerator extends AbstractFakeDataGenerator
+class TextGenerator extends AbstractFakeDataGenerator
 {
     const MINLENGTH = 4;
     const MAXLENGTH = 20;

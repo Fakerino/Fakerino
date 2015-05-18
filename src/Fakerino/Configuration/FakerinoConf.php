@@ -25,7 +25,6 @@ class FakerinoConf
      */
     private static $conf;
 
-
     /**
      * Loads the default configuration if it's not present a custom one.
      *

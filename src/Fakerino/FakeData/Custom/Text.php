@@ -13,11 +13,12 @@ namespace Fakerino\FakeData\Custom;
 use Fakerino\FakeData\AbstractFakeData;
 
 /**
- * Class Name
+ * Class Text,
+ * fakes a string.
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class RandomString extends AbstractFakeData
+class Text extends AbstractFakeData
 {
     /**
      * {@inheritdoc}

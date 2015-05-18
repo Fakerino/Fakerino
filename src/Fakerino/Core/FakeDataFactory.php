@@ -10,8 +10,12 @@
 
 namespace Fakerino\Core;
 
-use Fakerino\Core\Filler\EntityFiller;
+use Fakerino\Configuration\FakerinoConf;
+use Fakerino\Core\Database\DbInterface;
 use Fakerino\Core\FakeHandler\HandlerInterface;
+use Fakerino\Core\Filler\DbFiller;
+use Fakerino\Core\Filler\EntityFiller;
+use Fakerino\FakeData\Exception\MissingRequiredOptionException;
 
 /**
  * Class FakeDataFactory,
@@ -21,91 +25,112 @@ use Fakerino\Core\FakeHandler\HandlerInterface;
  */
 class FakeDataFactory
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     private $out;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $outString;
 
-    /**
-     * @var HandlerInterface
-     */
-    private $fakeHandler;
-
-    /**
-     * @var string|array
-     */
+    /** @var string|array */
     private $startElement;
 
+    /** @var HandlerInterface */
+    private $fakeHandler;
+
+    /** @var  DbInterface */
+    private $db;
+
+    /** @var  int */
+    private $num = 1;
+
     /**
-     * It receives the handlers priority for the fake request.
+     * It receives:
+     * the handlers priority for the fake request,
+     * the DbInterface for the fillTable operation,
      *
      * @param HandlerInterface $fakeHandler
+     * @param DbInterface      $db
      */
-    public function __construct(HandlerInterface $fakeHandler)
+    public function __construct(
+        HandlerInterface $fakeHandler,
+        DbInterface $db
+    )
     {
         $this->fakeHandler = $fakeHandler;
+        $this->db = $db;
     }
 
     /**
-     * Setups the first element and initializes the output,
-     * then starts to fake.
+     * Setups the fake element and initializes the output.
      *
-     * @param string|array $elementName
+     * @param string|array|null $elementName
      *
-     * @return $this
+     * @return FakeDataFactory $this
+     * @throws \Fakerino\FakeData\Exception\MissingRequiredOptionException
      */
-    public function fake($elementName)
+    public function fake($elementName = null)
     {
+        if ($elementName === null) {
+            throw new MissingRequiredOptionException('element to fake');
+        }
         $this->startElement = $elementName;
         $this->out = array();
         $this->outString = null;
 
-        return $this->startFake($elementName);
+        return $this;
     }
 
     /**
      * Fills the given entity with fake data.
      *
-     * @param object $entity
+     * @param object|null $entity
      *
      * @return bool
+     * @throws \Fakerino\FakeData\Exception\MissingRequiredOptionException
      */
-    public function fillEntity($entity)
+    public function fillEntity($entity = null)
     {
-        $entityFiller = new EntityFiller();
+        if ($entity === null) {
+            throw new MissingRequiredOptionException('entity to fake');
+        }
+        $entityFiller = new EntityFiller($entity, $this);
 
-        return $entityFiller->fill($entity, $this);
+        return $entityFiller->fill();
     }
 
     /**
-     * Iterates the fake process $num times
+     * Fills the given table with fake data.
      *
-     * @param integer $num
+     * @param string|null $tableName
      *
-     * @return $this
+     * @return array $rows
+     * @throws \Fakerino\FakeData\Exception\MissingRequiredOptionException
+     */
+    public function fillTable($tableName = null)
+    {
+        if ($tableName === null) {
+            throw new MissingRequiredOptionException('table name');
+        }
+        $connectionParams = FakerinoConf::get('database');
+        $dbFiller = new DbFiller($connectionParams, $this->db, $tableName, $this, $this->num);
+        $rows = $dbFiller->fill();
+
+        return $rows;
+    }
+
+    /**
+     * Sets $num for iterate the fake process.
+     *
+     * @param int $num
+     *
+     * @return FakeDataFactory $this
      * @throws \Exception
      */
-    public function num($num)
+    public function num($num = 1)
     {
-        $out = array();
-        $out[] = $this->out;
-        if ($this->startElement !== null) {
-            for ($i = 1; $i < $num; $i++) {
-                $this->fake($this->startElement);
-                $out[] = $this->out;
-            }
-            $this->out = $out;
+        $this->num = $num;
 
-            return $this;
-        } else {
-
-            throw new \Exception('Please call first the fake method');
-        }
+        return $this;
     }
 
     /**
@@ -113,6 +138,8 @@ class FakeDataFactory
      */
     public function toArray()
     {
+        $this->startFake($this->startElement, $this->num);
+
         return $this->out;
     }
 
@@ -121,6 +148,8 @@ class FakeDataFactory
      */
     public function toJson()
     {
+        $this->startFake($this->startElement, $this->num);
+
         return json_encode($this->out);
     }
 
@@ -129,37 +158,27 @@ class FakeDataFactory
      */
     public function __toString()
     {
+        $this->startFake($this->startElement, $this->num);
         array_walk_recursive($this->out, array($this, 'arrayToString'));
 
         return $this->outString;
     }
 
-    private function startFake($elementName)
+    private function startFake($elementName, $num)
     {
         $out = array();
-        $elementToFake = $this->setElementToFake($elementName);
-        foreach ($elementToFake as $key => $val) {
-            $element = $this->findElementFrom($key, $val);
-            $out[] = $this->fakeHandler->handle($element);
-        }
-        $this->out = $this->flat($out);
-
-        return $this;
-    }
-
-    private function flat($array)
-    {
-        $flatArr = array();
-        $recursiveArrayIterator = new \RecursiveArrayIterator($array);
-        $iterator = new \RecursiveIteratorIterator($recursiveArrayIterator);
-        foreach ($iterator as $value) {
-            $flatArr[] = $value;
+        $elementToFake = $this->getElementToFake($elementName);
+        for ($i = 0; $i < $num; $i++) {
+            foreach ($elementToFake as $key => $val) {
+                $element = new FakeElement($key, $val);
+                $out[] = $this->fakeHandler->handle($element);
+            }
         }
 
-        return $flatArr;
+        $this->out = $out;
     }
 
-    private function setElementToFake($elementsName)
+    private function getElementToFake($elementsName)
     {
         if (!is_array($elementsName)) {
 
@@ -167,16 +186,6 @@ class FakeDataFactory
         }
 
         return $elementsName;
-    }
-
-    private function findElementFrom($key, $val)
-    {
-        if (is_numeric($key)) {
-
-            return $val;
-        }
-
-        return $key;
     }
 
     private function arrayToString($arr)

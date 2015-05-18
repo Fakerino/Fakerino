@@ -11,6 +11,7 @@
 namespace Fakerino\Test\Core\FakeHandler;
 
 use Fakerino\Configuration\FakerinoConf;
+use Fakerino\Core\FakeElement;
 use Fakerino\Core\FakeHandler\FileFakerClass;
 
 class FileFakerClassTest extends \PHPUnit_Framework_TestCase
@@ -18,13 +19,13 @@ class FileFakerClassTest extends \PHPUnit_Framework_TestCase
     public function testHandler()
     {
         $handler = new FileFakerClass();
-        $customClass = 'Surname';
+        $customClass = new FakeElement('Surname');
 
         $fakeFile = FakerinoConf::get('fakeFilePath')
             . DIRECTORY_SEPARATOR
             . FakerinoConf::get('locale')
             . DIRECTORY_SEPARATOR
-            . strtolower($customClass) . '.txt';
+            . strtolower($customClass->getName()) . '.txt';
         $fileContentRaw = file($fakeFile);
         $fileContent = array();
         foreach ($fileContentRaw as $val) {

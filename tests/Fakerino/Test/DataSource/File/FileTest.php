@@ -10,7 +10,6 @@
 
 namespace Fakerino\Test\DataSource\File;
 
-use Fakerino\DataSource\File\Exception\FileEpmtyException;
 use Fakerino\DataSource\File\File;
 
 class FileTest extends \PHPUnit_Framework_TestCase

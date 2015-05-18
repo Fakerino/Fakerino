@@ -38,7 +38,7 @@ class FakeFileContainer
     }
 
     /**
-     * Gets a file from container, 
+     * Gets a file from container,
      * or create a new one if not present.
      *
      * @param string $name

@@ -23,6 +23,6 @@ class FakeHandler extends Handler
      */
     protected function process($data)
     {
-        return null;
+        return;
     }
 }
