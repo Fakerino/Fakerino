@@ -14,6 +14,7 @@ use Fakerino\Core\Database\DoctrineLayer;
 use Fakerino\Core\FakeDataFactory;
 use Fakerino\Core\FakeHandler;
 use Fakerino\Core\Filler\DbFiller;
+use Fakerino\Core\Template\TwigTemplate;
 
 class DbFillerTest extends \PHPUnit_Framework_TestCase
 {
@@ -30,7 +31,7 @@ class DbFillerTest extends \PHPUnit_Framework_TestCase
         $fakeHandler = new FakeHandler\FakeHandler();
         $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\DefaultFakerClass());
-        $faker = new FakeDataFactory($fakeHandler, new DoctrineLayer());
+        $faker = new FakeDataFactory($fakeHandler, new DoctrineLayer(), new TwigTemplate());
         $this->mockDoctrineLayer = $this->getMockBuilder('Fakerino\Core\Database\DoctrineLayer')
             ->getMock();
         $this->dbFiller = new DbFiller($this->connectionParams, $this->mockDoctrineLayer, $this->testTable, $faker, $this->num);

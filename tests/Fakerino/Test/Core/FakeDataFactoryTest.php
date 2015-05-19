@@ -14,6 +14,7 @@ use Fakerino\Configuration\FakerinoConf;
 use Fakerino\Core\Database\DoctrineLayer;
 use Fakerino\Core\FakeDataFactory;
 use Fakerino\Core\FakeHandler;
+use Fakerino\Core\Template\TwigTemplate;
 use Fakerino\Test\Fixtures\TestEntity;
 
 class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
@@ -36,7 +37,7 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
         $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\ConfFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\DefaultFakerClass());
-        $this->fakeGenerator = new FakeDataFactory($fakeHandler, new DoctrineLayer());
+        $this->fakeGenerator = new FakeDataFactory($fakeHandler, new DoctrineLayer(), new TwigTemplate());
     }
 
     public function testFakeMethod()
@@ -128,4 +129,18 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($testEntity->getFour());
     }
 
+    public function testFakeTemplateFile()
+    {
+        $templateFile = __DIR__ . '/../Fixtures/template.html';
+        $res = $this->fakeGenerator->fakeTemplate($templateFile);
+
+        $this->assertNotContains('{{ surname }}', $res);
+    }
+
+    public function testFakeTemplateString()
+    {
+        $res = $this->fakeGenerator->fakeTemplate('Hello {{ surname }}');
+
+        $this->assertNotContains('{{ surname }}', $res);
+    }
 }

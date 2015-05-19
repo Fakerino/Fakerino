@@ -15,6 +15,7 @@ use Fakerino\Core\Database\DbInterface;
 use Fakerino\Core\FakeHandler\HandlerInterface;
 use Fakerino\Core\Filler\DbFiller;
 use Fakerino\Core\Filler\EntityFiller;
+use Fakerino\Core\Template\TemplateInterface;
 use Fakerino\FakeData\Exception\MissingRequiredOptionException;
 
 /**
@@ -34,11 +35,14 @@ class FakeDataFactory
     /** @var string|array */
     private $startElement;
 
-    /** @var HandlerInterface */
+    /** @var \Fakerino\Core\FakeHandler\HandlerInterface  */
     private $fakeHandler;
 
-    /** @var  DbInterface */
+    /** @var \Fakerino\Core\Database\DbInterface  */
     private $db;
+
+    /** @var \Fakerino\Core\Template\TemplateInterface  */
+    private $template;
 
     /** @var  int */
     private $num = 1;
@@ -47,17 +51,21 @@ class FakeDataFactory
      * It receives:
      * the handlers priority for the fake request,
      * the DbInterface for the fillTable operation,
+     * and the TemplateInterface for the fakeTemplate operation.
      *
-     * @param HandlerInterface $fakeHandler
-     * @param DbInterface      $db
+     * @param HandlerInterface  $fakeHandler
+     * @param DbInterface       $db
+     * @param TemplateInterface $template
      */
     public function __construct(
         HandlerInterface $fakeHandler,
-        DbInterface $db
+        DbInterface $db,
+        TemplateInterface $template
     )
     {
         $this->fakeHandler = $fakeHandler;
         $this->db = $db;
+        $this->template = $template;
     }
 
     /**
@@ -116,6 +124,23 @@ class FakeDataFactory
         $rows = $dbFiller->fill();
 
         return $rows;
+    }
+
+    /**
+     * Fakes a template file.
+     *
+     * @param string $file
+     *
+     * @return string
+     */
+    public function fakeTemplate($file)
+    {
+        $this->template->loadTemplate($file);
+        $varsName = $this->template->getVariables();
+        $fakeData = $this->num(1)->fake($varsName)->toArray();
+        $data = array_combine(array_values($varsName), $fakeData);
+
+        return $this->template->render($data);
     }
 
     /**

@@ -14,6 +14,7 @@ use Fakerino\Core\Database\DoctrineLayer;
 use Fakerino\Core\FakeDataFactory;
 use Fakerino\Core\FakeHandler;
 use Fakerino\Core\Filler\EntityFiller;
+use Fakerino\Core\Template\TwigTemplate;
 use Fakerino\Test\Fixtures\TestEntity;
 
 class EntityFillerTest extends \PHPUnit_Framework_TestCase
@@ -24,7 +25,7 @@ class EntityFillerTest extends \PHPUnit_Framework_TestCase
         $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\DefaultFakerClass());
 
-        $this->faker = new FakeDataFactory($fakeHandler, new DoctrineLayer());
+        $this->faker = new FakeDataFactory($fakeHandler, new DoctrineLayer(), new TwigTemplate());
     }
 
     public function testFillProperties()

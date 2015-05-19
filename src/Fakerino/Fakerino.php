@@ -15,6 +15,7 @@ use Fakerino\Configuration\FakerinoConf;
 use Fakerino\Core\Database\DoctrineLayer;
 use Fakerino\Core\FakeDataFactory;
 use Fakerino\Core\FakeHandler;
+use Fakerino\Core\Template\TwigTemplate;
 
 /**
  * Class Fakerino,
@@ -48,7 +49,7 @@ final class Fakerino
             FakerinoConf::loadConfiguration($confArray);
         }
 
-        return new FakeDataFactory(self::getDefaultHandler(), new DoctrineLayer());
+        return new FakeDataFactory(self::getDefaultHandler(), new DoctrineLayer(), new TwigTemplate());
     }
 
     /**

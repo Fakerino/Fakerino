@@ -1,3 +1,7 @@
+0.6.0 / 2015-05-19
+==================
+  * Add fakeTemplate feature
+
 0.5.0 / 2015-05-18
 ==================
   * Add fillTable feature

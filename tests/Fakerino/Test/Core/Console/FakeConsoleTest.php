@@ -113,6 +113,28 @@ class FakeConsoleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($args[3], count(json_decode($result)));
     }
 
+    public function testCallTemplateFile()
+    {
+        $templateFile =  __DIR__ . '/../../Fixtures/template.html';
+        $args = array(1 => '-s', '2' => $templateFile);
+        $fakeConsole = new FakeConsole($args);
+        $result = (string)$fakeConsole->run();
+
+        $this->assertInternalType('string', $result);
+        $this->assertNotContains('{{ surname }}', $result);
+    }
+
+    public function testCallTemplateString()
+    {
+        $templateString =  'Hello Mr {{ surname }}';
+        $args = array(1 => '-s', '2' => $templateString);
+        $fakeConsole = new FakeConsole($args);
+        $result = (string)$fakeConsole->run();
+
+        $this->assertInternalType('string', $result);
+        $this->assertNotContains('{{ surname }}', $result);
+    }
+
     public static function tearDownAfterClass()
     {
         DoctrineLayer::$conn = null;

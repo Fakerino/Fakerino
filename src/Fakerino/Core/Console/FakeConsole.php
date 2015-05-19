@@ -27,6 +27,7 @@ class FakeConsole
     private $num;
     private $locale;
     private $table;
+    private $templateSource;
 
     /**
      * Constructor.
@@ -49,6 +50,7 @@ class FakeConsole
         $this->locale = $this->getParam('-l', true);
         $this->help = $this->getParam('-h');
         $this->table = $this->getParam('-t', true);
+        $this->templateSource = $this->getParam('-s', true);
     }
 
     private function getParam($flag, $hasValue = false)
@@ -96,6 +98,9 @@ class FakeConsole
 
             return;
         }
+        if ($this->templateSource) {
+            return $fakerino->num($this->num)->fakeTemplate($this->templateSource);
+        }
         $fakerino = $fakerino->fake($this->input)->num($this->num);
 
         if ($this->json) {
@@ -112,11 +117,13 @@ class FakeConsole
         $helper = 'Usage:' . PHP_EOL;
         $helper .= ' app/fake <fake data name> [-j] [-n <integer>] [-c <config file path>]' .PHP_EOL . PHP_EOL;
         $helper .= 'Options:' . PHP_EOL;
-        $helper .= str_pad(' -j', 15) . 'Returns JSON format (default string)' . PHP_EOL;
-        $helper .= str_pad(' -n <num>', 15) . 'Returns <num> times the result' . PHP_EOL;
-        $helper .= str_pad(' -l', 15) . 'Changes the locale settings (default en-GB)' . PHP_EOL;
-        $helper .= str_pad(' -c <conf>', 15) . 'Uses the <conf> file for generating data (override the locale -l if set)' . PHP_EOL;
-        $helper .= str_pad(' -h', 15) . 'Displays this help' . PHP_EOL;
+        $helper .= str_pad(' -j', 20) . 'Returns JSON format (default string)' . PHP_EOL;
+        $helper .= str_pad(' -n <num>', 20) . 'Returns <num> times the result' . PHP_EOL;
+        $helper .= str_pad(' -l', 20) . 'Changes the locale settings (default en-GB)' . PHP_EOL;
+        $helper .= str_pad(' -c <conf>', 20) . 'Uses the <conf> file for generating data (override the locale -l if set)' . PHP_EOL;
+        $helper .= str_pad(' -t <table>', 20) . 'Fills fake data in the specified <table> (requires a config file)' . PHP_EOL;
+        $helper .= str_pad(' -s <file|string>', 20) . 'Returns a fake data from specified <file> or <string> template source' . PHP_EOL;
+        $helper .= str_pad(' -h', 20) . 'Displays this help' . PHP_EOL;
 
         return $helper;
     }
