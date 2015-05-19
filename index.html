@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Fakerino by niklongstone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Fakerino</h1>
+      <h2 class="project-tagline">PHP Fake data generator framework with multiple input and output formats.</h2>
+      <a href="https://github.com/niklongstone/Fakerino" class="btn">View on GitHub</a>
+      <a href="https://github.com/niklongstone/Fakerino/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/niklongstone/Fakerino/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="fakerino" class="anchor" href="#fakerino" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fakerino</h1>
+
+<p>Fakerino is a fake data generator framework fully extensible.</p>
+
+<p><a href="https://packagist.org/packages/fakerino/fakerino"><img src="https://poser.pugx.org/fakerino/fakerino/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/fakerino/fakerino"><img src="https://poser.pugx.org/fakerino/fakerino/v/unstable.svg" alt="Latest Unstable Version"></a>
+<a href="https://travis-ci.org/niklongstone/Fakerino"><img src="https://travis-ci.org/niklongstone/Fakerino.svg?branch=master" alt="Travis Ci"></a></p>
+
+<p><a href="https://insight.sensiolabs.com/projects/4e7de12a-8fc4-4626-a33d-3287a20f02f6"><img src="https://insight.sensiolabs.com/projects/4e7de12a-8fc4-4626-a33d-3287a20f02f6/mini.png" alt="SensioLabsInsight"></a>
+<a href="https://www.codacy.com/public/niklongstone/Fakerino"><img src="https://www.codacy.com/project/badge/ff6ba56b25fe4d6486a0c6f86e55d172" alt="Codacy Badge"></a>
+<a href="https://codeclimate.com/github/niklongstone/Fakerino"><img src="https://codeclimate.com/github/niklongstone/Fakerino/badges/gpa.svg" alt="Code Climate"></a>
+<a href="https://scrutinizer-ci.com/g/niklongstone/Fakerino"><img src="https://img.shields.io/scrutinizer/g/niklongstone/Fakerino.svg?style=flat-square" alt="Quality Score"></a></p>
+
+<p><a href="https://packagist.org/packages/fakerino/fakerino"><img src="https://poser.pugx.org/fakerino/fakerino/license.svg" alt="License"></a></p>
+
+<h3>
+<a id="main-features" class="anchor" href="#main-features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Main features</h3>
+
+<p>Fakerino can:</p>
+
+<ul>
+<li>Fakes simple data (e.g. name, surname, integer, text, ...).</li>
+<li>Fakes complex data (e.g. person: name, surname, hobby, country, ... ).</li>
+<li>Fakes data multiple times.</li>
+<li>Fakes a database table row/s automatically.</li>
+<li>Fakes a string or file template automatically (e.g. Hello Mr {{ surname }})</li>
+<li>Fakes a PHP Object.</li>
+<li>Supports JSON, Array and string output.</li>
+</ul>
+
+<p>For more information about installation, functions, support, contribution, or other,
+please read the <strong><a href="https://github.com/niklongstone/Fakerino/wiki">Fakerino wiki</a></strong>.</p>
+
+<h3>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h3>
+
+<p><code>composer create-project fakerino/fakerino fakerino</code></p>
+
+<h3>
+<a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick start</h3>
+
+<div class="highlight highlight-PHP"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">require</span> (<span class="pl-s"><span class="pl-pds">'</span>../Fakerino/vendor/autoload.php<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Fakerino\Fakerino</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$fakerino</span> <span class="pl-k">=</span> <span class="pl-c1">Fakerino</span><span class="pl-k">::</span>create();</span>
+<span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-smi">$fakerino</span><span class="pl-k">-&gt;</span>fake(<span class="pl-s"><span class="pl-pds">'</span>Surname<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span>toJson(); <span class="pl-c">//["Donovan"]</span></span>
+<span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-smi">$fakerino</span><span class="pl-k">-&gt;</span>fake(<span class="pl-s"><span class="pl-pds">'</span>nameFemale<span class="pl-pds">'</span></span>); <span class="pl-c">//Alice</span></span>
+<span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-smi">$fakerino</span><span class="pl-k">-&gt;</span>fake(<span class="pl-s"><span class="pl-pds">'</span>nameMale<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span>num(<span class="pl-c1">3</span>); <span class="pl-c">//Bob Jack Rick</span></span>
+<span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-smi">$fakerino</span><span class="pl-k">-&gt;</span>fake(<span class="pl-c1">array</span>(<span class="pl-s"><span class="pl-pds">'</span>nameMale<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Surname<span class="pl-pds">'</span></span>))<span class="pl-k">-&gt;</span>num(<span class="pl-c1">3</span>)<span class="pl-k">-&gt;</span>toJson(); <span class="pl-c">//[["Simon","Rodgers"],["Dean","Smith"],["Anthony","Bauman"]]</span></span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">//with configuration</span></span>
+<span class="pl-s1"><span class="pl-smi">$fakerino</span> <span class="pl-k">=</span> <span class="pl-c1">Fakerino</span><span class="pl-k">::</span>create(<span class="pl-s"><span class="pl-pds">'</span>./conf.php<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"><span class="pl-c1">print_r</span>(<span class="pl-smi">$fakerino</span><span class="pl-k">-&gt;</span>fake(<span class="pl-s"><span class="pl-pds">'</span>fake1<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span>toArray());</span>
+<span class="pl-s1">  <span class="pl-c">/*</span></span>
+<span class="pl-s1"><span class="pl-c">  Array(</span></span>
+<span class="pl-s1"><span class="pl-c">   [0] =&gt; Arthur</span></span>
+<span class="pl-s1"><span class="pl-c">   [1] =&gt; Doyle</span></span>
+<span class="pl-s1"><span class="pl-c">  )</span></span>
+<span class="pl-s1"><span class="pl-c">  */</span></span></pre></div>
+
+<h4>
+<a id="with-command-line" class="anchor" href="#with-command-line" aria-hidden="true"><span class="octicon octicon-link"></span></a>With Command line</h4>
+
+<p><code>app/fake -h</code> //for help<br>
+<code>app/fake namemale surname</code> //Travis Baldwin<br>
+<code>app/fake surname -j</code> //["Brooks"]<br>
+<code>app/fake nameMale -n 2</code> //Nick Andy<br>
+<code>app/fake country -c path/config.ini</code> //uses a config file<br>
+<code>app/fake surname -l de-DE</code> //Schleßinger<br>
+<code>app/fake -s 'Hello Mrs {{namefemale}} {{surname}}' -l de-DE</code> //Hello Mrs Seeliger Ceylin</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/niklongstone/Fakerino">Fakerino</a> is maintained by <a href="https://github.com/niklongstone">niklongstone</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
