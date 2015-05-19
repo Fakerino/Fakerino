@@ -59,13 +59,13 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
     public function testFillEntiyWithEmptyElement()
     {
         $this->setExpectedException('Fakerino\FakeData\Exception\MissingRequiredOptionException');
-        $this->fakeGenerator->fillEntity();
+        $this->fakeGenerator->fakeEntity();
     }
 
     public function testFillTableWithEmptyElement()
     {
         $this->setExpectedException('Fakerino\FakeData\Exception\MissingRequiredOptionException');
-        $this->fakeGenerator->fillTable();
+        $this->fakeGenerator->fakeTable();
     }
 
     public function testFakeCallWithConfElement()
@@ -123,7 +123,7 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
     public function testEntityFiller()
     {
         $testEntity = new TestEntity();
-        $this->fakeGenerator->fillEntity($testEntity);
+        $this->fakeGenerator->fakeEntity($testEntity);
 
         $this->assertNotNull($testEntity->getOne());
         $this->assertNotNull($testEntity->getFour());

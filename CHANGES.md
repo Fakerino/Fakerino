@@ -1,3 +1,7 @@
+0.6.1 / 2015-05-19
+==================
+  * Removed deprecated method fillEntity and fillTable
+
 0.6.0 / 2015-05-19
 ==================
   * Add fakeTemplate feature

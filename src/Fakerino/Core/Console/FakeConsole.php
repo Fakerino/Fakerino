@@ -94,7 +94,7 @@ class FakeConsole
             $this->num = 1;
         }
         if ($this->table) {
-            $fakerino->num($this->num)->fillTable($this->table);
+            $fakerino->num($this->num)->fakeTable($this->table);
 
             return;
         }

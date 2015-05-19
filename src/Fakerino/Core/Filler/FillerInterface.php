@@ -19,7 +19,7 @@ namespace Fakerino\Core\Filler;
 interface FillerInterface
 {
     /**
-     * @return array
+     * @return mixed
      */
     public function fill();
 }

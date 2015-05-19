@@ -50,7 +50,7 @@ class FakeDataFactory
     /**
      * It receives:
      * the handlers priority for the fake request,
-     * the DbInterface for the fillTable operation,
+     * the DbInterface for the fakeTable operation,
      * and the TemplateInterface for the fakeTemplate operation.
      *
      * @param HandlerInterface  $fakeHandler
@@ -96,7 +96,7 @@ class FakeDataFactory
      * @return bool
      * @throws \Fakerino\FakeData\Exception\MissingRequiredOptionException
      */
-    public function fillEntity($entity = null)
+    public function fakeEntity($entity = null)
     {
         if ($entity === null) {
             throw new MissingRequiredOptionException('entity to fake');
@@ -114,7 +114,7 @@ class FakeDataFactory
      * @return array $rows
      * @throws \Fakerino\FakeData\Exception\MissingRequiredOptionException
      */
-    public function fillTable($tableName = null)
+    public function fakeTable($tableName = null)
     {
         if ($tableName === null) {
             throw new MissingRequiredOptionException('table name');
