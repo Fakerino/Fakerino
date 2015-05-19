@@ -60,4 +60,5 @@ print_r($fakerino->fake('fake1')->toArray());
 `app/fake nameMale -n 2` //Nick Andy  
 `app/fake country -c path/config.ini` //uses a config file  
 `app/fake surname -l de-DE` //Schleßinger  
-`app/fake -s 'Hello Mrs {{namefemale}} {{surname}}' -l de-DE` //Hello Mrs Seeliger Ceylin
+`app/fake -s 'Hello Mrs {{namefemale}} {{surname}}' -l de-DE` //Hello Mrs Seeliger Ceylin  
+`app/fake -t tableName -c path/confix.xml -n 10` //Inserts 10 fake rows into tableName  
