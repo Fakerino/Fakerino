@@ -25,15 +25,23 @@ Fakerino can:
 For more information about installation, functions, support, contribution, or other,
 please read the __[Fakerino wiki](https://github.com/niklongstone/Fakerino/wiki)__.
 
-
-
 ### Installation
-`composer create-project fakerino/fakerino fakerino`
+Use [Composer](https://getcomposer.org/download/) to manage the dependencies of your project.
+#### Inside your project
+```sh
+composer require fakerino/fakerino
+cd vendor/fakerino/fakerino
+build/ods
+```
+#### Like a stand-alone project with 
+```sh
+composer create-project fakerino/fakerino fakerino
+```
 
 ### Quick start
-```
+```PHP
 <?php
-require ('../Fakerino/vendor/autoload.php');
+require ('vendor/autoload.php'); 
 use Fakerino\Fakerino;
 
 $fakerino = Fakerino::create();
