@@ -56,13 +56,25 @@ please read the <strong><a href="https://github.com/niklongstone/Fakerino/wiki">
 <h3>
 <a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h3>
 
-<p><code>composer create-project fakerino/fakerino fakerino</code></p>
+<p>Use <a href="https://getcomposer.org/download/">Composer</a> to manage the dependencies of your project.</p>
+
+<h4>
+<a id="inside-your-project" class="anchor" href="#inside-your-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Inside your project</h4>
+
+<div class="highlight highlight-sh"><pre>composer require fakerino/fakerino
+<span class="pl-c1">cd</span> vendor/fakerino/fakerino
+build/ods</pre></div>
+
+<h4>
+<a id="like-a-stand-alone-project-with" class="anchor" href="#like-a-stand-alone-project-with" aria-hidden="true"><span class="octicon octicon-link"></span></a>Like a stand-alone project with</h4>
+
+<div class="highlight highlight-sh"><pre>composer create-project fakerino/fakerino fakerino</pre></div>
 
 <h3>
 <a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick start</h3>
 
 <div class="highlight highlight-PHP"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s1"></span>
-<span class="pl-s1"><span class="pl-k">require</span> (<span class="pl-s"><span class="pl-pds">'</span>../Fakerino/vendor/autoload.php<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"><span class="pl-k">require</span> (<span class="pl-s"><span class="pl-pds">'</span>vendor/autoload.php<span class="pl-pds">'</span></span>); </span>
 <span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Fakerino\Fakerino</span>;</span>
 <span class="pl-s1"></span>
 <span class="pl-s1"><span class="pl-smi">$fakerino</span> <span class="pl-k">=</span> <span class="pl-c1">Fakerino</span><span class="pl-k">::</span>create();</span>
@@ -90,7 +102,8 @@ please read the <strong><a href="https://github.com/niklongstone/Fakerino/wiki">
 <code>app/fake nameMale -n 2</code> //Nick Andy<br>
 <code>app/fake country -c path/config.ini</code> //uses a config file<br>
 <code>app/fake surname -l de-DE</code> //Schleßinger<br>
-<code>app/fake -s 'Hello Mrs {{namefemale}} {{surname}}' -l de-DE</code> //Hello Mrs Seeliger Ceylin</p>
+<code>app/fake -s 'Hello Mrs {{namefemale}} {{surname}}' -l de-DE</code> //Hello Mrs Seeliger Ceylin<br>
+<code>app/fake -t tableName -c path/confix.xml -n 10</code> //Inserts 10 fake rows into tableName  </p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/niklongstone/Fakerino">Fakerino</a> is maintained by <a href="https://github.com/niklongstone">niklongstone</a>.</span>
