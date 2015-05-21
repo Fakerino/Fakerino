@@ -1,3 +1,7 @@
+0.6.2 / 2015-05-21
+==================
+  * Downgrade doctrine/dbal
+
 0.6.1 / 2015-05-19
 ==================
   * Removed deprecated method fillEntity and fillTable

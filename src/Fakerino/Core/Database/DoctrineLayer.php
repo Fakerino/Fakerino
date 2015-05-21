@@ -91,17 +91,7 @@ class DoctrineLayer implements DbInterface
      */
     public function insert(DbRowEntity $rows)
     {
-        $queryBuilder = self::$conn->createQueryBuilder();
-        $sql = $queryBuilder->insert($this->tableName);
-        $values = array();
-        $types = array();
-        $rowsElement = $rows->getFields();
-        foreach ($rowsElement as $field) {
-            $sql->setValue($field->getName(), '?');
-            $values[] =  $field->getValue();
-            $types[] = $field->getType();
-        }
-        self::$conn->executeQuery($sql, $values, $types);
+        self::$conn->insert($this->tableName, $rows->toArray());
 
         return true;
     }
