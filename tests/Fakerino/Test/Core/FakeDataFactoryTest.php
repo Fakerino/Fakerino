@@ -116,6 +116,7 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
         $num = 3;
         $fakeString = (string) $this->fakeGenerator->fake('fake1')->num($num);
         $lineExpected = count($this->conf['fake']['fake1']) * $num;
+        $lineExpected--;
 
         $this->assertEquals($lineExpected, substr_count($fakeString, "\n"));
     }
@@ -142,5 +143,25 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
         $res = $this->fakeGenerator->fakeTemplate('Hello {{ surname }}');
 
         $this->assertNotContains('{{ surname }}', $res);
+    }
+
+    public function testFakeTemplateStringMultipleTimes()
+    {
+        $num = 2;
+        $res = $this->fakeGenerator->num(2)->fakeTemplate('Hello {{ surname }},');
+
+        $this->assertEquals($num, substr_count($res, ","));
+    }
+
+    public function testDifferentCallsType()
+    {
+        $res1 = (string)$this->fakeGenerator->fake('integer');
+        $res2 = $this->fakeGenerator->fakeTemplate('Hello {{ surname }}');
+        $res3 = $this->fakeGenerator->fake('integer')->__toString();
+
+        $this->assertTrue(is_numeric($res1));
+        $this->assertInternalType('string', $res2);
+        $this->assertContains('Hello', $res2);
+        $this->assertTrue(is_numeric($res3));
     }
 }

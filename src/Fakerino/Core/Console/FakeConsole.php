@@ -44,13 +44,8 @@ class FakeConsole
 
             return;
         }
-        $this->json = $this->getParam('-j');
-        $this->num = $this->getParam('-n', true);
-        $this->confFile = $this->getParam('-c', true);
-        $this->locale = $this->getParam('-l', true);
-        $this->help = $this->getParam('-h');
-        $this->table = $this->getParam('-t', true);
-        $this->templateSource = $this->getParam('-s', true);
+
+        $this->getParameters();
     }
 
     private function getParam($flag, $hasValue = false)
@@ -99,17 +94,28 @@ class FakeConsole
             return;
         }
         if ($this->templateSource) {
-            return $fakerino->num($this->num)->fakeTemplate($this->templateSource);
+            return $fakerino->num($this->num)->fakeTemplate($this->templateSource) . PHP_EOL;
         }
         $fakerino = $fakerino->fake($this->input)->num($this->num);
 
         if ($this->json) {
-            $result = $fakerino->toJson() . PHP_EOL;
+            $result = $fakerino->toJson();
         } else {
             $result = (string) $fakerino;
         }
 
-        return $result;
+        return $result . PHP_EOL;
+    }
+
+    private function getParameters()
+    {
+        $this->json = $this->getParam('-j');
+        $this->num = $this->getParam('-n', true);
+        $this->confFile = $this->getParam('-c', true);
+        $this->locale = $this->getParam('-l', true);
+        $this->help = $this->getParam('-h');
+        $this->table = $this->getParam('-t', true);
+        $this->templateSource = $this->getParam('-s', true);
     }
 
     private function showHelp()

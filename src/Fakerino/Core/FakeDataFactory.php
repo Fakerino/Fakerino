@@ -137,10 +137,15 @@ class FakeDataFactory
     {
         $this->template->loadTemplate($file);
         $varsName = $this->template->getVariables();
-        $fakeData = $this->num(1)->fake($varsName)->toArray();
-        $data = array_combine(array_values($varsName), $fakeData);
+        $out = '';
+        $num = $this->num;
+        for ($i = 0; $i < $num; $i++) {
+            $fakeData = $this->num(1)->fake($varsName)->toArray();
+            $data = array_combine(array_values($varsName), $fakeData);
+            $out .= $this->template->render($data);
+        }
 
-        return $this->template->render($data);
+        return $out;
     }
 
     /**
@@ -185,6 +190,7 @@ class FakeDataFactory
     {
         $this->startFake($this->startElement, $this->num);
         array_walk_recursive($this->out, array($this, 'arrayToString'));
+        $this->outString = substr($this->outString, 0, -1);
 
         return $this->outString;
     }

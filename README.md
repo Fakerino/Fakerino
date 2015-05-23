@@ -14,13 +14,13 @@ Fakerino is a fake data generator framework fully extensible.
 
 ###Main features
 Fakerino can:
-* Fakes simple data (e.g. name, surname, integer, text, ...).
+* Fakes single data (e.g. name, surname, integer, text, ...).
 * Fakes complex data (e.g. person: name, surname, hobby, country, ... ).
 * Fakes data multiple times.
 * Fakes a database table row/s automatically.
 * Fakes a string or file template automatically (e.g. Hello Mr {{ surname }})
 * Fakes a PHP Object.
-* Supports JSON, Array and string output.
+* Supports JSON, array and string output.
  
 For more information about installation, functions, support, contribution, or other,
 please read the __[Fakerino wiki](https://github.com/niklongstone/Fakerino/wiki)__.
@@ -70,3 +70,7 @@ print_r($fakerino->fake('fake1')->toArray());
 `app/fake surname -l de-DE` //Schleßinger  
 `app/fake -s 'Hello Mrs {{namefemale}} {{surname}}' -l de-DE` //Hello Mrs Seeliger Ceylin  
 `app/fake -t tableName -c path/confix.xml -n 10` //Inserts 10 fake rows into tableName  
+
+#### Third parties
+
+* [Symfony Fakerino](https://github.com/niklongstone/symfony-fakerino) - Symfony Fakerino Bundle
