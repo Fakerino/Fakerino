@@ -74,3 +74,4 @@ print_r($fakerino->fake('fake1')->toArray());
 #### Third parties
 
 * [Symfony Fakerino](https://github.com/niklongstone/symfony-fakerino) - Symfony Fakerino Bundle
+* [Laravel Fakerino](https://github.com/niklongstone/laravel-fakerino) - Laravel Fakerino Package
