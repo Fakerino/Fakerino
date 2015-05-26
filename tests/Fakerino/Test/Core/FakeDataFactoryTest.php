@@ -29,7 +29,8 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
             'fake2' => array(
                 'Name' => array('length' => 30),
                 'Surname' => null
-            )
+            ),
+            'fake3' => array('fake1', 'fake2')
         );
         FakerinoConf::loadConfiguration($this->conf);
         $fakeHandler = new FakeHandler\FakeHandler();
@@ -109,6 +110,13 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
         $fakeString = (string) $this->fakeGenerator->fake('fake1');
 
         $this->assertInternalType('string', $fakeString);
+    }
+
+    public function testFakeCompplexData()
+    {
+        $fakeString = (string) $this->fakeGenerator->fake('fake3');
+
+        $this->assertEquals(3, substr_count($fakeString, "\n"));
     }
 
     public function testMultipleFakesToString()

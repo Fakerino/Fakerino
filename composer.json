@@ -34,6 +34,7 @@
     "config": {
         "bin-dir": "bin"
     },
+    "bin": ["app/fake"],
     "scripts": {
         "post-install-cmd": "build/ods",
         "post-update-cmd": "build/ods",

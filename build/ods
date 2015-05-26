@@ -1,13 +1,18 @@
 #!/bin/bash 
+DATAPATH="./data"
+if [ -n "$1" ]
+  then
+    DATAPATH=$1
+  fi
 echo 'Downloading Open Data Sample'
 mkdir -p build
-php -r "readfile('https://github.com/niklongstone/open-data-sample/archive/master.zip');" >> build/ods.zip  
+php -r "readfile('https://github.com/niklongstone/open-data-sample/archive/master.zip');" >> build/ods.zip
 
 echo 'Extracting files'
 unzip -qq -o build/ods.zip -d build/
 
 echo 'Configuring ODS'
-\cp -rf build/open-data-sample-master/data/ ./data/
+\cp -rf build/open-data-sample-master/data/ $DATAPATH
 
 echo 'Removing temporary files'
 rm -rf build/open-data-sample-master

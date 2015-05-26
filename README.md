@@ -14,12 +14,12 @@ Fakerino is a fake data generator framework fully extensible.
 
 ###Main features
 Fakerino can:
-* Fakes single data (e.g. name, surname, integer, text, ...).
 * Fakes complex data (e.g. person: name, surname, hobby, country, ... ).
+* Fakes single data (e.g. name, surname, integer, text, ...).
 * Fakes data multiple times.
 * Fakes a database table row/s automatically.
 * Fakes a string or file template automatically (e.g. Hello Mr {{ surname }})
-* Fakes a PHP Object.
+* Fakes a PHP Object (fills public properties and setters with fake data).
 * Supports JSON, array and string output.
  
 For more information about installation, functions, support, contribution, or other,
@@ -27,13 +27,12 @@ please read the __[Fakerino wiki](https://github.com/niklongstone/Fakerino/wiki)
 
 ### Installation
 Use [Composer](https://getcomposer.org/download/) to manage the dependencies of your project.
-#### Inside your project
+####In your project folder run:
 ```sh
 composer require fakerino/fakerino
-cd vendor/fakerino/fakerino
-build/ods
+vendor/fakerino/fakerino/build/ods
 ```
-#### Like a stand-alone project with 
+#### Like a stand-alone project run:
 ```sh
 composer create-project fakerino/fakerino fakerino
 ```
@@ -52,13 +51,23 @@ echo $fakerino->fake(array('nameMale', 'Surname'))->num(3)->toJson(); //[["Simon
 
 //with configuration
 $fakerino = Fakerino::create('./conf.php');
-print_r($fakerino->fake('fake1')->toArray());
-  /*
-  Array(
-   [0] => Arthur
-   [1] => Doyle
-  )
-  */
+print_r($fakerino->fake('fakeFamily')->toArray());
+/* 
+Array(
+    [0] => Array
+        (
+            [0] => Array
+                (
+                    [0] => Seth
+                    [1] => Whittaker
+                )
+            [1] => Array
+                (
+                    [0] => Mildred
+                    [1] => King
+                )
+        )
+)*/
 ```
 
 #### With Command line

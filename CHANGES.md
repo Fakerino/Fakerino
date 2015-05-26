@@ -1,3 +1,8 @@
+0.6.4 / 2015-05-26
+==================
+  * Add different ODS data path support
+  * Fix app/fake cli autoload
+
 0.6.3 / 2015-05-23
 ==================
   * Fix new line on string output,
