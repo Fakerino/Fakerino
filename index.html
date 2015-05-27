@@ -41,13 +41,13 @@
 <p>Fakerino can:</p>
 
 <ul>
-<li>Fakes simple data (e.g. name, surname, integer, text, ...).</li>
 <li>Fakes complex data (e.g. person: name, surname, hobby, country, ... ).</li>
+<li>Fakes single data (e.g. name, surname, integer, text, ...).</li>
 <li>Fakes data multiple times.</li>
 <li>Fakes a database table row/s automatically.</li>
 <li>Fakes a string or file template automatically (e.g. Hello Mr {{ surname }})</li>
-<li>Fakes a PHP Object.</li>
-<li>Supports JSON, Array and string output.</li>
+<li>Fakes a PHP Object (fills public properties and setters with fake data).</li>
+<li>Supports JSON, array and string output.</li>
 </ul>
 
 <p>For more information about installation, functions, support, contribution, or other,
@@ -59,14 +59,13 @@ please read the <strong><a href="https://github.com/niklongstone/Fakerino/wiki">
 <p>Use <a href="https://getcomposer.org/download/">Composer</a> to manage the dependencies of your project.</p>
 
 <h4>
-<a id="inside-your-project" class="anchor" href="#inside-your-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Inside your project</h4>
+<a id="in-your-project-folder-run" class="anchor" href="#in-your-project-folder-run" aria-hidden="true"><span class="octicon octicon-link"></span></a>In your project folder run:</h4>
 
 <div class="highlight highlight-sh"><pre>composer require fakerino/fakerino
-<span class="pl-c1">cd</span> vendor/fakerino/fakerino
-build/ods</pre></div>
+vendor/fakerino/fakerino/build/ods</pre></div>
 
 <h4>
-<a id="like-a-stand-alone-project-with" class="anchor" href="#like-a-stand-alone-project-with" aria-hidden="true"><span class="octicon octicon-link"></span></a>Like a stand-alone project with</h4>
+<a id="like-a-stand-alone-project-run" class="anchor" href="#like-a-stand-alone-project-run" aria-hidden="true"><span class="octicon octicon-link"></span></a>Like a stand-alone project run:</h4>
 
 <div class="highlight highlight-sh"><pre>composer create-project fakerino/fakerino fakerino</pre></div>
 
@@ -85,13 +84,23 @@ build/ods</pre></div>
 <span class="pl-s1"></span>
 <span class="pl-s1"><span class="pl-c">//with configuration</span></span>
 <span class="pl-s1"><span class="pl-smi">$fakerino</span> <span class="pl-k">=</span> <span class="pl-c1">Fakerino</span><span class="pl-k">::</span>create(<span class="pl-s"><span class="pl-pds">'</span>./conf.php<span class="pl-pds">'</span></span>);</span>
-<span class="pl-s1"><span class="pl-c1">print_r</span>(<span class="pl-smi">$fakerino</span><span class="pl-k">-&gt;</span>fake(<span class="pl-s"><span class="pl-pds">'</span>fake1<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span>toArray());</span>
-<span class="pl-s1">  <span class="pl-c">/*</span></span>
-<span class="pl-s1"><span class="pl-c">  Array(</span></span>
-<span class="pl-s1"><span class="pl-c">   [0] =&gt; Arthur</span></span>
-<span class="pl-s1"><span class="pl-c">   [1] =&gt; Doyle</span></span>
-<span class="pl-s1"><span class="pl-c">  )</span></span>
-<span class="pl-s1"><span class="pl-c">  */</span></span></pre></div>
+<span class="pl-s1"><span class="pl-c1">print_r</span>(<span class="pl-smi">$fakerino</span><span class="pl-k">-&gt;</span>fake(<span class="pl-s"><span class="pl-pds">'</span>fakeFamily<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span>toArray());</span>
+<span class="pl-s1"><span class="pl-c">/* </span></span>
+<span class="pl-s1"><span class="pl-c">Array(</span></span>
+<span class="pl-s1"><span class="pl-c">    [0] =&gt; Array</span></span>
+<span class="pl-s1"><span class="pl-c">        (</span></span>
+<span class="pl-s1"><span class="pl-c">            [0] =&gt; Array</span></span>
+<span class="pl-s1"><span class="pl-c">                (</span></span>
+<span class="pl-s1"><span class="pl-c">                    [0] =&gt; Seth</span></span>
+<span class="pl-s1"><span class="pl-c">                    [1] =&gt; Whittaker</span></span>
+<span class="pl-s1"><span class="pl-c">                )</span></span>
+<span class="pl-s1"><span class="pl-c">            [1] =&gt; Array</span></span>
+<span class="pl-s1"><span class="pl-c">                (</span></span>
+<span class="pl-s1"><span class="pl-c">                    [0] =&gt; Mildred</span></span>
+<span class="pl-s1"><span class="pl-c">                    [1] =&gt; King</span></span>
+<span class="pl-s1"><span class="pl-c">                )</span></span>
+<span class="pl-s1"><span class="pl-c">        )</span></span>
+<span class="pl-s1"><span class="pl-c">)*/</span></span></pre></div>
 
 <h4>
 <a id="with-command-line" class="anchor" href="#with-command-line" aria-hidden="true"><span class="octicon octicon-link"></span></a>With Command line</h4>
@@ -104,6 +113,16 @@ build/ods</pre></div>
 <code>app/fake surname -l de-DE</code> //Schleßinger<br>
 <code>app/fake -s 'Hello Mrs {{namefemale}} {{surname}}' -l de-DE</code> //Hello Mrs Seeliger Ceylin<br>
 <code>app/fake -t tableName -c path/confix.xml -n 10</code> //Inserts 10 fake rows into tableName  </p>
+
+<h4>
+<a id="third-parties" class="anchor" href="#third-parties" aria-hidden="true"><span class="octicon octicon-link"></span></a>Third parties</h4>
+
+<ul>
+<li>
+<a href="https://github.com/niklongstone/symfony-fakerino">Symfony Fakerino</a> - Symfony Fakerino Bundle</li>
+<li>
+<a href="https://github.com/niklongstone/laravel-fakerino">Laravel Fakerino</a> - Laravel Fakerino Package</li>
+</ul>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/niklongstone/Fakerino">Fakerino</a> is maintained by <a href="https://github.com/niklongstone">niklongstone</a>.</span>
