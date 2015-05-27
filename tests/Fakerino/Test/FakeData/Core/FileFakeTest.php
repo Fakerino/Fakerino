@@ -11,9 +11,8 @@
 namespace Fakerino\Test\FakeData\Core;
 
 use Fakerino\FakeData\Core\FileFake;
-use Fakerino\FakeData\Core\GenericString;
 
-class CoreDataTest extends \PHPUnit_Framework_TestCase
+class FileFakeTest extends \PHPUnit_Framework_TestCase
 {
     public function testFileFake()
     {

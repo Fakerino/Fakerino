@@ -14,14 +14,18 @@ Fakerino is a fake data generator framework fully extensible.
 
 ###Main features
 Fakerino can:
-* Fakes complex data (e.g. person: name, surname, hobby, country, ... ).
-* Fakes single data (e.g. name, surname, integer, text, ...).
-* Fakes data multiple times.
-* Fakes a database table row/s automatically.
-* Fakes a string or file template automatically (e.g. Hello Mr {{ surname }})
-* Fakes a PHP Object (fills public properties and setters with fake data).
-* Supports JSON, array and string output.
- 
+* Fake complex data (e.g. person: name, surname, hobby, country, ... ).
+* Fake single data (e.g. name, surname, integer, text, ...).
+* Fake data in different languages.
+* Fake regular expression data (e.g. url => '/www\.\w+\.com/').
+* Fake data multiple times.
+* Fake a database table row/s automatically.
+* Fake a string or file template automatically (e.g. Hello Mr {{ surname }})
+* Fake a PHP Object (fills public properties and setters with fake data).
+* Support JSON, array and string output.
+* Support array, Yaml, XML, PHP, Txt and Ini configurations.
+* Fake 500,000 data in 1 minute.
+
 For more information about installation, functions, support, contribution, or other,
 please read the __[Fakerino wiki](https://github.com/niklongstone/Fakerino/wiki)__.
 
@@ -46,10 +50,13 @@ use Fakerino\Fakerino;
 $fakerino = Fakerino::create();
 echo $fakerino->fake('Surname')->toJson(); //["Donovan"]
 echo $fakerino->fake('nameFemale'); //Alice
+echo $fakerino->fake('/www\.\w+\.com/'); //www.nikdjap.com
 echo $fakerino->fake('nameMale')->num(3); //Bob Jack Rick
 echo $fakerino->fake(array('nameMale', 'Surname'))->num(3)->toJson(); //[["Simon","Rodgers"],["Dean","Smith"],["Anthony","Bauman"]]
+```
 
-//with configuration
+With a [configuration](https://github.com/niklongstone/Fakerino/wiki/Use-a-configuration-file) you can __combine fake data__, or declare your __customs__.
+```PHP
 $fakerino = Fakerino::create('./conf.php');
 print_r($fakerino->fake('fakeFamily')->toArray());
 /* 

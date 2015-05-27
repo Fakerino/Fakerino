@@ -1,3 +1,9 @@
+0.7.0 / 2015-06-01
+==================
+  * Add regular expression support
+  * Add Yaml configuration support
+  * Improve data generation speed
+
 0.6.4 / 2015-05-26
 ==================
   * Add different ODS data path support

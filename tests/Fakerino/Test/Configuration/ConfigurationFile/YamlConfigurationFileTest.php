@@ -10,19 +10,19 @@
 
 namespace Fakerino\Test\Configuration\ConfigurationFile;
 
-use Fakerino\Configuration\ConfigurationFile\XmlConfigurationFile;
+use Fakerino\Configuration\ConfigurationFile\YamlConfigurationFile;
 use Fakerino\DataSource\File\File;
 
-class XmlConfigurationFileTest extends \PHPUnit_Framework_TestCase
+class YamlConfigurationFileTest extends \PHPUnit_Framework_TestCase
 {
-    public function testXmlConffile()
+    public function testIniToArray()
     {
         $fileDir = __DIR__ . '/../../Fixtures/';
-        $xmlFilePath = $fileDir . 'file.xml';
-        $xmlFile = new File($xmlFilePath);
-        $xmlConf = new XmlConfigurationFile();
-        $xmlConf->loadConfiguration($xmlFile);
-        $result = $xmlConf->toArray();
+        $ymlFilePath = $fileDir . 'file.yml';
+        $confFile = new File($ymlFilePath);
+        $ymlConf = new YamlConfigurationFile();
+        $ymlConf->loadConfiguration($confFile);
+        $result = $ymlConf->toArray();
 
         $this->assertInternalType('array', $result);
         $this->assertNotEmpty($result);

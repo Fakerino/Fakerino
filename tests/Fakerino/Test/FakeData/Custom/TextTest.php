@@ -19,7 +19,7 @@ class TextTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Fakerino\FakeData\FakeDataInterface', new Text());
     }
 
-    public function getDefaultOptionString()
+    public function testGetDefaultOptionString()
     {
         $data = new Text();
 

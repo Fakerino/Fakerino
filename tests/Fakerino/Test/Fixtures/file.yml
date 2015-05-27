@@ -1,0 +1,16 @@
+locale: en-GB
+fake:
+  fakeMale:
+   - titlemale
+   - nameMale
+   - surname
+  fakeFemale:
+   - titlefemale
+   - namefemale
+   - surname
+database:
+  dbname: mydb
+  user: username
+  password: password
+  host: localhost
+  driver: pdo_mysql§

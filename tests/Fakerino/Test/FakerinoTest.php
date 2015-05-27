@@ -38,4 +38,34 @@ class FakerinoTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', Fakerino::getConfig());
     }
+
+    /**
+     * @dataProvider provider
+     */
+    public function testFakeData($conf, $element, $expected)
+    {
+        $fakerino = Fakerino::create($conf);
+        $result = $fakerino->fake($element)->__toString();
+
+        $this->assertRegExp($expected, $result, sprintf("The result '%s' of '%s' doesn't match the expected regex '%s'", $result, serialize($element), $expected));
+    }
+
+    public function provider()
+    {
+        return array(
+            array(null, array('text' => array('length' => 10)), '/\w{10}/'),
+            array(null, array('text' => array('length' => 10)), '/\w{10}/'),
+            array(null, 'surname', '/[^0-9.]/'),
+            array(null, 'integer', '/[0-9]/'),
+            array(null, 'lorem', '/\w/'),
+            array(
+                array(
+                    'fake' => array('fakeTest' =>
+                                array('surname')
+                    )
+                )
+                , 'fakeTest', '/[A-Z][a-z].*[^\n]/'
+            )
+        );
+    }
 }

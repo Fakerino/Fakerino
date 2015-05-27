@@ -19,9 +19,9 @@ class DateTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Fakerino\FakeData\FakeDataInterface', new Date());
     }
 
-    public function getDefaultOptionString()
+    public function testGetDefaultOptionString()
     {
-        $data = new Text();
+        $data = new Date();
 
         $this->assertArrayHasKey('format', $data->getDefaultOptions());
         $this->assertArrayHasKey('startDate', $data->getDefaultOptions());

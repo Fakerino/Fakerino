@@ -9,6 +9,7 @@
  */
 
 namespace Fakerino\Core\FakeHandler;
+
 use Fakerino\Core\FakeElement;
 use Fakerino\Core\OutPutFactory;
 
@@ -31,10 +32,17 @@ abstract class Handler implements HandlerInterface
     private static $first = null;
 
     /**
-     * Sets a successor handler,
-     * in case the class is not able to satisfy the request.
-     *
-     * @param HandlerInterface $handler
+     * @var array
+     */
+    private static $outputContainer = array();
+
+    /**
+     * @var string
+     */
+    private static $fakeElement;
+
+    /**
+     * {@inheritdoc}
      */
     final public function setSuccessor(HandlerInterface $handler)
     {
@@ -47,15 +55,18 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * Handles the request or redirect the request
-     * to the successor.
-     *
-     * @param FakeElement $data
-     *
-     * @return string
+     * {@inheritdoc}
      */
     final public function handle(FakeElement $data)
     {
+        self::$fakeElement = $data->getName() . serialize($data->getOptions());
+        if (array_key_exists(self::$fakeElement, self::$outputContainer)) {
+
+            return $this->getOutput(
+                self::$outputContainer[self::$fakeElement][0],
+                self::$outputContainer[self::$fakeElement][1]
+            );
+        }
         $processed = $this->process($data);
         if ($processed === null) {
             if ($this->successor !== null) {
@@ -67,22 +78,19 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * Generates the output.
-     *
-     * @param string            $class
-     * @param string|array|null $options
-     *
-     * @return string|array
+     * {@inheritdoc}
      */
     public function getOutput($class, $options = null)
     {
+        if (!array_key_exists(self::$fakeElement, self::$outputContainer)) {
+            self::$outputContainer[self::$fakeElement] = array($class, $options);
+        }
+
         return OutPutFactory::getOutput($class, $options);
     }
 
     /**
-     * Returns the first Handler in the chain.
-     *
-     * @return Handler
+     * {@inheritdoc}
      */
     public static function getFirstChain()
     {

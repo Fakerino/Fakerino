@@ -19,9 +19,9 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Fakerino\FakeData\FakeDataInterface', new Integer());
     }
 
-    public function getDefaultOptionString()
+    public function testGetDefaultOptionString()
     {
-        $data = new Text();
+        $data = new Integer();
 
         $this->assertArrayHasKey('length', $data->getDefaultOptions());
         $this->assertArrayHasKey('negative', $data->getDefaultOptions());

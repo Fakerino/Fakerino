@@ -15,6 +15,7 @@ use Fakerino\Configuration\FakerinoConf;
 use Fakerino\Core\Database\DoctrineLayer;
 use Fakerino\Core\FakeDataFactory;
 use Fakerino\Core\FakeHandler;
+use Fakerino\Core\RegEx\RegRevGenerator;
 use Fakerino\Core\Template\TwigTemplate;
 
 /**
@@ -68,6 +69,7 @@ final class Fakerino
         $fakeHandler->setSuccessor(new FakeHandler\FileFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\ConfFakerClass());
+        $fakeHandler->setSuccessor(new FakeHandler\RegExFakerClass(new RegRevGenerator()));
         $fakeHandler->setSuccessor(new FakeHandler\DefaultFakerClass());
 
         return $fakeHandler;

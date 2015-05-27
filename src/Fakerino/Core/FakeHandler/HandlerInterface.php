@@ -35,7 +35,7 @@ interface HandlerInterface
      *
      * @param FakeElement $data
      *
-     * @return string
+     * @return mixed
      */
     function handle(FakeElement $data);
 

@@ -22,7 +22,9 @@ class IniConfigurationFileTest extends \PHPUnit_Framework_TestCase
         $iniFile = new File($iniFilePath);
         $iniConf = new IniConfigurationFile();
         $iniConf->loadConfiguration($iniFile);
+        $result = $iniConf->toArray();
 
-        $this->assertInternalType('array', $iniConf->toArray());
+        $this->assertInternalType('array', $result);
+        $this->assertNotEmpty($result);
     }
 }
