@@ -41,13 +41,17 @@
 <p>Fakerino can:</p>
 
 <ul>
-<li>Fakes complex data (e.g. person: name, surname, hobby, country, ... ).</li>
-<li>Fakes single data (e.g. name, surname, integer, text, ...).</li>
-<li>Fakes data multiple times.</li>
-<li>Fakes a database table row/s automatically.</li>
-<li>Fakes a string or file template automatically (e.g. Hello Mr {{ surname }})</li>
-<li>Fakes a PHP Object (fills public properties and setters with fake data).</li>
-<li>Supports JSON, array and string output.</li>
+<li>Fake complex data (e.g. person: name, surname, hobby, country, ... ).</li>
+<li>Fake single data (e.g. name, surname, integer, text, ...).</li>
+<li>Fake data in different languages.</li>
+<li>Fake regular expression data (e.g. url =&gt; '/www.\w+.com/').</li>
+<li>Fake data multiple times.</li>
+<li>Fake a database table row/s automatically.</li>
+<li>Fake a string or file template automatically (e.g. Hello Mr {{ surname }})</li>
+<li>Fake a PHP Object (fills public properties and setters with fake data).</li>
+<li>Support JSON, array and string output.</li>
+<li>Support array, Yaml, XML, PHP, Txt and Ini configurations.</li>
+<li>Fake 500,000 data in 1 minute.</li>
 </ul>
 
 <p>For more information about installation, functions, support, contribution, or other,
@@ -79,11 +83,13 @@ vendor/fakerino/fakerino/build/ods</pre></div>
 <span class="pl-s1"><span class="pl-smi">$fakerino</span> <span class="pl-k">=</span> <span class="pl-c1">Fakerino</span><span class="pl-k">::</span>create();</span>
 <span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-smi">$fakerino</span><span class="pl-k">-&gt;</span>fake(<span class="pl-s"><span class="pl-pds">'</span>Surname<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span>toJson(); <span class="pl-c">//["Donovan"]</span></span>
 <span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-smi">$fakerino</span><span class="pl-k">-&gt;</span>fake(<span class="pl-s"><span class="pl-pds">'</span>nameFemale<span class="pl-pds">'</span></span>); <span class="pl-c">//Alice</span></span>
+<span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-smi">$fakerino</span><span class="pl-k">-&gt;</span>fake(<span class="pl-sr"><span class="pl-pds">'/</span>www<span class="pl-cce">\.\w</span><span class="pl-k">+</span><span class="pl-cce">\.</span>com<span class="pl-pds">/'</span></span>); <span class="pl-c">//www.nikdjap.com</span></span>
 <span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-smi">$fakerino</span><span class="pl-k">-&gt;</span>fake(<span class="pl-s"><span class="pl-pds">'</span>nameMale<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span>num(<span class="pl-c1">3</span>); <span class="pl-c">//Bob Jack Rick</span></span>
-<span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-smi">$fakerino</span><span class="pl-k">-&gt;</span>fake(<span class="pl-c1">array</span>(<span class="pl-s"><span class="pl-pds">'</span>nameMale<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Surname<span class="pl-pds">'</span></span>))<span class="pl-k">-&gt;</span>num(<span class="pl-c1">3</span>)<span class="pl-k">-&gt;</span>toJson(); <span class="pl-c">//[["Simon","Rodgers"],["Dean","Smith"],["Anthony","Bauman"]]</span></span>
-<span class="pl-s1"></span>
-<span class="pl-s1"><span class="pl-c">//with configuration</span></span>
-<span class="pl-s1"><span class="pl-smi">$fakerino</span> <span class="pl-k">=</span> <span class="pl-c1">Fakerino</span><span class="pl-k">::</span>create(<span class="pl-s"><span class="pl-pds">'</span>./conf.php<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-smi">$fakerino</span><span class="pl-k">-&gt;</span>fake(<span class="pl-c1">array</span>(<span class="pl-s"><span class="pl-pds">'</span>nameMale<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Surname<span class="pl-pds">'</span></span>))<span class="pl-k">-&gt;</span>num(<span class="pl-c1">3</span>)<span class="pl-k">-&gt;</span>toJson(); <span class="pl-c">//[["Simon","Rodgers"],["Dean","Smith"],["Anthony","Bauman"]]</span></span></pre></div>
+
+<p>With a <a href="https://github.com/niklongstone/Fakerino/wiki/Use-a-configuration-file">configuration</a> you can <strong>combine fake data</strong>, or declare your <strong>customs</strong>.</p>
+
+<div class="highlight highlight-PHP"><pre><span class="pl-s1"><span class="pl-smi">$fakerino</span> <span class="pl-k">=</span> <span class="pl-c1">Fakerino</span><span class="pl-k">::</span>create(<span class="pl-s"><span class="pl-pds">'</span>./conf.php<span class="pl-pds">'</span></span>);</span>
 <span class="pl-s1"><span class="pl-c1">print_r</span>(<span class="pl-smi">$fakerino</span><span class="pl-k">-&gt;</span>fake(<span class="pl-s"><span class="pl-pds">'</span>fakeFamily<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span>toArray());</span>
 <span class="pl-s1"><span class="pl-c">/* </span></span>
 <span class="pl-s1"><span class="pl-c">Array(</span></span>
