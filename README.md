@@ -91,3 +91,5 @@ Array(
 
 * [Symfony Fakerino](https://github.com/niklongstone/symfony-fakerino) - Symfony Fakerino Bundle
 * [Laravel Fakerino](https://github.com/niklongstone/laravel-fakerino) - Laravel Fakerino Package
+* [Nette Fakerino](https://github.com/niklongstone/nette-fakerino) - Nette Fakerino Service
+
