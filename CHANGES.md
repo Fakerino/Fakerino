@@ -1,3 +1,8 @@
+0.7.1 / 2015-06-04
+==================
+  * Fix Yaml configuration default support
+  * Update README
+
 0.7.0 / 2015-06-01
 ==================
   * Add regular expression support

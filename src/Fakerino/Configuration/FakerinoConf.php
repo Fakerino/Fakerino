@@ -75,7 +75,7 @@ class FakerinoConf
     private static function loadDefault()
     {
         return array(
-            'supportedConfExts' => array('xml', 'php', 'ini'),
+            'supportedConfExts' => array('xml', 'yml', 'php', 'ini'),
             'locale' => 'en-GB',
             'fakerinoTag' => 'fake',
             'fakeFilePath' => __DIR__

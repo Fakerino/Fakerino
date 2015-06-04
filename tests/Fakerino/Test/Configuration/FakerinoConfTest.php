@@ -17,7 +17,7 @@ class FakerinoConfTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->default = array(
-            'supportedConfExts' => array('xml', 'php', 'ini'),
+            'supportedConfExts' => array('xml', 'yml', 'php', 'ini'),
             'locale' => 'en_GB',
             'fakerinoTag' => 'fake',
             'fakeFilePath' => 'path'
