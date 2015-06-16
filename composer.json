@@ -1,7 +1,7 @@
 {
     "name": "fakerino/fakerino",
-    "description": "Fake data generator",
-    "keywords": ["fake", "faker", "generator", "data"],
+    "description": "Faker framework, for generate every kind of fake data for test, database seed, mock responses, other",
+    "keywords": ["faker", "fake", "generator", "data", "seed", "fixtures", "test", "database"],
     "homepage": "http://github.com/niklongstone/fakerino",
     "type": "library",
     "license": "MIT",
@@ -16,7 +16,7 @@
         "php": ">=5.3.0",
         "doctrine/dbal": "2.5.1",
         "twig/twig": "~1.0",
-        "niklongstone/regex-reverse": "^0.3.0",
+        "niklongstone/regex-reverse": "~0.4",
         "symfony/yaml": "~2.0"
     },
     "require-dev": {

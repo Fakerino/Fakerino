@@ -1,3 +1,7 @@
+0.7.2 / 2015-06-16
+==================
+  * Fix regex reverter version dependency
+
 0.7.1 / 2015-06-04
 ==================
   * Fix Yaml configuration default support

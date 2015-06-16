@@ -33,7 +33,7 @@ please read the __[Fakerino wiki](https://github.com/niklongstone/Fakerino/wiki)
 Use [Composer](https://getcomposer.org/download/) to manage the dependencies of your project.
 ####In your project folder run:
 ```sh
-composer require fakerino/fakerino='^0.7.1'
+composer require fakerino/fakerino='~0.7'
 vendor/fakerino/fakerino/build/ods
 ```
 #### Like a stand-alone project run:
