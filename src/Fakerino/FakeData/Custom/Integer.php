@@ -31,7 +31,7 @@ class Integer extends AbstractFakeData
     public function getDefaultOptions()
     {
         return array(
-            'length' => rand(1, 5),
+            'length' => mt_rand(1, 5),
             'negative' => false,
             'type' => self::DECIMAL
         );

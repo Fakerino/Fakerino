@@ -34,7 +34,8 @@ class FileFakeGenerator extends AbstractFakeDataGenerator
             . DIRECTORY_SEPARATOR;
         if ($fakeFile = FakeTxtFile::getSource($fileName, $path)) {
             $lines = file($fakeFile);
-            $element = $lines[array_rand($lines)];
+            $index = mt_rand(0, count($lines) - 1);
+            $element = $lines[$index];
 
             return preg_replace("/\r|\n/", "", $element);
         } else {

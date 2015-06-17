@@ -85,7 +85,7 @@ class DbFiller implements FillerInterface
     {
         switch ($fakeType) {
             case self::NUMERIC:
-                $result = $this->faker->fake(array('Integer' => array('length' => rand(6, 8))))->num(1);
+                $result = $this->faker->fake(array('Integer' => array('length' => mt_rand(6, 8))))->num(1);
                 break;
             case self::DATE:
                 $result = $this->faker->fake(array('date'))->num(1);

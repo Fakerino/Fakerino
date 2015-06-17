@@ -50,14 +50,28 @@ class FakerinoTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp($expected, $result, sprintf("The result '%s' of '%s' doesn't match the expected regex '%s'", $result, serialize($element), $expected));
     }
 
+    /**
+     * @dataProvider provider
+     */
+    public function testFakeWithSeed($conf, $element)
+    {
+        $fakerino = Fakerino::create($conf);
+        mt_srand(2);
+        $result1 = $fakerino->fake($element)->__toString();
+        mt_srand(2);
+        $result2 = $fakerino->fake($element)->__toString();
+
+        $this->assertEquals($result1, $result2, sprintf("The first result '%s' and the second '%s'", $result1, $result2));
+    }
+
     public function provider()
     {
         return array(
             array(null, array('text' => array('length' => 10)), '/\w{10}/'),
-            array(null, array('text' => array('length' => 10)), '/\w{10}/'),
             array(null, 'surname', '/[^0-9.]/'),
             array(null, 'integer', '/[0-9]/'),
             array(null, 'lorem', '/\w/'),
+            array(null, 'date', '/[\d-]/'),
             array(
                 array(
                     'fake' => array('fakeTest' =>

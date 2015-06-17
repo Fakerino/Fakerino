@@ -1,3 +1,7 @@
+0.8.0 / 2015-06-18
+==================
+  * Add seed feature, to return same value in different calls
+
 0.7.2 / 2015-06-16
 ==================
   * Fix regex reverter version dependency

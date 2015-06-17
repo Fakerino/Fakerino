@@ -18,9 +18,9 @@ Fakerino is a fake data generator framework fully extensible.
 * Fake data in __different languages__.
 * Fake __regular expression__ data (e.g. url => '/www\.\w+\.com/').
 * Fake data multiple times.
-* Fake a __database__ table row/s in one row of code.
+* Fake a __database__ table row/s with one line of code.
 * Fake a __Twig__ string or file automatically (e.g. Hello Mr {{ surname }})
-* Fake a PHP __object/entity__ in one row of code (fills public properties and setters with fake data).
+* Fake a PHP __object/entity__ in one line of code (fills public properties and setters with fake data).
 * Support __JSON__, __array__ and string output.
 * Support array, __Yaml__, __XML__, __PHP__, __Txt__ and __Ini__ configurations.
 * Fake from __command line__ interface.
@@ -33,7 +33,7 @@ please read the __[Fakerino wiki](https://github.com/niklongstone/Fakerino/wiki)
 Use [Composer](https://getcomposer.org/download/) to manage the dependencies of your project.
 ####In your project folder run:
 ```sh
-composer require fakerino/fakerino='~0.7'
+composer require fakerino/fakerino='~0.8'
 vendor/fakerino/fakerino/build/ods
 ```
 #### Like a stand-alone project run:

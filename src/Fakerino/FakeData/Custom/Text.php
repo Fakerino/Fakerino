@@ -26,7 +26,7 @@ class Text extends AbstractFakeData
     public function getDefaultOptions()
     {
         return array(
-            'length' => rand(3, 20),
+            'length' => mt_rand(3, 20),
             'addChar' => null
         );
     }

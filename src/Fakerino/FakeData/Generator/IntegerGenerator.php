@@ -62,7 +62,7 @@ class IntegerGenerator extends AbstractFakeDataGenerator
     {
         $min = pow(10, $length - 1);
         $max = pow(10, $length)  -1;
-        $fakeInteger = rand($min, $max);
+        $fakeInteger = mt_rand($min, $max);
 
         return $fakeInteger;
     }

@@ -38,14 +38,26 @@ class TextGenerator extends AbstractFakeDataGenerator
         if ($addChars !== null) {
             $chars .= $addChars;
         }
-        $stringShuffle = str_shuffle(str_repeat($chars, self::SHUFFLE));
+        $stringShuffle = $this->stringShuffle($chars);
         $length = $this->getOption('length');
         if ($length !== null) {
             $randomString = substr($stringShuffle, 0, $length);
         } else {
-            $randomString = substr($stringShuffle, 0, rand(self::MINLENGTH, self::MAXLENGTH));
+            $randomString = substr($stringShuffle, 0, mt_rand(self::MINLENGTH, self::MAXLENGTH));
         }
 
         return $randomString;
+    }
+
+    private function stringShuffle($chars)
+    {
+        $shuffledString = '';
+        $charsLength =  strlen($chars);
+        for ($i = 0; $i < $charsLength; $i++) {
+            $rand = mt_rand(0, $charsLength - 1);
+            $shuffledString .= substr($chars, $rand, 1);
+        }
+
+        return $shuffledString;
     }
 }

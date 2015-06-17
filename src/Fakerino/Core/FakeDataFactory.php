@@ -164,6 +164,20 @@ class FakeDataFactory
     }
 
     /**
+     * @param int|null $seed
+     *
+     * @return FakeDataFactory $this
+     */
+    public function seed($seed = null)
+    {
+        if ($seed !== null) {
+            mt_srand($seed);
+        }
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function toArray()

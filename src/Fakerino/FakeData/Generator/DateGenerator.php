@@ -29,7 +29,7 @@ class DateGenerator extends AbstractFakeDataGenerator
         $startDate = $this->getOption('startDate');
         $endDate = $this->getOption('endDate');
 
-        $time = rand(strtotime($startDate), strtotime($endDate));
+        $time = mt_rand(strtotime($startDate), strtotime($endDate));
 
         return date($format, $time);
     }
