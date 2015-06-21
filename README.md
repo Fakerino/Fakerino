@@ -27,7 +27,7 @@ Fakerino is a fake data generator framework fully extensible.
 * Fake 500,000 data in 1 minute.
 
 For more information about installation, features, support, contribution, or other,
-please read the __[Fakerino wiki](https://github.com/niklongstone/Fakerino/wiki)__.
+please read the __[Fakerino docs](http://www.fakerino.io)__.
 
 ### Installation
 Use [Composer](https://getcomposer.org/download/) to manage the dependencies of your project.
