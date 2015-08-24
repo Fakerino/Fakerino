@@ -1,4 +1,6 @@
 # Fakerino
+
+[![Join the chat at https://gitter.im/Fakerino/Fakerino](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Fakerino/Fakerino?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Fakerino is a fake data generator framework fully extensible.
 
 [![Latest Stable Version](https://poser.pugx.org/fakerino/fakerino/v/stable.svg)](https://packagist.org/packages/fakerino/fakerino)
