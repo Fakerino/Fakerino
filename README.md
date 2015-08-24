@@ -11,6 +11,8 @@ Fakerino is a fake data generator framework fully extensible.
 
 [![License](https://poser.pugx.org/fakerino/fakerino/license.svg)](https://packagist.org/packages/fakerino/fakerino)
 
+[![Join the chat at https://gitter.im/Fakerino/Fakerino](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Fakerino/Fakerino?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)  
+
 ###Main features
 
 * Fake __complex data__ (e.g. person: name, surname, hobby, country, ... ).
