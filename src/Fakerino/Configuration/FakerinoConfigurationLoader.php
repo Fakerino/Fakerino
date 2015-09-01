@@ -10,26 +10,23 @@
 
 namespace Fakerino\Configuration;
 
-use Fakerino\Configuration\Exception\SourceNotValidException;
 use Fakerino\DataSource\File\File;
 
 /**
- * Class AbstractConfigurationFile
+ * Class FakerinoConfigurationLoader
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-abstract class AbstractConfigurationFile implements ConfigurationInterface
+class FakerinoConfigurationLoader
 {
+    /* @var File */
     private $confFile;
 
     /**
-     * {@inheritdoc}
+     * @param File $file
      */
-    public function loadConfiguration($file)
+    public function __construct(File $file)
     {
-        if (!$file instanceof File) {
-            throw new SourceNotValidException();
-        }
         $this->confFile = $file;
     }
 
@@ -42,9 +39,4 @@ abstract class AbstractConfigurationFile implements ConfigurationInterface
     {
         return $this->confFile->getPath();
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    abstract public function toArray();
 }

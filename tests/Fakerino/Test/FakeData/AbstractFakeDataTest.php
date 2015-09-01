@@ -26,6 +26,19 @@ class FakeDataA extends AbstractFakeData
     }
 }
 
+class FakeDataB extends AbstractFakeData
+{
+    public function getDefaultOptions()
+    {
+        return;
+    }
+
+    public function getRequiredOptions()
+    {
+        return array('required1', 'required2');
+    }
+}
+
 class AbstractFakeDataTest extends \PHPUnit_Framework_TestCase
 {
     public function testValidRequiredOptions()
@@ -48,12 +61,22 @@ class AbstractFakeDataTest extends \PHPUnit_Framework_TestCase
     public function testMissingRequiredOptionException()
     {
         $this->setExpectedException('Fakerino\FakeData\Exception\MissingRequiredOptionException');
+
         $fakeDataA = new FakeDataA(array('defaultOption3' => 3));
+    }
+
+    public function testMissingRequiredOptionExceptionWithEmptyConstructor()
+    {
+        $this->setExpectedException('Fakerino\FakeData\Exception\MissingRequiredOptionException');
+
+        $fakeDataA = new FakeDataA();
+        $fakeDataA->generatedBy();
     }
 
     public function testInvalidOptionException()
     {
         $this->setExpectedException('Fakerino\FakeData\Exception\InvalidOptionException');
+
         $fakeDataA = new FakeDataA(array('required1' => 1, 'required2' => 2, 'otherOption'));
     }
 
@@ -63,5 +86,14 @@ class AbstractFakeDataTest extends \PHPUnit_Framework_TestCase
         $generators = $fakeDataA->generatedBy();
 
         $this->assertEquals('Fakerino\FakeData\Generator\StringGenerator', $generators);
+    }
+
+    public function testWrongDefaultOptionsProvided()
+    {
+        $fakeDataA = new FakeDataB(array('required1' => 1, 'required2' => 2));
+
+        $generators = $fakeDataA->generatedBy();
+
+        $this->assertEquals('Fakerino\FakeData\Generator\FakeDataBGenerator', $generators);
     }
 }

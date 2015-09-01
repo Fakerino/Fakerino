@@ -47,4 +47,11 @@ class EntityFillerTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $setters);
         $this->assertEquals(6, count($setters));
     }
+
+    public function testWrongObjectProvidedtoEntityConstructor()
+    {
+        $this->setExpectedException('\RuntimeException');
+
+        $badEntityFiller = new EntityInfo('foo');
+    }
 }

@@ -55,12 +55,14 @@ class FileTest extends \PHPUnit_Framework_TestCase
     public function testFileNotFoundException()
     {
         $this->setExpectedException('Fakerino\DataSource\File\Exception\FileNotFoundException');
+
         $this->file = new File('file');
     }
 
     public function testFileGetConentEmptyException()
     {
         $this->setExpectedException('Fakerino\DataSource\File\Exception\FileEmptyException');
+
         $this->file = new File($this->emptyFile);
         $this->file->getContent();
     }
@@ -68,7 +70,15 @@ class FileTest extends \PHPUnit_Framework_TestCase
     public function testFileReadLineNotFoundException()
     {
         $this->setExpectedException('Fakerino\DataSource\File\Exception\FileLineNotFoundException');
+
         $this->file = new File($this->testFile);
         $this->file->readLine(100);
+    }
+
+    public function testFileReadLine()
+    {
+        $this->file = new File($this->testFile);
+
+        $this->assertNotNull($this->file->readLine(0));
     }
 }

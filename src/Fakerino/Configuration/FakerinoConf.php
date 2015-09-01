@@ -18,7 +18,7 @@ use Fakerino\Configuration\Exception\ConfValueNotFoundException;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class FakerinoConf
+final class FakerinoConf
 {
     /**
      * @var array

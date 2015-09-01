@@ -40,14 +40,6 @@ class DbFieldEntity
     }
 
     /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
      * @return string
      */
     public function getName()
@@ -56,27 +48,11 @@ class DbFieldEntity
     }
 
     /**
-     * @param mixed $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
      * @return mixed
      */
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * @param mixed $value
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
     }
 
     /**

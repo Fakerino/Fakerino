@@ -81,6 +81,13 @@ class DoctrineLayerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->dLayer->insert($row));
     }
 
+    public function testWrongTable()
+    {
+        $this->setExpectedException('Doctrine\DBAL\ConnectionException');
+
+        $this->dLayer->setTable('foo');
+    }
+
     public function provider()
     {
         return array(

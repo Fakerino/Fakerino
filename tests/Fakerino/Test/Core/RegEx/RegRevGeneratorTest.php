@@ -14,6 +14,7 @@ use Fakerino\Core\RegEx\RegRevGenerator;
 
 class RegRevGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testGenerate()
     {
         $generator = new RegRevGenerator();
@@ -21,5 +22,14 @@ class RegRevGeneratorTest extends \PHPUnit_Framework_TestCase
         $expr = '/\d{'.$length.'}/';
 
         $this->assertEquals($length, strlen($generator->generate($expr)));
+    }
+
+    public function testNotValidRegularExpression()
+    {
+        $this->setExpectedException('Fakerino\Core\RegEx\Exception\InvalidRegexException');
+
+        $generator = new RegRevGenerator();
+        $expr = '\\';
+        $generator->generate($expr);
     }
 }

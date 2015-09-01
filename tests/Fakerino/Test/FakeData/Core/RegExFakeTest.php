@@ -39,4 +39,18 @@ class RegexFakeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('Fakerino\\FakeData\\Generator\\RegExGenerator', $generatedBy);
     }
+
+    public function testGetRequiredOptions()
+    {
+        $regexFake = new RegexFake();
+
+        $this->assertNull($regexFake->getDefaultOptions());
+    }
+
+    public function testGetDefaultOptions()
+    {
+        $regexFake = new RegexFake();
+
+        $this->assertNull($regexFake->getRequiredOptions());
+    }
 }

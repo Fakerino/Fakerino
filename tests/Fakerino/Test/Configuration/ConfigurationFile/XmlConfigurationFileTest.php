@@ -15,13 +15,12 @@ use Fakerino\DataSource\File\File;
 
 class XmlConfigurationFileTest extends \PHPUnit_Framework_TestCase
 {
-    public function testXmlConffile()
+    public function testXmlConfFile()
     {
         $fileDir = __DIR__ . '/../../Fixtures/';
         $xmlFilePath = $fileDir . 'file.xml';
         $xmlFile = new File($xmlFilePath);
-        $xmlConf = new XmlConfigurationFile();
-        $xmlConf->loadConfiguration($xmlFile);
+        $xmlConf = new XmlConfigurationFile($xmlFile);
         $result = $xmlConf->toArray();
 
         $this->assertInternalType('array', $result);

@@ -11,17 +11,12 @@
 namespace Fakerino\Configuration;
 
 /**
- * Interface ConfigurationInterface
+ * Interface ConfigurationParserInterface
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-interface ConfigurationInterface
+interface ConfigurationParserInterface
 {
-    /**
-     * @param array $source
-     */
-    public function loadConfiguration($source);
-
     /**
      * @return array
      */

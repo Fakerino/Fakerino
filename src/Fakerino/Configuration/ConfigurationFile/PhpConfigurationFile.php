@@ -10,15 +10,16 @@
 
 namespace Fakerino\Configuration\ConfigurationFile;
 
-use Fakerino\Configuration\AbstractConfigurationFile;
+use Fakerino\Configuration\ConfigurationParserInterface;
 use Fakerino\Configuration\Exception\ConfNotSupportedException;
+use Fakerino\Configuration\FakerinoConfigurationLoader;
 
 /**
  * Class PhpConfigurationFile
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class PhpConfigurationFile extends AbstractConfigurationFile
+final class PhpConfigurationFile extends FakerinoConfigurationLoader implements ConfigurationParserInterface
 {
     /**
      * {@inheritdoc}

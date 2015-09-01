@@ -17,7 +17,7 @@ use Fakerino\FakeData\FakeDataInterface;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class FileFake implements FakeDataInterface
+final class FileFake implements FakeDataInterface
 {
     /**
      * @var array

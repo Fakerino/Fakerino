@@ -10,20 +10,27 @@
 
 namespace Fakerino\Configuration\ConfigurationFile;
 
-use Fakerino\Configuration\AbstractConfigurationFile;
+use Fakerino\Configuration\ConfigurationParserInterface;
+use Fakerino\Configuration\FakerinoConfigurationLoader;
 
 /**
  * Class IniConfigurationFile
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class IniConfigurationFile extends AbstractConfigurationFile
+final class IniConfigurationFile extends FakerinoConfigurationLoader implements ConfigurationParserInterface
 {
     /**
      * {@inheritdoc}
      */
     public function toArray()
     {
-        return  parse_ini_file($this->getConfFilePath(), true);
+        $array =  parse_ini_file($this->getConfFilePath(), true);
+        if (empty($array)) {
+
+            return array();
+        }
+
+        return $array;
     }
 }
