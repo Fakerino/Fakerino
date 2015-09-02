@@ -18,7 +18,7 @@ use Symfony\Component\Yaml\Parser;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class YamlConfigurationFile extends AbstractConfigurationFile
+final class YmlConfigurationFile extends AbstractConfigurationFile
 {
     /**
      * {@inheritdoc}

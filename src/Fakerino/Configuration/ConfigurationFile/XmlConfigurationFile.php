@@ -17,7 +17,7 @@ use Fakerino\Configuration\AbstractConfigurationFile;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class XmlConfigurationFile extends AbstractConfigurationFile
+final class XmlConfigurationFile extends AbstractConfigurationFile
 {
     /**
      * {@inheritdoc}

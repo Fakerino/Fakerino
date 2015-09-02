@@ -12,7 +12,11 @@ namespace Fakerino\Test\Core\Console;
 
 use Fakerino\Core\Console\FakeConsole;
 use Fakerino\Core\Database\DoctrineLayer;
+use Fakerino\Fakerino;
 
+/**
+ * @group console
+ */
 class FakeConsoleTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -71,8 +75,8 @@ class FakeConsoleTest extends \PHPUnit_Framework_TestCase
             'driver' => 'pdo_sqlite'
         );
         $num = 3;
-        $dLayer = new DoctrineLayer();
-        $dLayer->connect($connectionParams);
+        $dLayer = new DoctrineLayer($connectionParams);
+        $dLayer->connect();
         DoctrineLayer::$conn->query($sql);
         $fileDir = __DIR__ . '/../../Fixtures/';
         $testFile = $fileDir . 'file.php';
@@ -140,5 +144,6 @@ class FakeConsoleTest extends \PHPUnit_Framework_TestCase
         DoctrineLayer::$conn = null;
         $dbFile = __DIR__ . '/../../Fixtures/test.sqlite';
         unlink($dbFile);
-    }
+     }
+
 }

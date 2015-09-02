@@ -8,6 +8,9 @@ fake:
    - titlefemale
    - namefemale
    - surname
+  fakeFamily:
+   - fakeMale
+   - fakeFemale
 database:
   dbname: mydb
   user: username

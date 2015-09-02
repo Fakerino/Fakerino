@@ -14,6 +14,9 @@ use Fakerino\Core\FakeElement;
 use Fakerino\Core\FakeHandler\RegExFakerClass;
 use Fakerino\Core\RegEx\RegRevGenerator;
 
+/**
+ * @group handler
+ */
 class RegExFakerClassTest extends \PHPUnit_Framework_TestCase
 {
     public function testHandler()

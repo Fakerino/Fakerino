@@ -39,7 +39,7 @@ class FakeConsole
         $this->input = $input;
         unset($this->input[0]);
         $helpIndex = array_search('-h', $this->input);
-        if ($helpIndex !== false) {
+        if (false !== $helpIndex || empty($this->input)) {
             $this->help = true;
 
             return;

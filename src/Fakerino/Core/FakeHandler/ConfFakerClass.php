@@ -21,13 +21,23 @@ use Fakerino\Core\FakeElement;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class ConfFakerClass extends Handler
+final class ConfFakerClass extends Handler
 {
+    private $fakeElements;
+
+    /**
+     * @param array|string $fakeElements
+     */
+    public function __construct($fakeElements)
+    {
+        $this->fakeElements = $fakeElements;
+        if (!is_array($fakeElements)) {
+            $this->fakeElements = array($fakeElements);
+        }
+    }
 
     protected function process($data)
     {
-        $fakeTag = FakerinoConf::get('fakerinoTag');
-
         /**
          * When an element in the configuration is not present,
          * FakerinoConf returns an exception.
@@ -35,12 +45,12 @@ class ConfFakerClass extends Handler
          * the catch block will intercept that exception.
          */
         try {
-            $elementInConf = FakerinoConf::get($fakeTag);
-            if (array_key_exists($data->getName(), $elementInConf)) {
+            if (array_key_exists($data->getName(), $this->fakeElements)) {
                 $firstChain = self::getFirstChain();
                 if ($firstChain !== null) {
                     $classes = array();
-                    foreach ($elementInConf[$data->getName()] as $key => $val) {
+
+                    foreach ($this->fakeElements[$data->getName()] as $key => $val) {
                         $element = new FakeElement($key, $val);
                         $classes[] = $firstChain->handle($element);
                     }

@@ -18,7 +18,7 @@ use Fakerino\Configuration\Exception\ConfNotSupportedException;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class PhpConfigurationFile extends AbstractConfigurationFile
+final class PhpConfigurationFile extends AbstractConfigurationFile
 {
     /**
      * {@inheritdoc}

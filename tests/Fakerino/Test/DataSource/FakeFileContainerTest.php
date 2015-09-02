@@ -13,30 +13,33 @@ namespace Fakerino\Test\DataSource;
 use Fakerino\DataSource\FakeFileContainer;
 use Fakerino\DataSource\File\File;
 
-class FakeTxtFileTest extends \PHPUnit_Framework_TestCase
+class FakeFileContainerTest extends \PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $this->filePath = __DIR__ . '/../Fixtures/file.txt';
+    }
+
     public function testGetNotExistedFile()
     {
         $container = new FakeFileContainer();
 
-        $this->assertFalse($container->get('test', 'path'));
+        $this->assertFalse($container->get('wrongPath/foo.txt'));
     }
 
     public function testContainer()
     {
         $container = new FakeFileContainer();
-        $fileDir = __DIR__ . '/../Fixtures/';
 
-        $this->assertInstanceOf('\SplFileInfo', $container->get('file.txt', $fileDir));
+        $this->assertInstanceOf('\SplFileInfo', $container->get($this->filePath));
     }
 
     public function testAddMethod()
     {
         $container = new FakeFileContainer();
-        $fileDir = __DIR__ . '/../Fixtures/';
-        $file = new File($fileDir.'file.txt');
+        $file = new File($this->filePath);
         $container->add('file', $file);
 
-        $this->assertInstanceOf('\SplFileInfo', $container->get('file', ''));
+        $this->assertInstanceOf('\SplFileInfo', $container->get($this->filePath));
     }
 }

@@ -17,7 +17,7 @@ use Fakerino\Configuration\AbstractConfigurationFile;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class IniConfigurationFile extends AbstractConfigurationFile
+final class IniConfigurationFile extends AbstractConfigurationFile
 {
     /**
      * {@inheritdoc}
