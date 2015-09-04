@@ -10,7 +10,6 @@
 
 namespace Fakerino\Test\FakeData\Generator;
 
-use Fakerino\Configuration\FakerinoConf;
 use Fakerino\FakeData\Core\FileFake;
 use Fakerino\FakeData\Custom\Text;
 use Fakerino\FakeData\Generator\FileFakeGenerator;
@@ -20,29 +19,26 @@ class FileFakeGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        FakerinoConf::loadConfiguration();
-        $this->FileFakeGenerator = new FileFakeGenerator();
-        $this->FileFakeGenerator->setCaller(new Text());
+        $this->fileFakeGenerator = new FileFakeGenerator();
+        $this->fileFakeGenerator->setCaller(new Text());
     }
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Fakerino\FakeData\FakeDataGeneratorInterface', $this->FileFakeGenerator);
+        $this->assertInstanceOf('Fakerino\FakeData\FakeDataGeneratorInterface', $this->fileFakeGenerator);
     }
 
     public function testReturnNull()
     {
-        $this->assertNull($this->FileFakeGenerator->generate());
+        $this->assertNull($this->fileFakeGenerator->generate());
     }
 
     public function testReturnRandomLine()
     {
-        $FileFakeGenerator = new FileFakeGenerator();
-        $FileFakeGenerator->setCaller(new FileFake('Surname'));
-        $generatedString = $FileFakeGenerator->generate();
-
+        $fileFakeGenerator = new FileFakeGenerator();
+        $fileFakeGenerator->setCaller(new FileFake(__DIR__ . '/../Fixtures/file.txt'));
+        $generatedString = $fileFakeGenerator->generate();
         $this->assertNotNull($generatedString);
         $this->assertInternalType('string', $generatedString);
     }
-
 }

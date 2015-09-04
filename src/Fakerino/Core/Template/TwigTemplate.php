@@ -20,7 +20,7 @@ use Twig_Token;
  *
  * @package Fakerino\Template
  */
-class TwigTemplate implements TemplateInterface
+final class TwigTemplate implements TemplateInterface
 {
     private $template;
     private $templateName;

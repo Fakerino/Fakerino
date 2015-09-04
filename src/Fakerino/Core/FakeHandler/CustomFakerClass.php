@@ -17,7 +17,7 @@ namespace Fakerino\Core\FakeHandler;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class CustomFakerClass extends Handler
+final class CustomFakerClass extends Handler
 {
     /**
      * @var array custom class container

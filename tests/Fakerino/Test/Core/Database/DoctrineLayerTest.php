@@ -25,13 +25,13 @@ class DoctrineLayerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->testTable = 'testTable';
-        $this->dLayer = new DoctrineLayer();
         $this->connectionParams = array(
             'user' => null,
             'password' => null,
             'memory' => true,
             'driver' => 'pdo_sqlite'
         );
+        $this->dLayer = new DoctrineLayer($this->connectionParams);
         $sql = "CREATE TABLE `" . $this->testTable . "` (
                 `numberPk`	INTEGER,
                 `number`	INTEGER,
@@ -40,7 +40,7 @@ class DoctrineLayerTest extends \PHPUnit_Framework_TestCase
                 `description`	BLOB,
                 PRIMARY KEY(numberPk)
                 )";
-        $this->dLayer->connect($this->connectionParams);
+        $this->dLayer->connect();
         DoctrineLayer::$conn->query($sql);
         $this->dLayer->setTable($this->testTable);
     }
@@ -79,6 +79,13 @@ class DoctrineLayerTest extends \PHPUnit_Framework_TestCase
         $row->setFields($filed);
 
         $this->assertTrue($this->dLayer->insert($row));
+    }
+
+    public function testWrongTable()
+    {
+        $this->setExpectedException('Doctrine\DBAL\ConnectionException');
+
+        $this->dLayer->setTable('foo');
     }
 
     public function provider()

@@ -10,18 +10,19 @@
 
 namespace Fakerino\Test\Core\FakeHandler;
 
-use Fakerino\Configuration\FakerinoConf;
 use Fakerino\Core\FakeElement;
 use Fakerino\Core\FakeHandler\ConfFakerClass;
 use Fakerino\Core\FakeHandler\CustomFakerClass;
 
+/**
+ * @group handler
+ */
 class ConfFakerClassTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testHandlerWithNullClass()
     {
-        $handler = new ConfFakerClass();
-        FakerinoConf::loadConfiguration();
+        $handler = new ConfFakerClass(null);
 
         $this->assertInstanceOf('Fakerino\Core\FakeHandler\Handler', $handler);
         $this->assertNull($handler->handle(new FakeElement('null')));
@@ -29,12 +30,11 @@ class ConfFakerClassTest extends \PHPUnit_Framework_TestCase
 
     public function testHandlerWithConfiguration()
     {
-        $fakeConf['fake'] = array(
+        $fakeConf = array(
             'fakeTest' => array('Unknown', 'Surname' => null)
         );
-        FakerinoConf::loadConfiguration($fakeConf);
         $firstHandler = new CustomFakerClass();
-        $handler = new ConfFakerClass();
+        $handler = new ConfFakerClass($fakeConf);
         $firstHandler->setSuccessor($handler);
 
         $this->assertInstanceOf('Fakerino\Core\FakeHandler\Handler', $firstHandler);

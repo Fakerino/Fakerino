@@ -19,7 +19,7 @@ use Fakerino\FakeData\Custom\Integer;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class IntegerGenerator extends AbstractFakeDataGenerator
+final class IntegerGenerator extends AbstractFakeDataGenerator
 {
     /**
      * {@inheritdoc}

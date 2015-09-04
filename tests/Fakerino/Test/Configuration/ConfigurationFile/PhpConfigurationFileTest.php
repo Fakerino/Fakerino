@@ -20,8 +20,7 @@ class PhpConfigurationFileTest extends \PHPUnit_Framework_TestCase
         $fileDir = __DIR__ . '/../../Fixtures/';
         $phpFilePath = $fileDir . 'file.php';
         $phpFile = new File($phpFilePath);
-        $phpConf = new PhpConfigurationFile();
-        $phpConf->loadConfiguration($phpFile);
+        $phpConf = new PhpConfigurationFile($phpFile);
 
         $this->assertInternalType('array', $phpConf->toArray());
     }
@@ -33,8 +32,7 @@ class PhpConfigurationFileTest extends \PHPUnit_Framework_TestCase
         $fileDir = __DIR__ . '/../../Fixtures/';
         $phpFilePath = $fileDir . 'fileWrongConf.php';
         $phpFile = new File($phpFilePath);
-        $phpConf = new PhpConfigurationFile();
-        $phpConf->loadConfiguration($phpFile);
+        $phpConf = new PhpConfigurationFile($phpFile);
 
         $this->assertInternalType('array', $phpConf->toArray());
     }

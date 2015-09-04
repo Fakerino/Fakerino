@@ -13,6 +13,9 @@ namespace Fakerino\Test\Core\FakeHandler;
 use Fakerino\Core\FakeElement;
 use Fakerino\Core\FakeHandler\CustomFakerClass;
 
+/**
+ * @group handler
+ */
 class CustomFakerClassTest extends \PHPUnit_Framework_TestCase
 {
     public function testHandlerCreation()
@@ -21,6 +24,7 @@ class CustomFakerClassTest extends \PHPUnit_Framework_TestCase
         $data = new FakeElement('text');
 
         $this->assertInstanceOf('Fakerino\Core\FakeHandler\Handler', $handler);
+
         $this->assertInternalType('string', $handler->handle($data));
     }
 

@@ -17,7 +17,7 @@ namespace Fakerino\Core\FakeHandler;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class DefaultFakerClass extends Handler
+final class DefaultFakerClass extends Handler
 {
     /**
      * {@inheritdoc}

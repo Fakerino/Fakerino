@@ -19,20 +19,33 @@ use Doctrine\DBAL\Types\Type;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class DoctrineLayer implements DbInterface
+final class DoctrineLayer implements DbInterface
 {
+    /* @var \Doctrine\DBAL\DriverManager */
     public static $conn;
+
     private $tableName;
     private $columns;
     private $totalFields;
+    private $databaseConfig;
+
+    /**
+     * @param array|null $databaseConfig
+     */
+    public function __construct($databaseConfig)
+    {
+        $this->databaseConfig = $databaseConfig;
+    }
 
     /**
      * {@inheritdoc}
      */
-    public function connect($connectionParams)
+    public function connect()
     {
         $config = new \Doctrine\DBAL\Configuration();
-        self::$conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
+        self::$conn = \Doctrine\DBAL\DriverManager::getConnection($this->databaseConfig, $config);
+
+        return true;
     }
 
     /**

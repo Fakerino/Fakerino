@@ -18,9 +18,10 @@ class TextGeneratorTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->randomStringGenerator = new TextGenerator();
-        $this->mockRandomString = $this->getMockBuilder('Fakerino\FakeData\Generator\TextGenerator')
-            ->setMethods(array('getOption'))
+        $this->mockCaller = $this->getMockBuilder('Fakerino\FakeData\FakeDataInterface')
             ->getMock();
+        $this->randomStringGenerator->setCaller($this->mockCaller);
+
     }
 
     public function testRandomStringGeneratorConstructor()
@@ -30,9 +31,9 @@ class TextGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testGenerate()
     {
-        $this->mockRandomString->method('getOption')
+        $this->mockCaller->method('getOption')
             ->willReturn(null);
-        $randomString = $this->mockRandomString->generate();
+        $randomString = $this->randomStringGenerator->generate();
 
         $this->assertNotNull($randomString);
         $this->assertInternalType('string', $randomString);
@@ -45,10 +46,10 @@ class TextGeneratorTest extends \PHPUnit_Framework_TestCase
             array('length', $length),
             array('addChars', 'test')
         );
-        $this->mockRandomString->expects($this->exactly(2))
+        $this->mockCaller->expects($this->exactly(2))
             ->method('getOption')
             ->will($this->returnValueMap($map));
-        $randomString = $this->mockRandomString->generate();
+        $randomString = $this->randomStringGenerator->generate();
 
         $this->assertEquals($length, strlen($randomString));
     }

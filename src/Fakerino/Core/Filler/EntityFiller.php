@@ -19,7 +19,7 @@ use Fakerino\Core\FakeDataFactory;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class EntityFiller implements FillerInterface
+final class EntityFiller implements FillerInterface
 {
     private $entity;
     private $faker;

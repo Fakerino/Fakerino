@@ -12,23 +12,30 @@ namespace Fakerino\Configuration\ConfigurationFile;
 
 use Fakerino\Configuration\ConfigurationParserInterface;
 use Fakerino\Configuration\FakerinoConfigurationLoader;
+use Symfony\Component\Yaml\Parser as YamlParser;
 
 /**
- * Class IniConfigurationFile
+ * Class YamlConfigurationFile
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-final class IniConfigurationFile extends FakerinoConfigurationLoader implements ConfigurationParserInterface
+final class YmlConfigurationFile extends FakerinoConfigurationLoader implements ConfigurationParserInterface
 {
     /**
      * {@inheritdoc}
      */
     public function toArray()
     {
-        $array =  parse_ini_file($this->getConfFilePath(), true);
+        $yaml = new YamlParser();
+
+        $array = $yaml->parse(file_get_contents($this->getConfFilePath(), true));
         if (empty($array)) {
 
             return array();
+        }
+        if (!is_array($array)) {
+
+            return array($array);
         }
 
         return $array;

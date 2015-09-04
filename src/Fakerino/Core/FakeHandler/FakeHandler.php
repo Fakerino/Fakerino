@@ -16,13 +16,22 @@ namespace Fakerino\Core\FakeHandler;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class FakeHandler extends Handler
+final class FakeHandler extends Handler
 {
+    /**
+     * Reset the first chain of handlers
+     */
+    public function __construct()
+    {
+        self::resetFirstChain();
+    }
+
     /**
      * {@inheritdoc}
      */
     protected function process($data)
     {
+
         return;
     }
 }

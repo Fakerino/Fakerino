@@ -15,12 +15,16 @@ use Fakerino\FakeData\Generator\RegExGenerator;
 
 class RegExGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+    private $regExGenerator;
+    private $mockCaller;
+
     public function setUp()
     {
-        $this->generator = new RegExGenerator();
-        $this->mockInteger = $this->getMockBuilder('Fakerino\FakeData\Generator\RegExGenerator')
-            ->setMethods(array('getOption'))
+        $this->regExGenerator = new RegExGenerator();
+        $this->mockCaller = $this->getMockBuilder('Fakerino\FakeData\FakeDataInterface')
             ->getMock();
+        $this->regExGenerator->setCaller($this->mockCaller);
+
     }
 
     public function testGeneration()
@@ -31,10 +35,10 @@ class RegExGeneratorTest extends \PHPUnit_Framework_TestCase
             array('regexgenerator', new RegRevGenerator()),
             array('expression', $expr),
         );
-        $this->mockInteger->expects($this->exactly(2))
+        $this->mockCaller->expects($this->exactly(2))
             ->method('getOption')
             ->will($this->returnValueMap($map));
-        $fakeData = $this->mockInteger->generate();
+        $fakeData = $this->regExGenerator->generate();
 
         $this->assertEquals($length, strlen($fakeData));
     }

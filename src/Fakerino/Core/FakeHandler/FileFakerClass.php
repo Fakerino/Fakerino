@@ -9,7 +9,6 @@
  */
 
 namespace Fakerino\Core\FakeHandler;
-use Fakerino\Configuration\FakerinoConf;
 
 /**
  * Class FileFakerClass,
@@ -17,23 +16,27 @@ use Fakerino\Configuration\FakerinoConf;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class FileFakerClass extends Handler
+final class FileFakerClass extends Handler
 {
 
+    /**
+     * @param string $filePath
+     */
+    public function __construct($filePath)
+    {
+        $this->filePath = $filePath;
+    }
     /**
      * {@inheritdoc}
      */
     protected function process($data)
     {
         $elementName = $data->getName();
-        $fakeFilePath = FakerinoConf::get('fakeFilePath')
-            . DIRECTORY_SEPARATOR
-            . FakerinoConf::get('locale')
-            . DIRECTORY_SEPARATOR
+        $fakeFilePath = $this->filePath
             . $this->createFilename($elementName);
         if (file_exists($fakeFilePath)) {
 
-            return $this->getOutput('Fakerino\\FakeData\\Core\\FileFake', $elementName);
+            return $this->getOutput('Fakerino\\FakeData\\Core\\FileFake', $fakeFilePath);
         }
 
         return;

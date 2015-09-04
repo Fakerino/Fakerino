@@ -31,21 +31,36 @@ class DbFillerTest extends \PHPUnit_Framework_TestCase
         $fakeHandler = new FakeHandler\FakeHandler();
         $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\DefaultFakerClass());
-        $faker = new FakeDataFactory($fakeHandler, new DoctrineLayer(), new TwigTemplate());
-        $this->mockDoctrineLayer = $this->getMockBuilder('Fakerino\Core\Database\DoctrineLayer')
+        $this->mockDoctrineLayer = $this->getMockBuilder('Fakerino\Core\Database\DbInterface')
+            ->setConstructorArgs(array($this->connectionParams))
             ->getMock();
-        $this->dbFiller = new DbFiller($this->connectionParams, $this->mockDoctrineLayer, $this->testTable, $faker, $this->num);
+        $faker = new FakeDataFactory($fakeHandler, $this->mockDoctrineLayer, new TwigTemplate());
+
+        $this->dbFiller = new DbFiller($this->mockDoctrineLayer, $this->testTable, $faker, $this->num);
     }
 
-    public function testFill()
+    /**
+     * @dataProvider provider
+     */
+    public function testFillNumeric($columnName, $columnType)
     {
         $this->mockDoctrineLayer->method('getTotalColumns')->willReturn(1);
-        $this->mockDoctrineLayer->expects($this->exactly($this->num))->method('getColumnName')->willReturn('integer');
-        $this->mockDoctrineLayer->expects($this->exactly($this->num))->method('getColumnType')->willReturn('integer');
+        $this->mockDoctrineLayer->expects($this->exactly($this->num))->method('getColumnName')->willReturn($columnName);
+        $this->mockDoctrineLayer->expects($this->exactly($this->num))->method('getColumnType')->willReturn($columnType);
 
         $rows = $this->dbFiller->fill();
         $this->assertInternalType('array', $rows);
         $this->assertEquals($this->num, count($rows));
+    }
+
+    public function provider()
+    {
+        return array(
+            array('integer', 'integer'),
+            array('date', 'date'),
+            array('datetime', 'datetime'),
+            array('time', 'time'),
+        );
     }
 
     public static function tearDownAfterClass()

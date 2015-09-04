@@ -16,15 +16,15 @@ class DateGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->DateGenerator = new DateGenerator();
-        $this->mockDate = $this->getMockBuilder('Fakerino\FakeData\Generator\DateGenerator')
-            ->setMethods(array('getOption'))
+        $this->dateGenerator = new DateGenerator();
+        $this->mockCaller = $this->getMockBuilder('Fakerino\FakeData\FakeDataInterface')
             ->getMock();
+        $this->dateGenerator->setCaller($this->mockCaller);
     }
 
     public function testRandomStringGeneratorConstructor()
     {
-        $this->assertInstanceOf('Fakerino\FakeData\FakeDataGeneratorInterface', $this->DateGenerator);
+        $this->assertInstanceOf('Fakerino\FakeData\FakeDataGeneratorInterface', $this->dateGenerator);
     }
 
     /**
@@ -37,10 +37,10 @@ class DateGeneratorTest extends \PHPUnit_Framework_TestCase
             array('startDate', $startDate),
             array('endDate', $endDate)
         );
-        $this->mockDate->expects($this->exactly(3))
+        $this->mockCaller->expects($this->exactly(3))
             ->method('getOption')
             ->will($this->returnValueMap($map));
-        $fakeDate = $this->mockDate->generate();
+        $fakeDate = $this->dateGenerator->generate();
 
         $this->assertTrue((bool)preg_match($pattern, $fakeDate), sprintf('The date %s doesn\'t match the expression %s', $fakeDate, $pattern));
     }

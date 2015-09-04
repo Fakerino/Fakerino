@@ -21,7 +21,7 @@ use Fakerino\Core\FakeDataFactory;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class DbFiller implements FillerInterface
+final class DbFiller implements FillerInterface
 {
     private $db;
 
@@ -38,17 +38,16 @@ class DbFiller implements FillerInterface
     private $num;
 
     /**
-     * @param array           $connectionParams
      * @param DbInterface     $db
      * @param string          $tableName
      * @param FakeDataFactory $faker
      * @param int             $num
      */
-    public function __construct($connectionParams, DbInterface $db, $tableName, FakeDataFactory $faker, $num = 1)
+    public function __construct(DbInterface $db, $tableName, FakeDataFactory $faker, $num = 1)
     {
         $this->db = $db;
         $this->faker = $faker;
-        $db->connect($connectionParams);
+        $db->connect();
         $db->setTable($tableName);
         $this->num = $num;
     }

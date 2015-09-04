@@ -18,7 +18,7 @@ use Fakerino\FakeData\AbstractFakeData;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class Text extends AbstractFakeData
+final class Text extends AbstractFakeData
 {
     /**
      * {@inheritdoc}

@@ -17,7 +17,7 @@ namespace Fakerino\Core;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class OutPutFactory
+final class OutPutFactory
 {
     /**
      * Returns a string output.

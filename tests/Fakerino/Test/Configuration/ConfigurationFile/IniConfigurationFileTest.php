@@ -15,16 +15,27 @@ use Fakerino\DataSource\File\File;
 
 class IniConfigurationFileTest extends \PHPUnit_Framework_TestCase
 {
-    public function testIniToArray()
+    public function testIniConfFile()
     {
         $fileDir = __DIR__ . '/../../Fixtures/';
         $iniFilePath = $fileDir . 'file.ini';
         $iniFile = new File($iniFilePath);
-        $iniConf = new IniConfigurationFile();
-        $iniConf->loadConfiguration($iniFile);
+        $iniConf = new IniConfigurationFile($iniFile);
         $result = $iniConf->toArray();
 
         $this->assertInternalType('array', $result);
         $this->assertNotEmpty($result);
+    }
+
+    public function testEmptyIniConfFile()
+    {
+        $fileDir = __DIR__ . '/../../Fixtures/';
+        $iniFilePath = $fileDir . 'emptyFile.ini';
+        $iniFile = new File($iniFilePath);
+        $iniConf = new IniConfigurationFile($iniFile);
+        $result = $iniConf->toArray();
+
+        $this->assertInternalType('array', $result);
+        $this->assertEmpty($result);
     }
 }

@@ -14,33 +14,53 @@ use Fakerino\Configuration\FakerinoConf;
 use Fakerino\Core\FakeElement;
 use Fakerino\Core\FakeHandler\FileFakerClass;
 
+/**
+ * @group handler
+ */
 class FileFakerClassTest extends \PHPUnit_Framework_TestCase
 {
     public function testHandler()
     {
-        $handler = new FileFakerClass();
-        $customClass = new FakeElement('Surname');
+        $elementToFake = 'Surname';
+        $fakerinoDefaultConf = new FakerinoConf();
+        $fakerinoDefaultConf->loadConfiguration();
+        $fileFakePath = $this->getFileFakePath($fakerinoDefaultConf);
+        $fakeFile = $fileFakePath
+            . strtolower($elementToFake) . '.txt';
 
-        $fakeFile = FakerinoConf::get('fakeFilePath')
-            . DIRECTORY_SEPARATOR
-            . FakerinoConf::get('locale')
-            . DIRECTORY_SEPARATOR
-            . strtolower($customClass->getName()) . '.txt';
-        $fileContentRaw = file($fakeFile);
-        $fileContent = array();
-        foreach ($fileContentRaw as $val) {
-            $fileContent[] = $this->cleanExtraChar($val);
-        }
+        $handler = new FileFakerClass($fileFakePath);
+        $customClass = new FakeElement($elementToFake);
+        $fileContent = $this->getFileContent($fakeFile);
+
         $result = $handler->handle($customClass);
-        $valueExists = in_array($result, $fileContent);
+        $isResultValueExistsInFile = in_array($result, $fileContent);
 
         $this->assertInstanceOf('Fakerino\Core\FakeHandler\Handler', $handler);
         $this->assertInternalType('string', $result);
-        $this->assertTrue($valueExists);
+        $this->assertTrue($isResultValueExistsInFile);
     }
 
     private function cleanExtraChar($val)
     {
         return preg_replace("/\r|\n/", "", $val);
+    }
+
+    private function getFileFakePath($fakerinoDefaultConf)
+    {
+        return $fakerinoDefaultConf->get('fakeFilePath')
+        . DIRECTORY_SEPARATOR
+        . $fakerinoDefaultConf->get('locale')
+        . DIRECTORY_SEPARATOR;
+    }
+
+    private function getFileContent($fakeFile)
+    {
+        $fileContentRaw = file($fakeFile);
+        $fileContent = array();
+        foreach ($fileContentRaw as $val) {
+            $fileContent[] = $this->cleanExtraChar($val);
+        }
+
+        return $fileContent;
     }
 }

@@ -19,7 +19,7 @@ use RegRev\RegRev;
  *
  * @package Fakerino\Core\RegEx
  */
-class RegRevGenerator implements RegExGeneratorInterface
+final class RegRevGenerator implements RegExGeneratorInterface
 {
     /**
      * @param string $regex
@@ -30,12 +30,12 @@ class RegRevGenerator implements RegExGeneratorInterface
     public function generate($regex)
     {
         $expr = substr($regex, 1, -1);
-        $result = RegRev::generate($expr);
-        if ($result !== null) {
-
-            return $result;
-        } else {
+        try {
+            $result = RegRev::generate($expr);
+        } catch (\Exception $e) {
             throw new InvalidRegexException($expr);
         }
+
+        return $result;
     }
 }
