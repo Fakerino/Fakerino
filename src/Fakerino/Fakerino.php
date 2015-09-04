@@ -41,13 +41,11 @@ final class Fakerino
     {
         self::$defaultConf = new FakerinoConf();
         self::$defaultConf->loadConfiguration();
-        $databaseConfig = null;
         if ($conf !== null) {
             $confArray = $conf;
             if (!is_array($conf)) {
                 $confTypeFactory = new FileConfigurationLoaderFactory(
-                    $conf,
-                    self::$defaultConf->get('supportedConfExts')
+                    $conf
                 );
                 $confParser = $confTypeFactory->load();
                 $confArray = $confParser->toArray();

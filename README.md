@@ -8,6 +8,7 @@ Fakerino is a fake data generator framework fully extensible.
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/4e7de12a-8fc4-4626-a33d-3287a20f02f6/mini.png)](https://insight.sensiolabs.com/projects/4e7de12a-8fc4-4626-a33d-3287a20f02f6)
 [![Code Climate](https://codeclimate.com/github/Fakerino/Fakerino/badges/gpa.svg)](https://codeclimate.com/github/Fakerino/Fakerino)
 [![Quality Score](https://img.shields.io/scrutinizer/g/Fakerino/Fakerino.svg?style=flat-square)](https://scrutinizer-ci.com/g/Fakerino/Fakerino)
+[![Code Coverage](https://scrutinizer-ci.com/g/Fakerino/Fakerino/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Fakerino/Fakerino/?branch=master)
 
 [![License](https://poser.pugx.org/fakerino/fakerino/license.svg)](https://packagist.org/packages/fakerino/fakerino)
 

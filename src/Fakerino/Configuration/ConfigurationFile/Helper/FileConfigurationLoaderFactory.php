@@ -22,18 +22,15 @@ use Fakerino\DataSource\File\File;
 final class FileConfigurationLoaderFactory
 {
     private $filePath;
-    private $exts = array();
 
     /**
      * Constructor
      *
      * @param string $filePath
-     * @param array  $exts
      */
-    public function __construct($filePath, $exts)
+    public function __construct($filePath)
     {
         $this->filePath = $filePath;
-        $this->exts = $exts;
     }
 
     /**

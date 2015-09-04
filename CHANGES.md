@@ -1,3 +1,12 @@
+0.8.1 / 2015-07-04
+==================
+  * Fix yml parser bug
+  * Fix nested fake bug
+  * Increase test coverage
+  * Refactor configuration files
+  * General class refactoring
+  * Fix README
+
 0.8.0 / 2015-06-18
 ==================
   * Add seed feature, to return same value in different calls

@@ -11,7 +11,6 @@
 namespace Fakerino\Core\FakeHandler;
 
 use Fakerino\Configuration\Exception\ConfValueNotFoundException;
-use Fakerino\Configuration\FakerinoConf;
 use Fakerino\Core\FakeElement;
 
 /**
