@@ -18,4 +18,18 @@ class FileFakeTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('Fakerino\FakeData\FakeDataInterface', new FileFake());
     }
+
+    public function testGetRequiredOptions()
+    {
+        $fileFake = new FileFake();
+
+        $this->assertNull($fileFake->getDefaultOptions());
+    }
+
+    public function testGetDefaultOptions()
+    {
+        $fileFake = new FileFake();
+
+        $this->assertNull($fileFake->getRequiredOptions());
+    }
 }

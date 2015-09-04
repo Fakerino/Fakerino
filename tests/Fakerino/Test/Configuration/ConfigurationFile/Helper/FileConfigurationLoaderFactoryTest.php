@@ -31,13 +31,15 @@ class FileConfigurationLoaderFactoryTest extends \PHPUnit_Framework_TestCase
     public function testFileNotFound()
     {
         $this->setExpectedException('Fakerino\DataSource\File\Exception\FileNotFoundException');
-        $conf = new FileConfigurationLoaderFactory($this->fileDir, array('ini'));
+
+        $conf = new FileConfigurationLoaderFactory($this->fileDir . '.foo', array('ini'));
         $conf->load();
     }
 
     public function testConfNotSupported()
     {
         $this->setExpectedException('Fakerino\Configuration\Exception\ConfNotSupportedException');
+
         $conf = new FileConfigurationLoaderFactory($this->notSupportedFile, array('ini'));
         $conf->load();
     }

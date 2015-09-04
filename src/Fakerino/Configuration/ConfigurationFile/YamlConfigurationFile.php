@@ -10,23 +10,34 @@
 
 namespace Fakerino\Configuration\ConfigurationFile;
 
-use Fakerino\Configuration\AbstractConfigurationFile;
-use Symfony\Component\Yaml\Parser;
+use Fakerino\Configuration\ConfigurationParserInterface;
+use Fakerino\Configuration\FakerinoConfigurationLoader;
+use Symfony\Component\Yaml\Parser as YamlParser;
 
 /**
  * Class YamlConfigurationFile
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class YamlConfigurationFile extends AbstractConfigurationFile
+final class YamlConfigurationFile extends FakerinoConfigurationLoader implements ConfigurationParserInterface
 {
     /**
      * {@inheritdoc}
      */
     public function toArray()
     {
-        $yaml = new Parser();
+        $yaml = new YamlParser();
 
-        return $yaml->parse(file_get_contents($this->getConfFilePath(), true));
+        $array = $yaml->parse(file_get_contents($this->getConfFilePath(), true));
+        if (empty($array)) {
+
+            return array();
+        }
+        if (!is_array($array)) {
+
+            return array($array);
+        }
+
+        return $array;
     }
 }

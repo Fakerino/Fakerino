@@ -3,11 +3,11 @@ Fakerino is a fake data generator framework fully extensible.
 
 [![Latest Stable Version](https://poser.pugx.org/fakerino/fakerino/v/stable.svg)](https://packagist.org/packages/fakerino/fakerino)
 [![Latest Unstable Version](https://poser.pugx.org/fakerino/fakerino/v/unstable.svg)](https://packagist.org/packages/fakerino/fakerino)
-[![Travis Ci](https://travis-ci.org/niklongstone/Fakerino.svg?branch=master)](https://travis-ci.org/niklongstone/Fakerino)
+[![Travis Ci](https://travis-ci.org/Fakerino/Fakerino.svg?branch=master)](https://travis-ci.org/Fakerino/Fakerino)
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/4e7de12a-8fc4-4626-a33d-3287a20f02f6/mini.png)](https://insight.sensiolabs.com/projects/4e7de12a-8fc4-4626-a33d-3287a20f02f6)
-[![Code Climate](https://codeclimate.com/github/niklongstone/Fakerino/badges/gpa.svg)](https://codeclimate.com/github/niklongstone/Fakerino)
-[![Quality Score](https://img.shields.io/scrutinizer/g/niklongstone/Fakerino.svg?style=flat-square)](https://scrutinizer-ci.com/g/niklongstone/Fakerino)
+[![Code Climate](https://codeclimate.com/github/Fakerino/Fakerino/badges/gpa.svg)](https://codeclimate.com/github/Fakerino/Fakerino)
+[![Quality Score](https://img.shields.io/scrutinizer/g/Fakerino/Fakerino.svg?style=flat-square)](https://scrutinizer-ci.com/g/Fakerino/Fakerino)
 
 [![License](https://poser.pugx.org/fakerino/fakerino/license.svg)](https://packagist.org/packages/fakerino/fakerino)
 
@@ -18,7 +18,7 @@ Fakerino is a fake data generator framework fully extensible.
 * Fake __complex data__ (e.g. person: name, surname, hobby, country, ... ).
 * Fake __single data__ (e.g. name, surname, integer, text, ...).
 * Fake data in __different languages__.
-* Fake __regular expression__ data (e.g. url => '/www\.\w+\.com/').
+* Fake __regular expression__ data (e.g. url => '`/www\.\w+\.com/`').
 * Fake data multiple times.
 * Fake a __database__ table row/s with one line of code.
 * Fake a __Twig__ string or file automatically (e.g. Hello Mr {{ surname }})
@@ -57,7 +57,7 @@ echo $fakerino->fake('nameMale')->num(3); //Bob Jack Rick
 echo $fakerino->fake(array('nameMale', 'Surname'))->num(3)->toJson(); //[["Simon","Rodgers"],["Dean","Smith"],["Anthony","Bauman"]]
 ```
 
-With a [configuration](https://github.com/niklongstone/Fakerino/wiki/Use-a-configuration-file) you can __combine fake data__, or declare your __customs__.
+With a [configuration](http://fakerino.github.io/define-fake-data-groups.html) you can __combine fake data__, or declare your __customs__.
 ```PHP
 $fakerino = Fakerino::create('./conf.php');
 print_r($fakerino->fake('fakeChat')->toArray());
@@ -93,6 +93,6 @@ Array(
 
 #### Third parties
 
-* [Symfony Fakerino](https://github.com/niklongstone/symfony-fakerino) - Symfony Fakerino Bundle
-* [Laravel Fakerino](https://github.com/niklongstone/laravel-fakerino) - Laravel Fakerino Package
-* [Nette Fakerino](https://github.com/niklongstone/nette-fakerino) - Nette Fakerino Service
+* [Symfony Fakerino](https://github.com/Fakerino/symfony-fakerino) - Symfony Fakerino Bundle
+* [Laravel Fakerino](https://github.com/Fakerino/laravel-fakerino) - Laravel Fakerino Package
+* [Nette Fakerino](https://github.com/Fakerino/nette-fakerino) - Nette Fakerino Service

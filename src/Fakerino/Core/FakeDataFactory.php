@@ -24,7 +24,7 @@ use Fakerino\FakeData\Exception\MissingRequiredOptionException;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class FakeDataFactory
+final class FakeDataFactory implements FakeDataFactoryInterface
 {
     /** @var array */
     private $out;

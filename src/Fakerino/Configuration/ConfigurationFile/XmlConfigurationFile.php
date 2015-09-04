@@ -10,14 +10,15 @@
 
 namespace Fakerino\Configuration\ConfigurationFile;
 
-use Fakerino\Configuration\AbstractConfigurationFile;
+use Fakerino\Configuration\ConfigurationParserInterface;
+use Fakerino\Configuration\FakerinoConfigurationLoader;
 
 /**
  * Class XmlConfigurationFile
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class XmlConfigurationFile extends AbstractConfigurationFile
+final class XmlConfigurationFile extends FakerinoConfigurationLoader implements ConfigurationParserInterface
 {
     /**
      * {@inheritdoc}

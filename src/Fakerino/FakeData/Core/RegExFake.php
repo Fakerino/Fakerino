@@ -17,7 +17,7 @@ use Fakerino\FakeData\FakeDataInterface;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class RegExFake implements FakeDataInterface
+final class RegExFake implements FakeDataInterface
 {
     /**
      * @var array

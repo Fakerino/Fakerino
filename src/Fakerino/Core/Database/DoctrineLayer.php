@@ -19,7 +19,7 @@ use Doctrine\DBAL\Types\Type;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class DoctrineLayer implements DbInterface
+final class DoctrineLayer implements DbInterface
 {
     public static $conn;
     private $tableName;

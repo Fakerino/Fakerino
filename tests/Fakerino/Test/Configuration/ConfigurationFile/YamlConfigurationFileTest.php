@@ -15,16 +15,38 @@ use Fakerino\DataSource\File\File;
 
 class YamlConfigurationFileTest extends \PHPUnit_Framework_TestCase
 {
-    public function testIniToArray()
+    public function testYamlConfFile()
     {
         $fileDir = __DIR__ . '/../../Fixtures/';
         $ymlFilePath = $fileDir . 'file.yml';
         $confFile = new File($ymlFilePath);
-        $ymlConf = new YamlConfigurationFile();
-        $ymlConf->loadConfiguration($confFile);
+        $ymlConf = new YamlConfigurationFile($confFile);
         $result = $ymlConf->toArray();
 
         $this->assertInternalType('array', $result);
         $this->assertNotEmpty($result);
+    }
+
+    public function testEmptyYamlConfFile()
+    {
+        $fileDir = __DIR__ . '/../../Fixtures/';
+        $ymlFilePath = $fileDir . 'emptyFile.ini';
+        $confFile = new File($ymlFilePath);
+        $ymlConf = new YamlConfigurationFile($confFile);
+        $result = $ymlConf->toArray();
+
+        $this->assertInternalType('array', $result);
+        $this->assertEmpty($result);
+    }
+
+    public function testYamlFileParseThatReturnAString()
+    {
+        $fileDir = __DIR__ . '/../../Fixtures/';
+        $ymlFilePath = $fileDir . 'fileOneLine.yml';
+        $confFile = new File($ymlFilePath);
+        $ymlConf = new YamlConfigurationFile($confFile);
+        $result = $ymlConf->toArray();
+
+        $this->assertInternalType('array', $result);
     }
 }
