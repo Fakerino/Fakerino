@@ -18,7 +18,7 @@ use Fakerino\FakeData\AbstractFakeDataGenerator;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class RegExGenerator extends AbstractFakeDataGenerator
+final class RegExGenerator extends AbstractFakeDataGenerator
 {
     /**
      * {@inheritdoc}

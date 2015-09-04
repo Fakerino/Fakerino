@@ -21,7 +21,7 @@ use Fakerino\FakeData\AbstractFakeDataGenerator;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class TextGenerator extends AbstractFakeDataGenerator
+final class TextGenerator extends AbstractFakeDataGenerator
 {
     const MINLENGTH = 4;
     const MAXLENGTH = 20;

@@ -21,7 +21,7 @@ use Fakerino\Core\FakeDataFactory;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class DbFiller implements FillerInterface
+final class DbFiller implements FillerInterface
 {
     private $db;
 

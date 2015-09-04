@@ -18,7 +18,7 @@ use Fakerino\Fakerino;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class FakeConsole
+final class FakeConsole
 {
     private $input;
     private $help;

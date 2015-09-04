@@ -18,7 +18,7 @@ use Fakerino\FakeData\AbstractFakeDataGenerator;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class DateGenerator extends AbstractFakeDataGenerator
+final class DateGenerator extends AbstractFakeDataGenerator
 {
      /**
      * {@inheritdoc}

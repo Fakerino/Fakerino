@@ -19,7 +19,7 @@ use Fakerino\FakeData\AbstractFakeDataGenerator;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class FileFakeGenerator extends AbstractFakeDataGenerator
+final class FileFakeGenerator extends AbstractFakeDataGenerator
 {
     /**
      * {@inheritdoc}

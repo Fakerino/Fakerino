@@ -31,7 +31,7 @@ class DbFillerTest extends \PHPUnit_Framework_TestCase
         $fakeHandler = new FakeHandler\FakeHandler();
         $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\DefaultFakerClass());
-        $this->mockDoctrineLayer = $this->getMockBuilder('Fakerino\Core\Database\DoctrineLayer')
+        $this->mockDoctrineLayer = $this->getMockBuilder('Fakerino\Core\Database\DbInterface')
             ->setConstructorArgs(array($this->connectionParams))
             ->getMock();
         $faker = new FakeDataFactory($fakeHandler, $this->mockDoctrineLayer, new TwigTemplate());

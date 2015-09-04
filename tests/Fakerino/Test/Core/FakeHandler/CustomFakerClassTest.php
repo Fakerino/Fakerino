@@ -24,6 +24,7 @@ class CustomFakerClassTest extends \PHPUnit_Framework_TestCase
         $data = new FakeElement('text');
 
         $this->assertInstanceOf('Fakerino\Core\FakeHandler\Handler', $handler);
+
         $this->assertInternalType('string', $handler->handle($data));
     }
 

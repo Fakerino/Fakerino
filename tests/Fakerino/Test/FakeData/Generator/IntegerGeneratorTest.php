@@ -14,17 +14,22 @@ use Fakerino\FakeData\Generator\IntegerGenerator;
 
 class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+    private $integerGenerator;
+    private $mockCaller;
+
     public function setUp()
     {
-        $this->IntegerGenerator = new IntegerGenerator();
-        $this->mockInteger = $this->getMockBuilder('Fakerino\FakeData\Generator\IntegerGenerator')
-            ->setMethods(array('getOption'))
+        $this->integerGenerator = new IntegerGenerator();
+        $this->mockCaller = $this->getMockBuilder('Fakerino\FakeData\FakeDataInterface')
             ->getMock();
+        $this->integerGenerator->setCaller($this->mockCaller);
+        $this->integerGenerator = new IntegerGenerator();
+        $this->integerGenerator->setCaller($this->mockCaller);
     }
 
     public function testRandomStringGeneratorConstructor()
     {
-        $this->assertInstanceOf('Fakerino\FakeData\FakeDataGeneratorInterface', $this->IntegerGenerator);
+        $this->assertInstanceOf('Fakerino\FakeData\FakeDataGeneratorInterface', $this->integerGenerator);
     }
 
     /**
@@ -37,10 +42,10 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
             array('type', $type),
             array('negative', $negative)
         );
-        $this->mockInteger->expects($this->exactly(3))
+        $this->mockCaller->expects($this->exactly(3))
             ->method('getOption')
             ->will($this->returnValueMap($map));
-        $fakeInteger = $this->mockInteger->generate();
+        $fakeInteger = $this->integerGenerator->generate();
 
         switch ($type) {
             case 'hex':

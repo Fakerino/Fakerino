@@ -18,7 +18,7 @@ use Fakerino\FakeData\AbstractFakeData;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class Date extends AbstractFakeData
+final class Date extends AbstractFakeData
 {
     const DECIMAL = 'decimal';
     const HEX = 'hex';

@@ -20,8 +20,7 @@ class YmlConfigurationFileTest extends \PHPUnit_Framework_TestCase
         $fileDir = __DIR__ . '/../../Fixtures/';
         $ymlFilePath = $fileDir . 'file.yml';
         $confFile = new File($ymlFilePath);
-        $ymlConf = new YmlConfigurationFile();
-        $ymlConf->loadConfiguration($confFile);
+        $ymlConf = new YmlConfigurationFile($confFile);
         $result = $ymlConf->toArray();
 
         $this->assertInternalType('array', $result);
@@ -33,7 +32,7 @@ class YmlConfigurationFileTest extends \PHPUnit_Framework_TestCase
         $fileDir = __DIR__ . '/../../Fixtures/';
         $ymlFilePath = $fileDir . 'emptyFile.ini';
         $confFile = new File($ymlFilePath);
-        $ymlConf = new YamlConfigurationFile($confFile);
+        $ymlConf = new YmlConfigurationFile($confFile);
         $result = $ymlConf->toArray();
 
         $this->assertInternalType('array', $result);
@@ -45,7 +44,7 @@ class YmlConfigurationFileTest extends \PHPUnit_Framework_TestCase
         $fileDir = __DIR__ . '/../../Fixtures/';
         $ymlFilePath = $fileDir . 'fileOneLine.yml';
         $confFile = new File($ymlFilePath);
-        $ymlConf = new YamlConfigurationFile($confFile);
+        $ymlConf = new YmlConfigurationFile($confFile);
         $result = $ymlConf->toArray();
 
         $this->assertInternalType('array', $result);
