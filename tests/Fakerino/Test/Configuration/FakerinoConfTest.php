@@ -26,8 +26,9 @@ class FakerinoConfTest extends \PHPUnit_Framework_TestCase
 
     public function testMinimumDefaultValues()
     {
-        FakerinoConf::loadConfiguration();
-        $this->assertEquals(array_keys($this->default), array_keys(FakerinoConf::toArray()));
+        $conf = new FakerinoConf();
+        $conf->loadConfiguration();
+        $this->assertEquals(array_keys($this->default), array_keys($conf->toArray()));
 
     }
 
@@ -35,8 +36,9 @@ class FakerinoConfTest extends \PHPUnit_Framework_TestCase
     {
         $testAdditional = array('test' => 1);
         $this->default = array_merge($this->default, $testAdditional);
-        FakerinoConf::loadConfiguration($testAdditional);
+        $conf = new FakerinoConf($testAdditional);
+        $conf->loadConfiguration();
 
-        $this->assertEquals(array_keys($this->default), array_keys(FakerinoConf::toArray()));
+        $this->assertEquals(array_keys($this->default), array_keys($conf->toArray()));
     }
 }

@@ -15,14 +15,15 @@ use Fakerino\Fakerino;
 class FakerinoTest extends \PHPUnit_Framework_TestCase
 {
     private $testFile;
+    private $fileDir;
 
     public function setUp()
     {
-        $fileDir = __DIR__ . '/Fixtures/';
-        $this->testFile = $fileDir . 'file.ini';
+        $this->fileDir = __DIR__ . '/Fixtures/';
+        $this->testFile = $this->fileDir . 'file.ini';
     }
 
-    public function testDefaultConfigurationSetUp()
+    public function testCustomConfigurationSetUp()
     {
         $this->assertInstanceOf('Fakerino\Core\FakeDataFactory', Fakerino::create($this->testFile));
     }
@@ -73,13 +74,24 @@ class FakerinoTest extends \PHPUnit_Framework_TestCase
             array(null, 'lorem', '/\w/'),
             array(null, 'date', '/[\d-]/'),
             array(
-                array(
-                    'fake' => array('fakeTest' =>
-                                array('surname')
-                    )
-                )
-                , 'fakeTest', '/[A-Z][a-z].*[^\n]/'
-            )
+                array('fake' => array('fakeSurname' => array('surname'))),
+                'fakeSurname',
+                '/[A-Z][a-z].*[^\n]/'
+            ),
         );
+    }
+
+    /**
+     * @group important
+     */
+    public function testMultipleNestedFakes()
+    {
+        $fakerino = Fakerino::create(array('fake' => array('fakeSurname' => array('surname'))));
+        $fakerino->fake('fakeSurname')->toArray();
+        $fakerino = Fakerino::create($this->fileDir.'/file.yml');
+        $result = $fakerino->fake('fakeFamily')->toArray();
+
+        $this->assertEquals(3, count($result[0][0]));
+        $this->assertEquals(3, count($result[0][1]));
     }
 }

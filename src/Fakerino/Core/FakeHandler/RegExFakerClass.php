@@ -18,7 +18,7 @@ use Fakerino\Core\RegEx\RegExGeneratorInterface;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class RegExFakerClass extends Handler
+final class RegExFakerClass extends Handler
 {
     private $regexGenerator;
 

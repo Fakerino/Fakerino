@@ -17,6 +17,9 @@ use Fakerino\Core\FakeHandler;
 use Fakerino\Core\Template\TwigTemplate;
 use Fakerino\Test\Fixtures\TestEntity;
 
+/**
+ * @group factory
+ */
 class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
@@ -32,13 +35,20 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
             ),
             'fake3' => array('fake1', 'fake2')
         );
-        FakerinoConf::loadConfiguration($this->conf);
+
+        $fakerinoDefaultConf = new FakerinoConf();
+
+        $fakerinoDefaultConf->loadConfiguration();
+        $fileFakePath = $this->getFileFakePath($fakerinoDefaultConf);
+
         $fakeHandler = new FakeHandler\FakeHandler();
-        $fakeHandler->setSuccessor(new FakeHandler\FileFakerClass());
+
+        $fakeHandler->setSuccessor(new FakeHandler\FileFakerClass($fileFakePath));
         $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());
-        $fakeHandler->setSuccessor(new FakeHandler\ConfFakerClass());
+        $fakeHandler->setSuccessor(new FakeHandler\ConfFakerClass($this->conf['fake']));
         $fakeHandler->setSuccessor(new FakeHandler\DefaultFakerClass());
-        $this->fakeGenerator = new FakeDataFactory($fakeHandler, new DoctrineLayer(), new TwigTemplate());
+
+        $this->fakeGenerator = new FakeDataFactory($fakeHandler, new DoctrineLayer(null), new TwigTemplate());
     }
 
     public function testFakeMethod()
@@ -115,7 +125,10 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $fakeString);
     }
 
-    public function testFakeCompplexData()
+    /**
+     * @group important
+     */
+    public function testFakeComplexData()
     {
         $fakeString = (string) $this->fakeGenerator->fake('fake3');
 
@@ -174,5 +187,13 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $res2);
         $this->assertContains('Hello', $res2);
         $this->assertTrue(is_numeric($res3));
+    }
+
+    private function getFileFakePath($fakerinoDefaultConf)
+    {
+        return $fakerinoDefaultConf->get('fakeFilePath')
+        . DIRECTORY_SEPARATOR
+        . $fakerinoDefaultConf->get('locale')
+        . DIRECTORY_SEPARATOR;
     }
 }

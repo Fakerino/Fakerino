@@ -23,20 +23,30 @@ final class FakerinoConf
     /**
      * @var array
      */
-    private static $conf;
+    private $conf;
+
+    /**
+     * @param array $conf
+     */
+    public function __construct(array $conf = null)
+    {
+        $this->conf = $conf;
+    }
 
     /**
      * Loads the default configuration if it's not present a custom one.
      *
-     * @param array $conf
+     * @return array
      */
-    public static function loadConfiguration(array $conf = array())
+    public function loadConfiguration()
     {
-        if (empty($conf)) {
-            self::$conf = self::loadDefault();
+        if (empty($this->conf)) {
+            $this->conf = $this->loadDefault();
         } else {
-            self::$conf = array_merge(self::loadDefault(), $conf);
+            $this->conf = array_merge(self::loadDefault(), $this->conf);
         }
+
+        return $this->conf;
     }
 
     /**
@@ -47,24 +57,16 @@ final class FakerinoConf
      * @return mixed
      * @throws ConfValueNotFoundException
      */
-    public static function get($value)
+    public function get($value)
     {
-        if (!array_key_exists($value, self::$conf)) {
-            throw new ConfValueNotFoundException($value);
+        if (!empty($this->conf)) {
+            if (array_key_exists($value, $this->conf)) {
+
+                return $this->conf[$value];
+            }
         }
 
-        return self::$conf[$value];
-    }
-
-    /**
-     * Sets a configuration value.
-     *
-     * @param string        $key
-     * @param string|array  $val
-     */
-    public static function set($key, $val)
-    {
-        self::$conf[$key] = $val;
+        throw new ConfValueNotFoundException($value);
     }
 
     /**
@@ -72,7 +74,7 @@ final class FakerinoConf
      *
      * @return array
      */
-    private static function loadDefault()
+    private function loadDefault()
     {
         return array(
             'supportedConfExts' => array('xml', 'yml', 'php', 'ini'),
@@ -91,8 +93,8 @@ final class FakerinoConf
      *
      * @return array
      */
-    public static function toArray()
+    public function toArray()
     {
-        return self::$conf;
+        return $this->conf;
     }
 }

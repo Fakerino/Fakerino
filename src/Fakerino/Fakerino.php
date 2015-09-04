@@ -11,6 +11,7 @@
 namespace Fakerino;
 
 use Fakerino\Configuration\ConfigurationFile\Helper\FileConfigurationLoaderFactory;
+use Fakerino\Configuration\Exception\ConfValueNotFoundException;
 use Fakerino\Configuration\FakerinoConf;
 use Fakerino\Core\Database\DoctrineLayer;
 use Fakerino\Core\FakeDataFactory;
@@ -26,6 +27,8 @@ use Fakerino\Core\Template\TwigTemplate;
  */
 final class Fakerino
 {
+    private static $defaultConf;
+
     /**
      * Bootstrap function for Fakerino,
      * setups the global configuration.
@@ -36,21 +39,25 @@ final class Fakerino
      */
     public static function create($conf = null)
     {
-        FakerinoConf::loadConfiguration();
+        self::$defaultConf = new FakerinoConf();
+        self::$defaultConf->loadConfiguration();
+        $databaseConfig = null;
         if ($conf !== null) {
             $confArray = $conf;
             if (!is_array($conf)) {
                 $confTypeFactory = new FileConfigurationLoaderFactory(
                     $conf,
-                    FakerinoConf::get('supportedConfExts')
+                    self::$defaultConf->get('supportedConfExts')
                 );
                 $confParser = $confTypeFactory->load();
                 $confArray = $confParser->toArray();
             }
-            FakerinoConf::loadConfiguration($confArray);
+            $conf = $confArray;
         }
+        self::$defaultConf = new FakerinoConf($conf);
+        self::$defaultConf->loadConfiguration();
 
-        return new FakeDataFactory(self::getDefaultHandler(), new DoctrineLayer(), new TwigTemplate());
+        return new FakeDataFactory(self::getDefaultHandler(), new DoctrineLayer(self::getDatabaseConfig()), new TwigTemplate());
     }
 
     /**
@@ -60,18 +67,52 @@ final class Fakerino
      */
     public static function getConfig()
     {
-        return FakerinoConf::toArray();
+        return self::$defaultConf->toArray();
     }
 
     private static function getDefaultHandler()
     {
+        $filePath = self::getDefaultFakefilePath();
+        $fakerinoTag = self::getDefaultFakerinoTag();
+
         $fakeHandler = new FakeHandler\FakeHandler();
-        $fakeHandler->setSuccessor(new FakeHandler\FileFakerClass());
+        $fakeHandler->setSuccessor(new FakeHandler\FileFakerClass($filePath));
         $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());
-        $fakeHandler->setSuccessor(new FakeHandler\ConfFakerClass());
+        $fakeHandler->setSuccessor(new FakeHandler\ConfFakerClass($fakerinoTag));
         $fakeHandler->setSuccessor(new FakeHandler\RegExFakerClass(new RegRevGenerator()));
         $fakeHandler->setSuccessor(new FakeHandler\DefaultFakerClass());
 
         return $fakeHandler;
+    }
+
+    private static function getDefaultFakefilePath()
+    {
+        return self::$defaultConf->get('fakeFilePath')
+        . DIRECTORY_SEPARATOR
+        . self::$defaultConf->get('locale')
+        . DIRECTORY_SEPARATOR;
+    }
+
+    private static function getDefaultFakerinoTag()
+    {
+        self::$defaultConf->get('fakerinoTag');
+        try {
+            $conf = self::$defaultConf->get('fake');
+        } catch (ConfValueNotFoundException $e) {
+            $conf = null;
+        }
+
+        return $conf;
+    }
+
+    private static function getDatabaseConfig()
+    {
+        try {
+            $conf = self::$defaultConf->get('database');
+        } catch (ConfValueNotFoundException $e) {
+            $conf = null;
+        }
+
+        return $conf;
     }
 }

@@ -25,7 +25,7 @@ class EntityFillerTest extends \PHPUnit_Framework_TestCase
         $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\DefaultFakerClass());
 
-        $this->faker = new FakeDataFactory($fakeHandler, new DoctrineLayer(), new TwigTemplate());
+        $this->faker = new FakeDataFactory($fakeHandler, new DoctrineLayer(null), new TwigTemplate());
     }
 
     public function testFillProperties()

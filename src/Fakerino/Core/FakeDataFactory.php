@@ -10,7 +10,6 @@
 
 namespace Fakerino\Core;
 
-use Fakerino\Configuration\FakerinoConf;
 use Fakerino\Core\Database\DbInterface;
 use Fakerino\Core\FakeHandler\HandlerInterface;
 use Fakerino\Core\Filler\DbFiller;
@@ -116,11 +115,10 @@ final class FakeDataFactory implements FakeDataFactoryInterface
      */
     public function fakeTable($tableName = null)
     {
-        if ($tableName === null) {
+        if (null === $tableName) {
             throw new MissingRequiredOptionException('table name');
         }
-        $connectionParams = FakerinoConf::get('database');
-        $dbFiller = new DbFiller($connectionParams, $this->db, $tableName, $this, $this->num);
+        $dbFiller = new DbFiller($this->db, $tableName, $this, $this->num);
         $rows = $dbFiller->fill();
 
         return $rows;
@@ -219,7 +217,6 @@ final class FakeDataFactory implements FakeDataFactoryInterface
                 $out[] = $this->fakeHandler->handle($element);
             }
         }
-
         $this->out = $out;
     }
 

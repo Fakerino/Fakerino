@@ -19,7 +19,7 @@ use Symfony\Component\Yaml\Parser as YamlParser;
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-final class YamlConfigurationFile extends FakerinoConfigurationLoader implements ConfigurationParserInterface
+final class YmlConfigurationFile extends FakerinoConfigurationLoader implements ConfigurationParserInterface
 {
     /**
      * {@inheritdoc}

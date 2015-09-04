@@ -27,9 +27,9 @@ final class FileFake implements FakeDataInterface
     /**
      * {@inheritdoc}
      */
-    public function __construct($filename = null)
+    public function __construct($file = null)
     {
-        $this->options['filename'] = $filename;
+        $this->options['filename'] = $file;
     }
     /**
      * {@inheritdoc}

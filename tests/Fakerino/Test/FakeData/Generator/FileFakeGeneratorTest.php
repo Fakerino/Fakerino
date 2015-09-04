@@ -20,7 +20,8 @@ class FileFakeGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        FakerinoConf::loadConfiguration();
+        $conf = new FakerinoConf();
+        $conf->loadConfiguration();
         $this->FileFakeGenerator = new FileFakeGenerator();
         $this->FileFakeGenerator->setCaller(new Text());
     }
@@ -38,11 +39,10 @@ class FileFakeGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testReturnRandomLine()
     {
         $FileFakeGenerator = new FileFakeGenerator();
-        $FileFakeGenerator->setCaller(new FileFake('Surname'));
+        $FileFakeGenerator->setCaller(new FileFake(__DIR__ . '/../Fixtures/file.txt'));
         $generatedString = $FileFakeGenerator->generate();
 
         $this->assertNotNull($generatedString);
         $this->assertInternalType('string', $generatedString);
     }
-
 }

@@ -41,23 +41,23 @@ class FakeFileContainer
      * Gets a file from container,
      * or create a new one if not present.
      *
-     * @param string $name
-     * @param string $path
+     * @param string $filePath
      *
      * @return File
      */
-    public static function get($name, $path)
+    public static function get($filePath)
     {
-        if (!array_key_exists($name, static::$files)) {
+        $fileName = basename($filePath);
+        if (!array_key_exists($fileName, static::$files)) {
             try {
-                $file = new File($path . $name);
+                $file = new File($filePath);
             } catch (\Exception $e) {
                 $file = false;
             }
 
-            static::$files[$name] = $file;
+            static::$files[$fileName] = $file;
         }
 
-        return static::$files[$name];
+        return static::$files[$fileName];
     }
 }

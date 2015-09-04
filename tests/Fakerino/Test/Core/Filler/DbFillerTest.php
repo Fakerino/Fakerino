@@ -31,10 +31,12 @@ class DbFillerTest extends \PHPUnit_Framework_TestCase
         $fakeHandler = new FakeHandler\FakeHandler();
         $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());
         $fakeHandler->setSuccessor(new FakeHandler\DefaultFakerClass());
-        $faker = new FakeDataFactory($fakeHandler, new DoctrineLayer(), new TwigTemplate());
-        $this->mockDoctrineLayer = $this->getMockBuilder('Fakerino\Core\Database\DbInterface')
+        $this->mockDoctrineLayer = $this->getMockBuilder('Fakerino\Core\Database\DoctrineLayer')
+            ->setConstructorArgs(array($this->connectionParams))
             ->getMock();
-        $this->dbFiller = new DbFiller($this->connectionParams, $this->mockDoctrineLayer, $this->testTable, $faker, $this->num);
+        $faker = new FakeDataFactory($fakeHandler, $this->mockDoctrineLayer, new TwigTemplate());
+
+        $this->dbFiller = new DbFiller($this->mockDoctrineLayer, $this->testTable, $faker, $this->num);
     }
 
     /**

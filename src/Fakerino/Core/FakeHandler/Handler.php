@@ -97,6 +97,14 @@ abstract class Handler implements HandlerInterface
         return self::$first;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public static function resetFirstChain()
+    {
+        self::$first = null;
+    }
+
     private function setFirstChain()
     {
         if (self::$first === null) {

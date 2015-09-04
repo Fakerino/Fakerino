@@ -13,6 +13,9 @@ namespace Fakerino\Test\Core\FakeHandler;
 use Fakerino\Core\FakeElement;
 use Fakerino\Core\FakeHandler\DefaultFakerClass;
 
+/**
+ * @group handler
+ */
 class DefaultFakerClassTest extends \PHPUnit_Framework_TestCase
 {
     public function testHandler()

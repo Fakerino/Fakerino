@@ -21,9 +21,9 @@ interface DbInterface
     /**
      * Makes a database connection.
      *
-     * @param array $connectionParams
+     * @return bool
      */
-    public function connect($connectionParams);
+    public function connect();
 
     /**
      * Inserts row in $tableName.

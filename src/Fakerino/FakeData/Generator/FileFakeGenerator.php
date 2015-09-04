@@ -10,8 +10,7 @@
 
 namespace Fakerino\FakeData\Generator;
 
-use Fakerino\Configuration\FakerinoConf;
-use Fakerino\DataSource\FakeTxtFile;
+use Fakerino\DataSource\FakeFileContainer;
 use Fakerino\FakeData\AbstractFakeDataGenerator;
 
 /**
@@ -27,12 +26,7 @@ class FileFakeGenerator extends AbstractFakeDataGenerator
      */
     public function generate()
     {
-        $fileName = strtolower($this->caller->getOption('filename'));
-        $path = FakerinoConf::get('fakeFilePath')
-            . DIRECTORY_SEPARATOR
-            . FakerinoConf::get('locale')
-            . DIRECTORY_SEPARATOR;
-        if ($fakeFile = FakeTxtFile::getSource($fileName, $path)) {
+        if ($fakeFile = FakeFileContainer::get($this->caller->getOption('filename'))) {
             $lines = file($fakeFile);
             $index = mt_rand(0, count($lines) - 1);
             $element = $lines[$index];
