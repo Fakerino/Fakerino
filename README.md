@@ -27,7 +27,6 @@ Fakerino is a fake data generator framework fully extensible.
 * Support __JSON__, __array__ and string output.
 * Support array, __Yaml__, __XML__, __PHP__, __Txt__ and __Ini__ configurations.
 * Fake from __command line__ interface.
-* Fake 500,000 data in 1 minute.
 
 For more information about installation, features, support, contribution, or other,
 please read the __[Fakerino docs](http://www.fakerino.io)__.
@@ -37,7 +36,7 @@ Use [Composer](https://getcomposer.org/download/) to manage the dependencies of 
 ####In your project folder run:
 ```sh
 composer require fakerino/fakerino='~0.8'
-vendor/fakerino/fakerino/build/ods
+vendor/fakerino/fakerino/build/ods vendor/fakerino/fakerino/data
 ```
 #### Like a stand-alone project run:
 ```sh
