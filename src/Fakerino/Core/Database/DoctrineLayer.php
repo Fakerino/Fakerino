@@ -94,6 +94,14 @@ final class DoctrineLayer implements DbInterface
     /**
      * {@inheritdoc}
      */
+    public function getColumnLength($num)
+    {
+        return $this->columns[$num]->getLength();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function isColumnAutoincrement($num)
     {
         return $this->columns[$num]->getAutoincrement();

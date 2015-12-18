@@ -69,8 +69,10 @@ final class DbFiller implements FillerInterface
                 }
                 $fieldName = $this->db->getColumnName($i);
                 $fakeType = $this->db->getColumnType($i);
-                $fakeData = $this->fakeColumn($fieldName, $fakeType);
-                $fakeRow->setFields(new DbFieldEntity($fieldName, $fakeData[0], $fakeType));
+                $dataLength = $this->db->getColumnLength($i);
+                $fakeData = $this->fakeColumn($fieldName, $fakeType, $dataLength);
+
+                $fakeRow->setFields(new DbFieldEntity($fieldName, $fakeData[0], $fakeType, $dataLength));
             }
             $this->db->insert($fakeRow);
 
@@ -80,7 +82,7 @@ final class DbFiller implements FillerInterface
         return $rows;
     }
 
-    private function fakeColumn($fakeName, $fakeType)
+    private function fakeColumn($fakeName, $fakeType, $maxLength)
     {
         switch ($fakeType) {
             case self::NUMERIC:
@@ -99,7 +101,8 @@ final class DbFiller implements FillerInterface
                 $result = $this->faker->fake($fakeName)->num(1);
                 break;
         }
+        $result = substr($result, 0, $maxLength);
 
-        return $result->toArray();
+        return array($result);
     }
 }

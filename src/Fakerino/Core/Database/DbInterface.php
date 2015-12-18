@@ -67,6 +67,15 @@ interface DbInterface
     public function getColumnName($num);
 
     /**
+     * Returns the length of the $num column.
+     *
+     * @param int $num
+     *
+     * @return int
+     */
+    public function getColumnLength($num);
+
+    /**
      * Returns true if the column is autoincrement.
      *
      * @param int $num

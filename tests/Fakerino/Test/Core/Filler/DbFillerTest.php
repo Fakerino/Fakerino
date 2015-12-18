@@ -42,11 +42,12 @@ class DbFillerTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider provider
      */
-    public function testFillNumeric($columnName, $columnType)
+    public function testFillNumeric($columnName, $columnType, $columnLength)
     {
         $this->mockDoctrineLayer->method('getTotalColumns')->willReturn(1);
         $this->mockDoctrineLayer->expects($this->exactly($this->num))->method('getColumnName')->willReturn($columnName);
         $this->mockDoctrineLayer->expects($this->exactly($this->num))->method('getColumnType')->willReturn($columnType);
+        $this->mockDoctrineLayer->expects($this->exactly($this->num))->method('getColumnLength')->willReturn($columnLength);
 
         $rows = $this->dbFiller->fill();
         $this->assertInternalType('array', $rows);
@@ -56,10 +57,10 @@ class DbFillerTest extends \PHPUnit_Framework_TestCase
     public function provider()
     {
         return array(
-            array('integer', 'integer'),
-            array('date', 'date'),
-            array('datetime', 'datetime'),
-            array('time', 'time'),
+            array('integer', 'integer', 3),
+            array('date', 'date', 10),
+            array('datetime', 'datetime', 12),
+            array('time', 'time', 10),
         );
     }
 
