@@ -90,12 +90,15 @@ final class DbFiller implements FillerInterface
                 break;
             case self::DATE:
                 $result = $this->faker->fake(array('date'))->num(1);
+                $maxLength = $maxLength === null ? 10 : $maxLength;
                 break;
             case self::DATETIME:
                 $result = $this->faker->fake(array('date' => array('format' => 'Y-m-d H:i:s')))->num(1);
+                $maxLength = $maxLength === null ? 19 : $maxLength;
                 break;
             case self::TIME:
                 $result = $this->faker->fake(array('date' => array('format' => 'H:i:s')))->num(1);
+                $maxLength = $maxLength === null ? 8 : $maxLength;
                 break;
             default:
                 $result = $this->faker->fake($fakeName)->num(1);

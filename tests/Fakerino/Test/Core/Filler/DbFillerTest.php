@@ -18,9 +18,9 @@ use Fakerino\Core\Template\TwigTemplate;
 
 class DbFillerTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    private function configure($numberOfFakeData)
     {
-        $this->num = 3;
+        $this->num = $numberOfFakeData;
         $this->testTable = 'testTable';
         $this->connectionParams = array(
             'user' => null,
@@ -44,14 +44,46 @@ class DbFillerTest extends \PHPUnit_Framework_TestCase
      */
     public function testFillNumeric($columnName, $columnType, $columnLength)
     {
+        $numberOfFakeData = 3;
+        $this->configure($numberOfFakeData);
+
+        $this->mockDoctrineLayer->method('getTotalColumns')->willReturn(1);
+        $this->mockDoctrineLayer->expects($this->exactly($numberOfFakeData))->method('getColumnName')->willReturn($columnName);
+        $this->mockDoctrineLayer->expects($this->exactly($numberOfFakeData))->method('getColumnType')->willReturn($columnType);
+        $this->mockDoctrineLayer->expects($this->exactly($numberOfFakeData))->method('getColumnLength')->willReturn($columnLength);
+
+        $rows = $this->dbFiller->fill();
+
+        $this->assertInternalType('array', $rows);
+        $this->assertEquals($this->num, count($rows));
+    }
+
+    /**
+     * @dataProvider nullLengthValue
+     */
+    public function testValueWithNullColumnLength($columnName, $columnType, $columnLength, $expectedLength)
+    {
+        $numberOfFakeData = 1;
+        $this->configure($numberOfFakeData);
+
         $this->mockDoctrineLayer->method('getTotalColumns')->willReturn(1);
         $this->mockDoctrineLayer->expects($this->exactly($this->num))->method('getColumnName')->willReturn($columnName);
         $this->mockDoctrineLayer->expects($this->exactly($this->num))->method('getColumnType')->willReturn($columnType);
         $this->mockDoctrineLayer->expects($this->exactly($this->num))->method('getColumnLength')->willReturn($columnLength);
 
         $rows = $this->dbFiller->fill();
-        $this->assertInternalType('array', $rows);
-        $this->assertEquals($this->num, count($rows));
+        $this->assertEquals(strlen($rows[0][$columnName]), $expectedLength);
+    }
+
+    public function nullLengthValue()
+    {
+        return array(
+            array('integer', 'integer', null, 0),
+            array('date', 'date', null, 10),
+            array('datetime', 'datetime', null, 19),
+            array('time', 'time', null, 8),
+            array('something', 'something', null, 0),
+        );
     }
 
     public function provider()

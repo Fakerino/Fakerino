@@ -119,12 +119,25 @@ final class DoctrineLayer implements DbInterface
         $rowsElement = $rows->getFields();
         foreach ($rowsElement as $field) {
             $sql->setValue($field->getName(), '?');
-            $values[] =  $field->getValue();
+            if ($this->isDate($field->getType())) {
+                $values[] = new \DateTimeImmutable($field->getValue());
+            }else{
+                $values[] =  $field->getValue();
+            }
             $types[] = $field->getType();
         }
         self::$conn->executeQuery($sql, $values, $types);
 
         return true;
+    }
+
+    /**
+     * @param $columnType
+     * @return bool
+     */
+    private function isDate($columnType)
+    {
+       return in_array($columnType, [Type::DATETIME, Type::DATETIMETZ, Type::DATE]);
     }
 
     /**
