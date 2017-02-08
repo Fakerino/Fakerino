@@ -21,6 +21,20 @@ use Fakerino\Core\FakeElement;
 interface HandlerInterface
 {
     /**
+     * Returns the first Handler in the chain.
+     *
+     * @return Handler
+     */
+    static function getFirstChain();
+
+    /**
+     * Resets the first Handler in the chain.
+     *
+     * @return Handler
+     */
+    static function resetFirstChain();
+
+    /**
      * Sets a successor handler,
      * in case the class is not able to satisfy the request.
      *
@@ -47,18 +61,4 @@ interface HandlerInterface
      * @return string|array
      */
     function getOutput($class, $options = null);
-
-    /**
-     * Returns the first Handler in the chain.
-     *
-     * @return Handler
-     */
-    static function getFirstChain();
-
-    /**
-     * Resets the first Handler in the chain.
-     *
-     * @return Handler
-     */
-    static function resetFirstChain();
 }

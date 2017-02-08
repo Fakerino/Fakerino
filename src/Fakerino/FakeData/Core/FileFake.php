@@ -31,6 +31,7 @@ final class FileFake implements FakeDataInterface
     {
         $this->options['filename'] = $file;
     }
+
     /**
      * {@inheritdoc}
      */

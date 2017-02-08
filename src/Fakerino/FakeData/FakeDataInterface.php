@@ -19,6 +19,7 @@ interface FakeDataInterface
 {
     /**
      * Constructor
+     *
      * @param null|array $options
      */
     public function __construct($options = null);

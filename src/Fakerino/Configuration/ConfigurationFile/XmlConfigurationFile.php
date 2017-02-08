@@ -35,28 +35,29 @@ final class XmlConfigurationFile extends FakerinoConfigurationLoader implements 
     /**
      * Converts an XML string in an array
      *
-     * @param \SimpleXMLElement  $xmlObject
-     * @param array              $out
+     * @param \SimpleXMLElement $xmlObject
+     * @param array             $out
      *
      * @return array
      */
     private function xml2array($xmlObject, $out = array())
     {
         foreach ($xmlObject->attributes() as $attr => $val) {
-            $out['@attributes'][$attr] = (string) $val;
+            $out['@attributes'][$attr] = (string)$val;
         }
         $hasChilds = false;
         foreach ($xmlObject as $index => $node) {
             $hasChilds = true;
             $out[$index][] = $this->xml2array($node);
         }
-        if (!$hasChilds && $val = (string) $xmlObject) {
-             $out['@value'] = $val;
+        if (!$hasChilds && $val = (string)$xmlObject) {
+            $out['@value'] = $val;
         }
         foreach ($out as $key => $vals) {
             if (is_array($vals)
                 && count($vals) === 1
-                && array_key_exists(0, $vals)) {
+                && array_key_exists(0, $vals)
+            ) {
                 $out[$key] = $vals[0];
             }
         }

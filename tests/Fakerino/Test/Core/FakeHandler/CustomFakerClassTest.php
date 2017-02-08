@@ -33,11 +33,11 @@ class CustomFakerClassTest extends \PHPUnit_Framework_TestCase
         $length = 1;
         $handler = new CustomFakerClass();
         $data = new FakeElement('Integer', array('length' => $length));
-        $result =  $handler->handle($data);
+        $result = $handler->handle($data);
 
         $this->assertInstanceOf('Fakerino\Core\FakeHandler\Handler', $handler);
         $this->assertInternalType('int', $result);
-        $this->assertEquals($length,  strlen($result));
+        $this->assertEquals($length, strlen($result));
 
     }
 }

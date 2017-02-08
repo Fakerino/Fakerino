@@ -37,7 +37,7 @@ final class IntegerGenerator extends AbstractFakeDataGenerator
     private function generateIntegerFrom($type, $length, $negative)
     {
         $fakeInteger = 0;
-        switch($type) {
+        switch ($type) {
             case Integer::DECIMAL:
                 $fakeInteger = $this->createDecimal($length);
                 if ($negative) {
@@ -61,7 +61,7 @@ final class IntegerGenerator extends AbstractFakeDataGenerator
     private function createDecimal($length)
     {
         $min = pow(10, $length - 1);
-        $max = pow(10, $length)  -1;
+        $max = pow(10, $length) - 1;
         $fakeInteger = mt_rand($min, $max);
 
         return $fakeInteger;

@@ -20,7 +20,7 @@ class FakerinoConfTest extends \PHPUnit_Framework_TestCase
             'supportedConfExts' => array('xml', 'yml', 'php', 'ini'),
             'locale' => 'en_GB',
             'fakerinoTag' => 'fake',
-            'fakeFilePath' => 'path'
+            'fakeFilePath' => 'path',
         );
     }
 

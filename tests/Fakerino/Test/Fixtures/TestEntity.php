@@ -10,13 +10,33 @@ namespace Fakerino\Test\Fixtures;
 
 class TestEntity
 {
-    public $one;
-    private $two;
-    protected $three;
     static public $four;
     static private $five;
+    public $one;
+    protected $three;
+    private $two;
     private $surname;
     private $notAccessible;
+
+    public static function getFour()
+    {
+        return self::$four;
+    }
+
+    public static function setFour($four)
+    {
+        self::$four = $four;
+    }
+
+    public static function getFive()
+    {
+        return self::$five;
+    }
+
+    public static function setFive($five)
+    {
+        self::$five = $five;
+    }
 
     public function getOne()
     {
@@ -48,24 +68,14 @@ class TestEntity
         $this->three = $three;
     }
 
-    public static function getFour()
+    public function getSurname()
     {
-        return self::$four;
+        return $this->surname;
     }
 
-    public static function setFour($four)
+    public function setSurname($surname)
     {
-        self::$four = $four;
-    }
-
-    public static function getFive()
-    {
-        return self::$five;
-    }
-
-    public static function setFive($five)
-    {
-        self::$five = $five;
+        $this->surname = $surname;
     }
 
     private function setNotAccessible($notAccessible)
@@ -76,16 +86,6 @@ class TestEntity
     private function getNotAccessible($notAccessible)
     {
         return $this->$notAccessible;
-    }
-
-    public function setSurname($surname)
-    {
-        $this->surname = $surname;
-    }
-
-    public function getSurname()
-    {
-        return $this->surname;
     }
 
 }

@@ -44,7 +44,7 @@ class TextGeneratorTest extends \PHPUnit_Framework_TestCase
         $length = 10;
         $map = array(
             array('length', $length),
-            array('addChars', 'test')
+            array('addChars', 'test'),
         );
         $this->mockCaller->expects($this->exactly(2))
             ->method('getOption')

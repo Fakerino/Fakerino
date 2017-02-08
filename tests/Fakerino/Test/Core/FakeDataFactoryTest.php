@@ -27,13 +27,13 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
         $this->conf['fake'] = array(
             'fake1' => array(
                 'Name' => array('length' => 3),
-                'Surname' => null
+                'Surname' => null,
             ),
             'fake2' => array(
                 'Name' => array('length' => 30),
-                'Surname' => null
+                'Surname' => null,
             ),
-            'fake3' => array('fake1', 'fake2')
+            'fake3' => array('fake1', 'fake2'),
         );
 
         $fakerinoDefaultConf = new FakerinoConf();
@@ -53,7 +53,7 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFakeMethod()
     {
-       $this->assertInstanceOf('Fakerino\\Core\\FakeDataFactory', $this->fakeGenerator->fake(array('Name')));
+        $this->assertInstanceOf('Fakerino\\Core\\FakeDataFactory', $this->fakeGenerator->fake(array('Name')));
     }
 
     public function testFakeCallWithUnknowElement()
@@ -120,7 +120,7 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFakeToString()
     {
-        $fakeString = (string) $this->fakeGenerator->fake('fake1');
+        $fakeString = (string)$this->fakeGenerator->fake('fake1');
 
         $this->assertInternalType('string', $fakeString);
     }
@@ -130,7 +130,7 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFakeComplexData()
     {
-        $fakeString = (string) $this->fakeGenerator->fake('fake3');
+        $fakeString = (string)$this->fakeGenerator->fake('fake3');
 
         $this->assertEquals(3, substr_count($fakeString, "\n"));
     }
@@ -138,7 +138,7 @@ class FakeDataFactoryTest extends \PHPUnit_Framework_TestCase
     public function testMultipleFakesToString()
     {
         $num = 3;
-        $fakeString = (string) $this->fakeGenerator->fake('fake1')->num($num);
+        $fakeString = (string)$this->fakeGenerator->fake('fake1')->num($num);
         $lineExpected = count($this->conf['fake']['fake1']) * $num;
         $lineExpected--;
 

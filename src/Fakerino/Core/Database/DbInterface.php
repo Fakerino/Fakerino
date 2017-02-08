@@ -28,7 +28,7 @@ interface DbInterface
     /**
      * Inserts row in $tableName.
      *
-     * @param DbRowEntity   $row
+     * @param DbRowEntity $row
      *
      * @return bool
      */

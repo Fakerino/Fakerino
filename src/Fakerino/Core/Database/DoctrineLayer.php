@@ -30,7 +30,7 @@ final class DoctrineLayer implements DbInterface
     private $databaseConfig;
 
     /**
-     * @param array|null $databaseConfig
+     * @param array $databaseConfig
      */
     public function __construct($databaseConfig)
     {
@@ -120,9 +120,9 @@ final class DoctrineLayer implements DbInterface
         foreach ($rowsElement as $field) {
             $sql->setValue($field->getName(), '?');
             if ($this->isDate($field->getType())) {
-                $values[] = new \DateTimeImmutable($field->getValue());
-            }else{
-                $values[] =  $field->getValue();
+                $values[] = new \DateTime($field->getValue());
+            } else {
+                $values[] = $field->getValue();
             }
             $types[] = $field->getType();
         }
@@ -137,7 +137,7 @@ final class DoctrineLayer implements DbInterface
      */
     private function isDate($columnType)
     {
-       return in_array($columnType, [Type::DATETIME, Type::DATETIMETZ, Type::DATE]);
+        return in_array($columnType, array(Type::DATETIME, Type::DATETIMETZ, Type::DATE));
     }
 
     /**
@@ -159,7 +159,7 @@ final class DoctrineLayer implements DbInterface
             Type::TEXT => 'string',
             Type::BLOB => 'string',
             Type::FLOAT => 'integer',
-            Type::GUID => 'integer'
+            Type::GUID => 'integer',
         );
 
         return $fakeType[strtolower($columnType)];

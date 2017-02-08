@@ -26,7 +26,7 @@ class DbFillerTest extends \PHPUnit_Framework_TestCase
             'user' => null,
             'password' => null,
             'memory' => true,
-            'driver' => 'pdo_sqlite'
+            'driver' => 'pdo_sqlite',
         );
         $fakeHandler = new FakeHandler\FakeHandler();
         $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());

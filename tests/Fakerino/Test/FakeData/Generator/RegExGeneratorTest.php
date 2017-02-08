@@ -30,7 +30,7 @@ class RegExGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testGeneration()
     {
         $length = 3;
-        $expr = '\d{'.$length.'}';
+        $expr = '\d{' . $length . '}';
         $map = array(
             array('regexgenerator', new RegRevGenerator()),
             array('expression', $expr),

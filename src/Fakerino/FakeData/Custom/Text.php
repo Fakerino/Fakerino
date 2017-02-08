@@ -27,7 +27,7 @@ final class Text extends AbstractFakeData
     {
         return array(
             'length' => mt_rand(3, 20),
-            'addChar' => null
+            'addChar' => null,
         );
     }
 

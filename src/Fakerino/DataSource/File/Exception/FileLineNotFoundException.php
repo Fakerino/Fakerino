@@ -21,8 +21,8 @@ class FileLineNotFoundException extends \RuntimeException implements FileExcepti
     /**
      * Constructor
      *
-     * @param string    $lineNumber
-     * @param int       $filePath
+     * @param string $lineNumber
+     * @param int    $filePath
      */
     public function __construct($lineNumber, $filePath)
     {

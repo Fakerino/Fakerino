@@ -63,7 +63,7 @@ final class DbFiller implements FillerInterface
         $rows = array();
         for ($n = 0; $n < $this->num; $n++) {
             $fakeRow = new DbRowEntity();
-            for ($i = 0; $i < $totalColumn; $i ++) {
+            for ($i = 0; $i < $totalColumn; $i++) {
                 if ($this->db->isColumnAutoincrement($i)) {
                     continue;
                 }

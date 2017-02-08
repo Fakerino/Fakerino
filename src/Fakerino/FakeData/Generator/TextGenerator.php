@@ -52,7 +52,7 @@ final class TextGenerator extends AbstractFakeDataGenerator
     private function stringShuffle($chars)
     {
         $shuffledString = '';
-        $charsLength =  strlen($chars);
+        $charsLength = strlen($chars);
         for ($i = 0; $i < $charsLength; $i++) {
             $rand = mt_rand(0, $charsLength - 1);
             $shuffledString .= substr($chars, $rand, 1);

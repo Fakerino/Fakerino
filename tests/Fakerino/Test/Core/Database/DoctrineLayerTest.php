@@ -29,7 +29,7 @@ class DoctrineLayerTest extends \PHPUnit_Framework_TestCase
             'user' => null,
             'password' => null,
             'memory' => true,
-            'driver' => 'pdo_sqlite'
+            'driver' => 'pdo_sqlite',
         );
         $this->dLayer = new DoctrineLayer($this->connectionParams);
         $sql = "CREATE TABLE `" . $this->testTable . "` (
@@ -38,6 +38,8 @@ class DoctrineLayerTest extends \PHPUnit_Framework_TestCase
                 `text`	TEXT,
                 `surname`	TEXT,
                 `description`	BLOB,
+                `created` DATE,
+                `updated` DATETIME,
                 PRIMARY KEY(numberPk)
                 )";
         $this->dLayer->connect();
@@ -47,13 +49,15 @@ class DoctrineLayerTest extends \PHPUnit_Framework_TestCase
 
     public function testGetTotalColumns()
     {
-        $this->assertEquals(5, $this->dLayer->getTotalColumns());
+        $this->assertEquals(7, $this->dLayer->getTotalColumns());
     }
 
     public function testGetColumnType()
     {
         $this->assertEquals('integer', $this->dLayer->getColumnType(1));
         $this->assertEquals('string', $this->dLayer->getColumnType(4));
+        $this->assertEquals('date', $this->dLayer->getColumnType(5));
+        $this->assertEquals('datetime', $this->dLayer->getColumnType(6));
     }
 
     public function testGetColumnName()
@@ -70,11 +74,11 @@ class DoctrineLayerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider provider
+     * @dataProvider insert
      */
-    public function testInsert()
+    public function testInsert($name, $value, $format)
     {
-        $filed = new DbFieldEntity('number', 1, 'integer');
+        $filed = new DbFieldEntity($name, $value, $format);
         $row = new DbRowEntity();
         $row->setFields($filed);
 
@@ -91,20 +95,30 @@ class DoctrineLayerTest extends \PHPUnit_Framework_TestCase
     public function provider()
     {
         return array(
-            array(Type::BIGINT , 'integer'),
-            array(Type::BOOLEAN , 'boolean'),
-            array(Type::DATETIME , 'datetime'),
-            array(Type::DATETIMETZ , 'datetimetz'),
-            array(Type::DATE , 'date'),
-            array(Type::TIME , 'time'),
-            array(Type::DECIMAL , 'integer'),
-            array(Type::INTEGER , 'integer'),
-            array(Type::SMALLINT , 'integer'),
-            array(Type::STRING , 'string'),
-            array(Type::TEXT , 'string'),
-            array(Type::BLOB , 'string'),
-            array(Type::FLOAT , 'integer'),
-            array(Type::GUID , 'integer')
+            array(Type::BIGINT, 'integer'),
+            array(Type::BOOLEAN, 'boolean'),
+            array(Type::DATETIME, 'datetime'),
+            array(Type::DATETIMETZ, 'datetimetz'),
+            array(Type::DATE, 'date'),
+            array(Type::TIME, 'time'),
+            array(Type::DECIMAL, 'integer'),
+            array(Type::INTEGER, 'integer'),
+            array(Type::SMALLINT, 'integer'),
+            array(Type::STRING, 'string'),
+            array(Type::TEXT, 'string'),
+            array(Type::BLOB, 'string'),
+            array(Type::FLOAT, 'integer'),
+            array(Type::GUID, 'integer'),
+        );
+    }
+
+    public function insert()
+    {
+        return array(
+            array('number', 1, 'integer'),
+            array('description', 'test', 'string'),
+            array('created', '1968-05-10', 'date'),
+            array('updated', '1879-03-14 11:30:00', 'datetime'),
         );
     }
 }

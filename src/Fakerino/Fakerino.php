@@ -108,7 +108,7 @@ final class Fakerino
         try {
             $conf = self::$defaultConf->get('database');
         } catch (ConfValueNotFoundException $e) {
-            $conf = null;
+            $conf = array();
         }
 
         return $conf;

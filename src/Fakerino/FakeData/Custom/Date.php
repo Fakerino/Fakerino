@@ -33,7 +33,7 @@ final class Date extends AbstractFakeData
         return array(
             'format' => 'Y-m-d',
             'startDate' => '1970-01-01',
-            'endDate' => date('Y-m-d')
+            'endDate' => date('Y-m-d'),
         );
     }
 

@@ -21,7 +21,7 @@ interface RegExGeneratorInterface
     /**
      * Generates a string from the provided $regex
      *
-     * @param string  $regex
+     * @param string $regex
      *
      * @return string
      */

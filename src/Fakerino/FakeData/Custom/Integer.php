@@ -33,7 +33,7 @@ final class Integer extends AbstractFakeData
         return array(
             'length' => mt_rand(1, 5),
             'negative' => false,
-            'type' => self::DECIMAL
+            'type' => self::DECIMAL,
         );
     }
 
