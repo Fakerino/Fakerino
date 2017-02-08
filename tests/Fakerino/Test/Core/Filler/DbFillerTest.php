@@ -78,7 +78,6 @@ class DbFillerTest extends \PHPUnit_Framework_TestCase
     public function nullLengthValue()
     {
         return array(
-            array('integer', 'integer', null, 0),
             array('date', 'date', null, 10),
             array('datetime', 'datetime', null, 19),
             array('time', 'time', null, 8),
