@@ -21,16 +21,16 @@ use Fakerino\FakeData\Exception\MissingRequiredOptionException;
 abstract class AbstractFakeData implements FakeDataInterface
 {
     /**
-     * @var array
-     */
-    private $options;
-
-    /**
      * The default additional generators called if the main one is not available.
      *
      * @var array
      */
     protected $defaultExtraGenerators = array('FromFileGenerator', 'StringGenerator');
+
+    /**
+     * @var array
+     */
+    private $options;
 
     /**
      * Constructor
@@ -108,7 +108,7 @@ abstract class AbstractFakeData implements FakeDataInterface
     {
         $thisClass = new \ReflectionClass(get_class($this));
         $generatorNameSpace = 'Fakerino\\FakeData\\Generator\\';
-        $defaultGenerators = $generatorNameSpace . $thisClass->getShortName()  . 'Generator';
+        $defaultGenerators = $generatorNameSpace . $thisClass->getShortName() . 'Generator';
         if ($this->options['generatedBy'] !== null) {
             $defaultGenerators = $generatorNameSpace . $this->options['generatedBy'];
         }

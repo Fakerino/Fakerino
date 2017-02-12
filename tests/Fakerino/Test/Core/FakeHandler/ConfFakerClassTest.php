@@ -31,7 +31,7 @@ class ConfFakerClassTest extends \PHPUnit_Framework_TestCase
     public function testHandlerWithConfiguration()
     {
         $fakeConf = array(
-            'fakeTest' => array('Unknown', 'Surname' => null)
+            'fakeTest' => array('Unknown', 'Surname' => null),
         );
         $firstHandler = new CustomFakerClass();
         $handler = new ConfFakerClass($fakeConf);

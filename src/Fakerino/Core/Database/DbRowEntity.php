@@ -22,19 +22,19 @@ class DbRowEntity
     private $fields;
 
     /**
-     * @param DbFieldEntity $field
-     */
-    public function setFields(DbFieldEntity $field)
-    {
-        $this->fields[] = $field;
-    }
-
-    /**
      * @return array
      */
     public function getFields()
     {
         return $this->fields;
+    }
+
+    /**
+     * @param DbFieldEntity $field
+     */
+    public function setFields(DbFieldEntity $field)
+    {
+        $this->fields[] = $field;
     }
 
     /**

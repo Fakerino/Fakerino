@@ -23,7 +23,7 @@ class RegExFakerClassTest extends \PHPUnit_Framework_TestCase
     {
         $length = 3;
         $handler = new RegExFakerClass(new RegRevGenerator());
-        $customClass = new FakeElement('/\d{'.$length.'}/');
+        $customClass = new FakeElement('/\d{' . $length . '}/');
         $result = $handler->handle($customClass);
 
         $this->assertInstanceOf('Fakerino\Core\FakeHandler\Handler', $handler);
@@ -34,7 +34,7 @@ class RegExFakerClassTest extends \PHPUnit_Framework_TestCase
     {
         $length = 3;
         $handler = new RegExFakerClass(new RegRevGenerator());
-        $customClass = new FakeElement('number', '/\d{'.$length.'}/');
+        $customClass = new FakeElement('number', '/\d{' . $length . '}/');
         $result = $handler->handle($customClass);
 
         $this->assertInstanceOf('Fakerino\Core\FakeHandler\Handler', $handler);

@@ -18,15 +18,15 @@ use Fakerino\Core\Template\TwigTemplate;
 
 class DbFillerTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    private function configure($numberOfFakeData)
     {
-        $this->num = 3;
+        $this->num = $numberOfFakeData;
         $this->testTable = 'testTable';
         $this->connectionParams = array(
             'user' => null,
             'password' => null,
             'memory' => true,
-            'driver' => 'pdo_sqlite'
+            'driver' => 'pdo_sqlite',
         );
         $fakeHandler = new FakeHandler\FakeHandler();
         $fakeHandler->setSuccessor(new FakeHandler\CustomFakerClass());
@@ -44,23 +44,81 @@ class DbFillerTest extends \PHPUnit_Framework_TestCase
      */
     public function testFillNumeric($columnName, $columnType, $columnLength)
     {
+        $numberOfFakeData = 3;
+        $this->configure($numberOfFakeData);
+
+        $this->mockDoctrineLayer->method('getTotalColumns')->willReturn(1);
+        $this->mockDoctrineLayer->expects($this->exactly($numberOfFakeData))->method('getColumnName')->willReturn($columnName);
+        $this->mockDoctrineLayer->expects($this->exactly($numberOfFakeData))->method('getColumnType')->willReturn($columnType);
+        $this->mockDoctrineLayer->expects($this->exactly($numberOfFakeData))->method('getColumnLength')->willReturn($columnLength);
+
+        $rows = $this->dbFiller->fill();
+
+        $this->assertInternalType('array', $rows);
+        $this->assertEquals($this->num, count($rows));
+    }
+
+    /**
+     * @dataProvider nullLengthValue
+     */
+    public function testValueWithNullColumnLength($columnName, $columnType, $columnLength, $expectedLength)
+    {
+        $numberOfFakeData = 1;
+        $this->configure($numberOfFakeData);
+
         $this->mockDoctrineLayer->method('getTotalColumns')->willReturn(1);
         $this->mockDoctrineLayer->expects($this->exactly($this->num))->method('getColumnName')->willReturn($columnName);
         $this->mockDoctrineLayer->expects($this->exactly($this->num))->method('getColumnType')->willReturn($columnType);
         $this->mockDoctrineLayer->expects($this->exactly($this->num))->method('getColumnLength')->willReturn($columnLength);
 
         $rows = $this->dbFiller->fill();
-        $this->assertInternalType('array', $rows);
-        $this->assertEquals($this->num, count($rows));
+        $this->assertEquals(strlen($rows[0][$columnName]), $expectedLength);
+    }
+
+    /**
+     * @dataProvider nullLengthValue
+     */
+    public function testFakeColumnTextStringTypeLessThan100Char($columnName, $columnType, $columnLength)
+    {
+        $numberOfFakeData = 1;
+        $this->configure($numberOfFakeData);
+
+        $this->mockDoctrineLayer->method('getTotalColumns')->willReturn(1);
+        $this->mockDoctrineLayer->expects($this->exactly($this->num))->method('getColumnName')->willReturn($columnName);
+        $this->mockDoctrineLayer->expects($this->exactly($this->num))->method('getColumnType')->willReturn($columnType);
+        $this->mockDoctrineLayer->expects($this->exactly($this->num))->method('getColumnLength')->willReturn($columnLength);
+
+        $rows = $this->dbFiller->fill();
+        $this->assertLessThanOrEqual(100, strlen($rows[0][$columnName]));
     }
 
     public function provider()
     {
         return array(
-            array('integer', 'integer', 3),
-            array('date', 'date', 10),
-            array('datetime', 'datetime', 12),
-            array('time', 'time', 10),
+            array('integerCol', 'integer', 3),
+            array('dateCol', 'date', 10),
+            array('datetimeCol', 'datetime', 12),
+            array('timeCol', 'time', 10),
+            array('textCol', 'text', 100),
+            array('stringCol', 'string', 10),
+        );
+    }
+
+    public function nullLengthValue()
+    {
+        return array(
+            array('date', 'date', null, 10),
+            array('datetime', 'datetime', null, 19),
+            array('time', 'time', null, 8),
+            array('something', 'something', null, 0),
+        );
+    }
+
+    public function textProvider()
+    {
+        return array(
+            array('name', 'string', 200),
+            array('description', 'text', 200),
         );
     }
 

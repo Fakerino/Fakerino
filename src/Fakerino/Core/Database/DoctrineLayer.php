@@ -30,7 +30,7 @@ final class DoctrineLayer implements DbInterface
     private $databaseConfig;
 
     /**
-     * @param array|null $databaseConfig
+     * @param array $databaseConfig
      */
     public function __construct($databaseConfig)
     {
@@ -55,6 +55,8 @@ final class DoctrineLayer implements DbInterface
     {
         $this->tableName = $tableName;
         $schemaManager = self::$conn->getSchemaManager();
+        self::$conn->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
+
         $tableSchema = $schemaManager->listTableColumns($tableName);
         foreach ($tableSchema as $column) {
             $this->columns[] = $column;
@@ -78,7 +80,7 @@ final class DoctrineLayer implements DbInterface
      */
     public function getColumnType($num)
     {
-        $doctrineType = $this->columns[$num]->getType();
+        $doctrineType = $this->columns[$num]->getType()->getName();
 
         return $this->getFakeType($doctrineType);
     }
@@ -119,12 +121,25 @@ final class DoctrineLayer implements DbInterface
         $rowsElement = $rows->getFields();
         foreach ($rowsElement as $field) {
             $sql->setValue($field->getName(), '?');
-            $values[] =  $field->getValue();
+            if ($this->isDate($field->getType())) {
+                $values[] = new \DateTime($field->getValue());
+            } else {
+                $values[] = $field->getValue();
+            }
             $types[] = $field->getType();
         }
         self::$conn->executeQuery($sql, $values, $types);
 
         return true;
+    }
+
+    /**
+     * @param $columnType
+     * @return bool
+     */
+    private function isDate($columnType)
+    {
+        return in_array($columnType, array(Type::DATETIME, Type::DATETIMETZ, Type::DATE, Type::TIME));
     }
 
     /**
@@ -143,10 +158,12 @@ final class DoctrineLayer implements DbInterface
             Type::INTEGER => 'integer',
             Type::SMALLINT => 'integer',
             Type::STRING => 'string',
-            Type::TEXT => 'string',
-            Type::BLOB => 'string',
+            Type::TEXT => 'text',
+            Type::BLOB => 'text',
             Type::FLOAT => 'integer',
-            Type::GUID => 'integer'
+            Type::GUID => 'integer',
+            Type::SIMPLE_ARRAY => 'string',
+            Type::BINARY => 'string',
         );
 
         return $fakeType[strtolower($columnType)];

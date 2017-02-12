@@ -18,12 +18,12 @@ namespace Fakerino\Core\Entity;
  */
 class EntityInfo
 {
+    const EXCLUDE_STATIC = true;
+
     /**
      * @var \ReflectionClass
      */
     private $reflectionEntity;
-
-    const EXCLUDE_STATIC = true;
 
     /**
      * Constructor
@@ -59,24 +59,6 @@ class EntityInfo
     }
 
     /**
-     * Gets the methods of the object provided.
-     *
-     * @param int $filter
-     *
-     * @return array
-     */
-    public function getMethods($filter = \ReflectionProperty::IS_PUBLIC)
-    {
-        $methods = array();
-        $reflectionMethods = $this->reflectionEntity->getMethods($filter);
-        foreach ($reflectionMethods as $method) {
-            $methods[] = new Method($method->name, $method->isStatic());
-        }
-
-        return $methods;
-    }
-
-    /**
      * Returns the public setters methods.
      *
      * @param int $filter
@@ -94,5 +76,23 @@ class EntityInfo
         }
 
         return $setters;
+    }
+
+    /**
+     * Gets the methods of the object provided.
+     *
+     * @param int $filter
+     *
+     * @return array
+     */
+    public function getMethods($filter = \ReflectionProperty::IS_PUBLIC)
+    {
+        $methods = array();
+        $reflectionMethods = $this->reflectionEntity->getMethods($filter);
+        foreach ($reflectionMethods as $method) {
+            $methods[] = new Method($method->name, $method->isStatic());
+        }
+
+        return $methods;
     }
 }

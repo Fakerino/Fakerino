@@ -27,6 +27,7 @@ final class DbFiller implements FillerInterface
 
     const NUMERIC = 'integer';
     const STRING = 'string';
+    const TEXT = 'text';
     const DATE = 'date';
     const DATETIME = 'datetime';
     const TIME = 'time';
@@ -63,7 +64,7 @@ final class DbFiller implements FillerInterface
         $rows = array();
         for ($n = 0; $n < $this->num; $n++) {
             $fakeRow = new DbRowEntity();
-            for ($i = 0; $i < $totalColumn; $i ++) {
+            for ($i = 0; $i < $totalColumn; $i++) {
                 if ($this->db->isColumnAutoincrement($i)) {
                     continue;
                 }
@@ -87,15 +88,34 @@ final class DbFiller implements FillerInterface
         switch ($fakeType) {
             case self::NUMERIC:
                 $result = $this->faker->fake(array('Integer' => array('length' => mt_rand(6, 8))))->num(1);
+                $maxLength = strlen($result);
                 break;
             case self::DATE:
                 $result = $this->faker->fake(array('date'))->num(1);
+                $maxLength = $maxLength === null ? 10 : $maxLength;
                 break;
             case self::DATETIME:
                 $result = $this->faker->fake(array('date' => array('format' => 'Y-m-d H:i:s')))->num(1);
+                $maxLength = $maxLength === null ? 19 : $maxLength;
                 break;
             case self::TIME:
                 $result = $this->faker->fake(array('date' => array('format' => 'H:i:s')))->num(1);
+                $maxLength = $maxLength === null ? 8 : $maxLength;
+                break;
+            case self::STRING:
+            case self::TEXT:
+                $addChar = ' ';
+                if ($fakeType == self::TEXT) {
+                    $addChar = '   ';
+                }
+                if ($maxLength > 100 && $maxLength !== null) {
+                    $maxLength = 100;
+                    $result = $this->faker->fake(array('text' => array('length' => mt_rand(($maxLength / 3), $maxLength), 'addChar' => $addChar)))->num(1);
+                } else {
+                    $result = $this->faker->fake(array('text' => array('addChar' => '   ')))->num(1);
+                }
+                $result = ltrim($result);
+                $maxLength = strlen($result);
                 break;
             default:
                 $result = $this->faker->fake($fakeName)->num(1);

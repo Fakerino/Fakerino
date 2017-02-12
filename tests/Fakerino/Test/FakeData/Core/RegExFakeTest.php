@@ -24,7 +24,7 @@ class RegexFakeTest extends \PHPUnit_Framework_TestCase
     {
         $options = array(
             'regexgenerator' => 'generator',
-            'expression' => 'expression'
+            'expression' => 'expression',
         );
         $regexFake = new RegexFake($options);
 

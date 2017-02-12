@@ -12,7 +12,6 @@ namespace Fakerino\Test\Core\Console;
 
 use Fakerino\Core\Console\FakeConsole;
 use Fakerino\Core\Database\DoctrineLayer;
-use Fakerino\Fakerino;
 
 /**
  * @group console
@@ -72,7 +71,7 @@ class FakeConsoleTest extends \PHPUnit_Framework_TestCase
         $db = __DIR__ . '/../../Fixtures/test.sqlite';
         $connectionParams = array(
             'path' => $db,
-            'driver' => 'pdo_sqlite'
+            'driver' => 'pdo_sqlite',
         );
         $num = 3;
         $dLayer = new DoctrineLayer($connectionParams);
@@ -83,7 +82,7 @@ class FakeConsoleTest extends \PHPUnit_Framework_TestCase
         $args = array('1' => '-c', '2' => $testFile, '3' => '-t', '4' => $testTable, '5' => '-n', '6' => $num);
         $fakeConsole = new FakeConsole($args);
         $result = $fakeConsole->run();
-        $res = DoctrineLayer::$conn->query("SELECT COUNT(*) FROM ".$testTable);
+        $res = DoctrineLayer::$conn->query("SELECT COUNT(*) FROM " . $testTable);
         $total = $res->fetchColumn(0);
 
         $this->assertEquals($num, $total);
@@ -119,7 +118,7 @@ class FakeConsoleTest extends \PHPUnit_Framework_TestCase
 
     public function testCallTemplateFile()
     {
-        $templateFile =  __DIR__ . '/../../Fixtures/template.html';
+        $templateFile = __DIR__ . '/../../Fixtures/template.html';
         $args = array(1 => '-s', '2' => $templateFile);
         $fakeConsole = new FakeConsole($args);
         $result = (string)$fakeConsole->run();
@@ -130,7 +129,7 @@ class FakeConsoleTest extends \PHPUnit_Framework_TestCase
 
     public function testCallTemplateString()
     {
-        $templateString =  'Hello Mr {{ surname }}';
+        $templateString = 'Hello Mr {{ surname }}';
         $args = array(1 => '-s', '2' => $templateString);
         $fakeConsole = new FakeConsole($args);
         $result = (string)$fakeConsole->run();
@@ -144,6 +143,6 @@ class FakeConsoleTest extends \PHPUnit_Framework_TestCase
         DoctrineLayer::$conn = null;
         $dbFile = __DIR__ . '/../../Fixtures/test.sqlite';
         unlink($dbFile);
-     }
+    }
 
 }

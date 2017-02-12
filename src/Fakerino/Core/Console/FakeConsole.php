@@ -48,22 +48,6 @@ final class FakeConsole
         $this->getParameters();
     }
 
-    private function getParam($flag, $hasValue = false)
-    {
-        $flagValue = false;
-        $flagIndex = array_search($flag, $this->input);
-        if ($flagIndex !== false) {
-            $flagValue = true;
-            unset($this->input[$flagIndex]);
-            if ($hasValue) {
-                $flagValue = $this->input[$flagIndex+1];
-                unset($this->input[$flagIndex+1]);
-            }
-        }
-
-        return $flagValue;
-    }
-
     /**
      * Runs the command.
      *
@@ -101,7 +85,7 @@ final class FakeConsole
         if ($this->json) {
             $result = $fakerino->toJson();
         } else {
-            $result = (string) $fakerino;
+            $result = (string)$fakerino;
         }
 
         return $result . PHP_EOL;
@@ -118,10 +102,26 @@ final class FakeConsole
         $this->templateSource = $this->getParam('-s', true);
     }
 
+    private function getParam($flag, $hasValue = false)
+    {
+        $flagValue = false;
+        $flagIndex = array_search($flag, $this->input);
+        if ($flagIndex !== false) {
+            $flagValue = true;
+            unset($this->input[$flagIndex]);
+            if ($hasValue) {
+                $flagValue = $this->input[$flagIndex + 1];
+                unset($this->input[$flagIndex + 1]);
+            }
+        }
+
+        return $flagValue;
+    }
+
     private function showHelp()
     {
         $helper = 'Usage:' . PHP_EOL;
-        $helper .= ' app/fake <fake data name> [-j] [-n <integer>] [-c <config file path>]' .PHP_EOL . PHP_EOL;
+        $helper .= ' app/fake <fake data name> [-j] [-n <integer>] [-c <config file path>]' . PHP_EOL . PHP_EOL;
         $helper .= 'Options:' . PHP_EOL;
         $helper .= str_pad(' -j', 20) . 'Returns JSON format (default string)' . PHP_EOL;
         $helper .= str_pad(' -n <num>', 20) . 'Returns <num> times the result' . PHP_EOL;

@@ -70,6 +70,16 @@ final class FakerinoConf
     }
 
     /**
+     * Returns the configuration in an array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->conf;
+    }
+
+    /**
      * Initializes the default values.
      *
      * @return array
@@ -84,17 +94,7 @@ final class FakerinoConf
                 . DIRECTORY_SEPARATOR . '..'
                 . DIRECTORY_SEPARATOR . '..'
                 . DIRECTORY_SEPARATOR . '..'
-                . '/data'
+                . '/data',
         );
-    }
-
-    /**
-     * Returns the configuration in an array.
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-        return $this->conf;
     }
 }

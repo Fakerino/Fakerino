@@ -28,7 +28,7 @@ final class PhpConfigurationFile extends FakerinoConfigurationLoader implements 
     {
         $conf = null;
         $phpConfFile = $this->getConfFilePath();
-        require ($phpConfFile);
+        require($phpConfFile);
         if ($conf === null) {
             throw new ConfNotSupportedException($phpConfFile);
         }

@@ -51,7 +51,7 @@ final class RegExFakerClass extends Handler
         if ($expr !== null) {
             $options = array(
                 'regexgenerator' => $this->regexGenerator,
-                'expression' => $expr
+                'expression' => $expr,
             );
 
             return $this->getOutput('Fakerino\\FakeData\\Core\\RegExFake', $options);

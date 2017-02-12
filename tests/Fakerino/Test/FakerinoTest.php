@@ -76,7 +76,7 @@ class FakerinoTest extends \PHPUnit_Framework_TestCase
             array(
                 array('fake' => array('fakeSurname' => array('surname'))),
                 'fakeSurname',
-                '/[A-Z][a-z].*[^\n]/'
+                '/[A-Z][a-z].*[^\n]/',
             ),
         );
     }
@@ -88,7 +88,7 @@ class FakerinoTest extends \PHPUnit_Framework_TestCase
     {
         $fakerino = Fakerino::create(array('fake' => array('fakeSurname' => array('surname'))));
         $fakerino->fake('fakeSurname')->toArray();
-        $fakerino = Fakerino::create($this->fileDir.'/file.yml');
+        $fakerino = Fakerino::create($this->fileDir . '/file.yml');
         $result = $fakerino->fake('fakeFamily')->toArray();
 
         $this->assertEquals(3, count($result[0][0]));

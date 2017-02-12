@@ -19,7 +19,7 @@ class RegRevGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new RegRevGenerator();
         $length = 3;
-        $expr = '/\d{'.$length.'}/';
+        $expr = '/\d{' . $length . '}/';
 
         $this->assertEquals($length, strlen($generator->generate($expr)));
     }

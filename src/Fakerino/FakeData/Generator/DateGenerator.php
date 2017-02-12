@@ -20,7 +20,7 @@ use Fakerino\FakeData\AbstractFakeDataGenerator;
  */
 final class DateGenerator extends AbstractFakeDataGenerator
 {
-     /**
+    /**
      * {@inheritdoc}
      */
     public function generate()

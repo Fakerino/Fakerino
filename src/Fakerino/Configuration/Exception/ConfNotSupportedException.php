@@ -20,6 +20,7 @@ class ConfNotSupportedException extends \RuntimeException
 {
     /**
      * Constructor
+     *
      * @param string $file
      */
     public function __construct($file)

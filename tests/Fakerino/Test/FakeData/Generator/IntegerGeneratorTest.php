@@ -40,7 +40,7 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
         $map = array(
             array('length', $length),
             array('type', $type),
-            array('negative', $negative)
+            array('negative', $negative),
         );
         $this->mockCaller->expects($this->exactly(3))
             ->method('getOption')
@@ -49,13 +49,13 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
 
         switch ($type) {
             case 'hex':
-                $length+=2;
+                $length += 2;
                 break;
             case 'binary':
-                $length+=2;
+                $length += 2;
                 break;
             case 'octal':
-                $length+=1;
+                $length += 1;
                 break;
             case 'decimal':
                 if ($negative) {
@@ -77,7 +77,7 @@ class IntegerGeneratorTest extends \PHPUnit_Framework_TestCase
             array(5, 'binary', false),
             array(2, 'binary', true),
             array(8, 'octal', false),
-            array(5, 'octal', true)
+            array(5, 'octal', true),
         );
     }
 }

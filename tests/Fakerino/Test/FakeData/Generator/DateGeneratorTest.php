@@ -35,7 +35,7 @@ class DateGeneratorTest extends \PHPUnit_Framework_TestCase
         $map = array(
             array('format', $format),
             array('startDate', $startDate),
-            array('endDate', $endDate)
+            array('endDate', $endDate),
         );
         $this->mockCaller->expects($this->exactly(3))
             ->method('getOption')

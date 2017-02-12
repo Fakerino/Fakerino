@@ -25,7 +25,7 @@ final class IniConfigurationFile extends FakerinoConfigurationLoader implements 
      */
     public function toArray()
     {
-        $array =  parse_ini_file($this->getConfFilePath(), true);
+        $array = parse_ini_file($this->getConfFilePath(), true);
         if (empty($array)) {
 
             return array();

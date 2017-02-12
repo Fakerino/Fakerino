@@ -18,6 +18,8 @@ namespace Fakerino\Core\FakeHandler;
  */
 final class FileFakerClass extends Handler
 {
+    /** @var string */
+    private $filePath;
 
     /**
      * @param string $filePath
@@ -26,6 +28,7 @@ final class FileFakerClass extends Handler
     {
         $this->filePath = $filePath;
     }
+
     /**
      * {@inheritdoc}
      */

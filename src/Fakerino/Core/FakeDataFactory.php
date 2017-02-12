@@ -34,13 +34,13 @@ final class FakeDataFactory implements FakeDataFactoryInterface
     /** @var string|array */
     private $startElement;
 
-    /** @var \Fakerino\Core\FakeHandler\HandlerInterface  */
+    /** @var \Fakerino\Core\FakeHandler\HandlerInterface */
     private $fakeHandler;
 
-    /** @var \Fakerino\Core\Database\DbInterface  */
+    /** @var \Fakerino\Core\Database\DbInterface */
     private $db;
 
-    /** @var \Fakerino\Core\Template\TemplateInterface  */
+    /** @var \Fakerino\Core\Template\TemplateInterface */
     private $template;
 
     /** @var  int */
