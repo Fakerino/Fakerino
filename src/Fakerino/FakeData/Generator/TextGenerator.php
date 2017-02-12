@@ -23,8 +23,8 @@ use Fakerino\FakeData\AbstractFakeDataGenerator;
  */
 final class TextGenerator extends AbstractFakeDataGenerator
 {
-    const MINLENGTH = 4;
-    const MAXLENGTH = 20;
+    const MIN_LENGTH = 4;
+    const MAX_LENGTH = 20;
     const SHUFFLE = 10;
     const CHARS = "0123456789abcdefghijklmnopqrstuvwxyz";
 
@@ -34,17 +34,23 @@ final class TextGenerator extends AbstractFakeDataGenerator
     public function generate()
     {
         $chars = self::CHARS;
-        $addChars = $this->getOption('addChars');
+        $addChars = $this->getOption('addChar');
         if ($addChars !== null) {
             $chars .= $addChars;
         }
-        $stringShuffle = $this->stringShuffle($chars);
         $length = $this->getOption('length');
         if ($length !== null) {
-            $randomString = substr($stringShuffle, 0, $length);
+            if ($length > strlen($chars)) {
+                $origChars = $chars;
+                while (strlen($chars) < $length) {
+                    $chars .= $origChars;
+                }
+            }
         } else {
-            $randomString = substr($stringShuffle, 0, mt_rand(self::MINLENGTH, self::MAXLENGTH));
+            $length = mt_rand(self::MIN_LENGTH, self::MAX_LENGTH);
         }
+        $stringShuffle = $this->stringShuffle($chars);
+        $randomString = substr($stringShuffle, 0, $length);
 
         return $randomString;
     }

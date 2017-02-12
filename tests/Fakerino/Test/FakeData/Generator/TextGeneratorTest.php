@@ -39,12 +39,30 @@ class TextGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $randomString);
     }
 
-    public function testGenerateWithLengthOption()
+    public function testGenerateWithAddCharOption()
     {
-        $length = 10;
+        $length = 100;
+        $specialChar = '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!';
         $map = array(
             array('length', $length),
-            array('addChars', 'test'),
+            array('addChar', $specialChar . $specialChar),
+        );
+        $this->mockCaller->expects($this->exactly(2))
+            ->method('getOption')
+            ->will($this->returnValueMap($map));
+        $randomString = $this->randomStringGenerator->generate();
+
+        $this->assertContains('!', $randomString);
+    }
+
+    /**
+     * @dataProvider provider
+     */
+    public function testGenerateWithLengthOption($length)
+    {
+        $map = array(
+            array('length', $length),
+            array('addChar', 'test'),
         );
         $this->mockCaller->expects($this->exactly(2))
             ->method('getOption')
@@ -52,5 +70,13 @@ class TextGeneratorTest extends \PHPUnit_Framework_TestCase
         $randomString = $this->randomStringGenerator->generate();
 
         $this->assertEquals($length, strlen($randomString));
+    }
+
+    public function provider()
+    {
+        return array(
+            array(10),
+            array(100),
+        );
     }
 }

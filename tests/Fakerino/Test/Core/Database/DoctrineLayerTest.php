@@ -55,7 +55,7 @@ class DoctrineLayerTest extends \PHPUnit_Framework_TestCase
     public function testGetColumnType()
     {
         $this->assertEquals('integer', $this->dLayer->getColumnType(1));
-        $this->assertEquals('string', $this->dLayer->getColumnType(4));
+        $this->assertEquals('text', $this->dLayer->getColumnType(4));
         $this->assertEquals('date', $this->dLayer->getColumnType(5));
         $this->assertEquals('datetime', $this->dLayer->getColumnType(6));
     }
@@ -105,10 +105,12 @@ class DoctrineLayerTest extends \PHPUnit_Framework_TestCase
             array(Type::INTEGER, 'integer'),
             array(Type::SMALLINT, 'integer'),
             array(Type::STRING, 'string'),
-            array(Type::TEXT, 'string'),
-            array(Type::BLOB, 'string'),
+            array(Type::TEXT, 'text'),
+            array(Type::BLOB, 'text'),
             array(Type::FLOAT, 'integer'),
             array(Type::GUID, 'integer'),
+            array(Type::SIMPLE_ARRAY, 'string'),
+            array(Type::BINARY, 'string'),
         );
     }
 

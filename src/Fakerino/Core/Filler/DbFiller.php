@@ -27,6 +27,7 @@ final class DbFiller implements FillerInterface
 
     const NUMERIC = 'integer';
     const STRING = 'string';
+    const TEXT = 'text';
     const DATE = 'date';
     const DATETIME = 'datetime';
     const TIME = 'time';
@@ -100,6 +101,21 @@ final class DbFiller implements FillerInterface
             case self::TIME:
                 $result = $this->faker->fake(array('date' => array('format' => 'H:i:s')))->num(1);
                 $maxLength = $maxLength === null ? 8 : $maxLength;
+                break;
+            case self::STRING:
+            case self::TEXT:
+                $addChar = ' ';
+                if ($fakeType == self::TEXT) {
+                    $addChar = '   ';
+                }
+                if ($maxLength > 100 && $maxLength !== null) {
+                    $maxLength = 100;
+                    $result = $this->faker->fake(array('text' => array('length' => mt_rand(($maxLength / 3), $maxLength), 'addChar' => $addChar)))->num(1);
+                } else {
+                    $result = $this->faker->fake(array('text' => array('addChar' => '   ')))->num(1);
+                }
+                $result = ltrim($result);
+                $maxLength = strlen($result);
                 break;
             default:
                 $result = $this->faker->fake($fakeName)->num(1);
